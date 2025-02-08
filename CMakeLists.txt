@@ -3,15 +3,16 @@ project(CMakeSFMLProject LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-include(FetchContent)
-FetchContent_Declare(SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 3.0.0
-    GIT_SHALLOW ON
-    EXCLUDE_FROM_ALL
-    SYSTEM)
-FetchContent_MakeAvailable(SFML)
+# Dodanie find_package dla SFML z wersją 2.6.1
+find_package(SFML 2.6.1 REQUIRED COMPONENTS graphics window system)
+find_package(Freetype REQUIRED) #To moze bedzie trzeba wywalic
 
+
+# Utworzenie pliku wykonywalnego
 add_executable(main src/main.cpp)
+
+# Ustawienie wymaganych wersji kompilatora
 target_compile_features(main PRIVATE cxx_std_17)
-target_link_libraries(main PRIVATE SFML::Graphics)
+
+# Linkowanie z biblioteką SFML
+target_link_libraries(main PRIVATE sfml-graphics sfml-window sfml-system)
