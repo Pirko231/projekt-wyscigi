@@ -9,7 +9,7 @@ find_package(Freetype REQUIRED) #To moze bedzie trzeba wywalic
 
 
 # Utworzenie pliku wykonywalnego
-add_executable(main src/main.cpp)
+add_executable(main src/main.cpp src/program.cpp)
 
 # Ustawienie wymaganych wersji kompilatora
 target_compile_features(main PRIVATE cxx_std_17)

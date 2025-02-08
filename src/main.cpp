@@ -1,25 +1,15 @@
-#include <SFML/Graphics.hpp>
-#include <optional>
+#include "program.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Wyscigi");
-    sf::CircleShape circle{50.f};
-    circle.setFillColor(sf::Color::Red);
+    Program program;
 
-    while (window.isOpen())
+    while (program.running())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
-        }
-
-        window.clear();
-        window.draw(circle);
-        window.display();
+        //tutaj nie dodajemy juz niczego
+        //wszystko ma sie odbywac w tych trzech funkcjach
+        program.handleEvents();
+        program.update();
+        program.display();
     }
 }
