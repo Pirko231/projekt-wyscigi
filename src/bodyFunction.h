@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-//klasa wirtualna. Nie uzywac jej w kodzie. Mozna dziedziczyc.
+//klasa wirtualna. Uzywac w kodzie tylko na zasadach polimorfizmu.
 class BodyFunction
 {
 public:
