@@ -7,7 +7,7 @@ class LevelSelection : public BodyFunction
 {
 public:
     LevelSelection() = delete;
-    LevelSelection(sf::RenderWindow* _window);
+    LevelSelection(sf::RenderWindow* _window, ManagingFunctionsIterator& _managingFunctionsIterator);
     void handleEvents(sf::Event& _event);
     void update();
     void display();

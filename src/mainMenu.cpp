@@ -1,6 +1,6 @@
 #include "mainMenu.h"
 
-MainMenu::MainMenu(sf::RenderWindow *_window) : BodyFunction{_window}
+MainMenu::MainMenu(sf::RenderWindow *_window, ManagingFunctionsIterator& _managingFunctionsIterator) : BodyFunction{_window, _managingFunctionsIterator}
 {}
 
 void MainMenu::handleEvents(sf::Event& _event)

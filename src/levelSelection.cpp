@@ -1,6 +1,6 @@
 #include "levelSelection.h"
 
-LevelSelection::LevelSelection(sf::RenderWindow *_window) : BodyFunction{_window}
+LevelSelection::LevelSelection(sf::RenderWindow *_window, ManagingFunctionsIterator& _managingFunctionsIterator) : BodyFunction{_window,_managingFunctionsIterator}
 {
 }
 

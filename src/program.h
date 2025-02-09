@@ -20,18 +20,13 @@ private:
     //rozmiar tablicy managingFunctions
     static constexpr int managingFunctionsAmount {2};
 
-    //Kazdy element tego typu wyliczeniowego to indeks
-    //pozycji w tablicy 'managingFunctions' dla danego typu
-    //np. na indekse numer 0 znajduje sie obiekt typu 'MainMenu'
-    enum ManagingFunctionsIterator : unsigned int
-    {
-        mainMenu = 0,
-        levelSelection  = 1
-    };
+    
 
     //obecna funkcja, dla wygody w typie wyliczeniowym aby
     //nie trzeba bylo zapamietywac zmian
+    //zdefiniowane w bodyFunction.h
     ManagingFunctionsIterator currentFunction;
+    
 
     //tablica wskaznikow do funkcji w ktorych znajdowac beda sie
     //klasy takie jak mainMenu. Wszystkie maja trzy wirtualne funkcje:

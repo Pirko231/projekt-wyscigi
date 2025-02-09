@@ -4,12 +4,13 @@ Program::Program()
 {
     this->window = new sf::RenderWindow;
     this->window->create({500, 500}, "Wyscigi", sf::Style::Titlebar | sf::Style::Close);
+    this->window->setFramerateLimit(60);
 
     //ustawnienie poczatku pracy programu na mainMenu
     this->currentFunction = ManagingFunctionsIterator::mainMenu;
 
-    this->managingFunctions[0] = new MainMenu{this->window};
-    this->managingFunctions[1] = new LevelSelection{this->window};
+    this->managingFunctions[0] = new MainMenu{this->window, this->currentFunction};
+    this->managingFunctions[1] = new LevelSelection{this->window, this->currentFunction};
 }
 
 void Program::handleEvents()
@@ -41,7 +42,7 @@ void Program::display()
     //wszystko co chcemy rysowac ma sie znajdowac ponizej funkcji clear
     //tutaj beda uzywane tablice wskaznikow do funkcji
     this->managingFunctions[this->currentFunction]->display();
-    
+
     //ta funkcja wyswietla na ekran narysowane rzeczy
     window->display();
 }
