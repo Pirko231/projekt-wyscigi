@@ -1,5 +1,4 @@
-#ifndef BODY_FUNCTION_H
-#define BODY_FUNCTION_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -9,7 +8,10 @@
 enum ManagingFunctionsIterator
 {
     mainMenu = 0,
-    levelSelection  = 1
+    levelSelection  = 1,
+    level1 = 2,
+    level2 = 3,
+    level3 = 4
 };
 
 //klasa wirtualna. Uzywac w kodzie tylko na zasadach polimorfizmu.
@@ -33,7 +35,3 @@ protected:
     //jest to referencja do obiektu 'Program::currentFunction'.
     ManagingFunctionsIterator& functionIterator;
 };
-
-
-
-#endif

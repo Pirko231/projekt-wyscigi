@@ -1,5 +1,4 @@
-#ifndef LEVEL_SELECTION_H
-#define LEVEL_SELECTION_H
+#pragma once
 
 #include "bodyFunction.h"
 
@@ -15,5 +14,3 @@ public:
 private:
     //sekcja private jest calkowicie dla osoby ktora pracuje na funkcja
 };
-
-#endif

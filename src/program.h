@@ -1,8 +1,11 @@
-#ifndef PROGRAM_H
-#define PROGRAM_H
+#pragma once
 
 #include "mainMenu.h"
 #include "levelSelection.h"
+
+#include "level1.h"
+#include "level2.h"
+#include "level3.h"
 
 class Program
 {
@@ -17,10 +20,12 @@ private:
     //w tym oknie renderowane beda wszystkie rzeczy
     sf::RenderWindow* window;
 
-    //rozmiar tablicy managingFunctions
-    static constexpr int managingFunctionsAmount {2};
+    //myszka (uzywana do zdobycia jej pozycji). Zeby zdobyc pozycje myszki
+    //nalezy uzyc .getPosition(this->window) (zeby pozycja byla relatywna do okna)
+    sf::Mouse mouse;
 
-    
+    //rozmiar tablicy managingFunctions
+    static constexpr int managingFunctionsAmount {5};
 
     //obecna funkcja, dla wygody w typie wyliczeniowym aby
     //nie trzeba bylo zapamietywac zmian
@@ -32,8 +37,6 @@ private:
     //klasy takie jak mainMenu. Wszystkie maja trzy wirtualne funkcje:
     //void handleEvents(), void update(), void display()
     //Rozmiar tablicy wynosi 'managingFunctionsAmount'
-    BodyFunction* managingFunctions[managingFunctionsAmount] {nullptr, nullptr};
+    BodyFunction* managingFunctions[managingFunctionsAmount] {nullptr, nullptr, nullptr, nullptr, nullptr};
 
 };
-
-#endif

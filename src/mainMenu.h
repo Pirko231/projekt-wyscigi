@@ -1,5 +1,4 @@
-#ifndef MAIN_MENU_H
-#define MAIN_MENU_H
+#pragma once
 
 #include "bodyFunction.h"
 
@@ -16,5 +15,3 @@ private:
     //ta przestrzen jest calkowicie dla osoby ktora pracuje nad ta funckja
     sf::RectangleShape shape{{50.f, 50.f}};
 };
-
-#endif

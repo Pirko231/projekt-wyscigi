@@ -11,6 +11,9 @@ Program::Program()
 
     this->managingFunctions[0] = new MainMenu{this->window, this->currentFunction};
     this->managingFunctions[1] = new LevelSelection{this->window, this->currentFunction};
+    this->managingFunctions[2] = new Level1{this->window, this->currentFunction};
+    this->managingFunctions[3] = new Level2{this->window, this->currentFunction};
+    this->managingFunctions[4] = new Level3{this->window, this->currentFunction};
 }
 
 void Program::handleEvents()
@@ -24,6 +27,26 @@ void Program::handleEvents()
         //tez tutaj uzyte
         if (event.type == sf::Event::Closed)
             this->window->close();
+
+
+        //jest tylko roboczo aby zmieniac wyswietlane funkcje. Potem usunac
+        if (event.type == sf::Event::KeyPressed)
+        {
+            if (event.key.code == sf::Keyboard::Right)
+            {
+                if (this->currentFunction < this->managingFunctionsAmount - 1)
+                    this->currentFunction = static_cast<ManagingFunctionsIterator>(static_cast<int>(this->currentFunction) + 1);
+                else
+                    this->currentFunction = static_cast<ManagingFunctionsIterator>(0);
+            }
+            if (event.key.code == sf::Keyboard::Left)
+            {
+                if (this->currentFunction > 0)
+                    this->currentFunction = static_cast<ManagingFunctionsIterator>(static_cast<int>(this->currentFunction) - 1);
+                else
+                    this->currentFunction = static_cast<ManagingFunctionsIterator>(this->managingFunctionsAmount - 1);
+            }
+        }
 
         this->managingFunctions[this->currentFunction]->handleEvents(event);
     }

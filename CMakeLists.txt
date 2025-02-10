@@ -9,7 +9,7 @@ find_package(Freetype REQUIRED) #To moze bedzie trzeba wywalic
 
 
 # Utworzenie pliku wykonywalnego
-add_executable(main src/main.cpp src/program.cpp src/bodyFunction.cpp src/levelSelection.cpp src/mainMenu.cpp)
+add_executable(main src/main.cpp src/program.cpp src/bodyFunction.cpp src/levelSelection.cpp src/mainMenu.cpp src/level.cpp src/level1.cpp src/level2.cpp src/level3.cpp src/player.cpp)
 
 # Ustawienie wymaganych wersji kompilatora
 target_compile_features(main PRIVATE cxx_std_17)
