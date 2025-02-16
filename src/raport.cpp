@@ -3,9 +3,9 @@
 void Raport::logMessage(std::string _message)
 {
     if (this->file.is_open())
-        this->file << "!-- " << _message << "--!" << "\n";
+        this->file << "!-- " << _message << " --!" << "\n";
     else
-        throw FileCouldNotOpen{"bootLog.txt"};
+        throw FileCouldNotOpen{this->fileName};
 }
 
 void Raport::addEntry(std::string _entry, bool _status)
@@ -22,5 +22,11 @@ void Raport::addEntry(std::string _entry, bool _status)
         this->file << " -\n";
     }
     else
-        throw FileCouldNotOpen{"bootLog.txt"};
+        throw FileCouldNotOpen{this->fileName};
+}
+
+Raport::~Raport()
+{
+    if(this->file.is_open())
+        this->file.close();
 }

@@ -7,9 +7,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 find_package(SFML 2.6.1 REQUIRED COMPONENTS graphics window system)
 find_package(Freetype REQUIRED) #To moze bedzie trzeba wywalic
 
+file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${CMAKE_SOURCE_DIR}/fonts DESTINATION ${CMAKE_BINARY_DIR})
+
 
 # Utworzenie pliku wykonywalnego
-add_executable(main src/main.cpp src/program.cpp src/bodyFunction.cpp src/levelSelection.cpp src/mainMenu.cpp src/level.cpp src/level1.cpp src/level2.cpp src/level3.cpp src/player.cpp src/raport.cpp)
+add_executable(main src/main.cpp src/program.cpp src/bodyFunction.cpp src/levelSelection.cpp src/mainMenu.cpp src/level.cpp src/level1.cpp src/level2.cpp src/level3.cpp src/player.cpp src/raport.cpp src/buttons/textButton.cpp)
 
 # Ustawienie wymaganych wersji kompilatora
 target_compile_features(main PRIVATE cxx_std_17)

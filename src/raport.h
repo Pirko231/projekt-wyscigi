@@ -1,3 +1,5 @@
+#pragma once
+
 #include <fstream>
 #include <string>
 
@@ -7,7 +9,7 @@ class Raport
 public:
     Raport() = default;
     //otwiera plik o podanej nazwie
-    void open(std::string _filename = "bootLog.txt") {this->file.open(_filename, std::ios::app);}
+    void open(std::string _filename = "bootLog.txt") {this->file.open(_filename, std::ios::app); this->fileName = _filename;}
 
     //wypisuje wiadomosc do pliku
     //jezeli pliku nie uda sie otworzyc rzuca wyjatek 'FileCouldNotOpen'
@@ -24,12 +26,18 @@ public:
     
     //zamyka obecny plik. Zawsze wywolywac po otwarciu pliku
     void close() {this->file.close(); this->status = true;}
+
+    //awaryjne zamkniecie pliku
+    ~Raport();
 private:
     //plik
     std::fstream file;
 
     //status operacji w raporcie
     bool status{true};
+
+    //nazwa pliku
+    std::string fileName;
 };
 
 //zdefiniowane w raport.h
