@@ -58,6 +58,10 @@ void Program::handleEvents()
                 else
                     this->currentFunction = static_cast<ManagingFunctionsIterator>(this->managingFunctionsAmount - 1);
             }
+            if (event.key.code == sf::Keyboard::Escape)
+            {
+                window->close();
+            }
         }
 
         this->managingFunctions[this->currentFunction]->handleEvents(event);
