@@ -1,6 +1,6 @@
 #include "level3.h"
 
-Level3::Level3(sf::RenderWindow *_window, ManagingFunctionsIterator &_managingFunctionsIterator) : Level{_window, _managingFunctionsIterator}
+Level3::Level3(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctionsIterator &_managingFunctionsIterator) : Level{_window, _mouse, _managingFunctionsIterator}
 {
 }
 

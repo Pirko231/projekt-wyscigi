@@ -19,7 +19,7 @@ void Raport::addEntry(std::string _entry, bool _status)
             this->file << "SUCCESS";
         else
             this->file << "FAILURE";
-        this->file << " -\n";
+        this->file << " --\n";
     }
     else
         throw FileCouldNotOpen{this->fileName};

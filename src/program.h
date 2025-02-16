@@ -2,6 +2,7 @@
 
 #include "mainMenu.h"
 #include "levelSelection.h"
+#include "carSelection.h"
 
 #include "level1.h"
 #include "level2.h"
@@ -27,10 +28,10 @@ private:
 
     //myszka (uzywana do zdobycia jej pozycji). Zeby zdobyc pozycje myszki
     //nalezy uzyc .getPosition(this->window) (zeby pozycja byla relatywna do okna)
-    sf::Mouse mouse;
+    sf::Mouse* mouse;
 
     //rozmiar tablicy managingFunctions
-    static constexpr int managingFunctionsAmount {5};
+    static constexpr int managingFunctionsAmount {6};
 
     //obecna funkcja, dla wygody w typie wyliczeniowym aby
     //nie trzeba bylo zapamietywac zmian

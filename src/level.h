@@ -13,7 +13,7 @@ public:
 //zrobi sie dynamiczne rzutowanie.
 //trzeba tu tylko dac konstruktory bo konstruktory nie sa dziedziczone
     Level() = delete;
-    Level(sf::RenderWindow* _window, ManagingFunctionsIterator& _managingFunctionsIterator);
+    Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator);
 
     //odbiera wiadomosci z klawiatury. Uzywac w funkcji Program::handleEvents()
     virtual void handleEvents(sf::Event& _event) = 0;
@@ -30,10 +30,10 @@ private:
 //wczytywac ja po prostu z roznych plikow 
 
     //gracz (pojazd gracza)
-    Player player;
+    
 
 protected:
 //wszystko w tym zakresie tez bedzie dostepne dla klas dziedziczacych
 //ale nie trzeba uzywac accessor functions jak w private.
-
+    Player player;
 };

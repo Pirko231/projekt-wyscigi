@@ -1,6 +1,6 @@
 #include "levelSelection.h"
 
-LevelSelection::LevelSelection(sf::RenderWindow *_window, ManagingFunctionsIterator& _managingFunctionsIterator) : BodyFunction{_window,_managingFunctionsIterator}
+LevelSelection::LevelSelection(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator) : BodyFunction{_window, _mouse, _managingFunctionsIterator}
 {
 }
 

@@ -1,6 +1,6 @@
 #include "level1.h"
 
-Level1::Level1(sf::RenderWindow *_window, ManagingFunctionsIterator &_managingFunctionsIterator) : Level{_window, _managingFunctionsIterator}
+Level1::Level1(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctionsIterator &_managingFunctionsIterator) : Level{_window, _mouse, _managingFunctionsIterator}
 {
 }
 
@@ -14,4 +14,5 @@ void Level1::update()
 
 void Level1::display()
 {
+    this->window->draw(this->player);
 }

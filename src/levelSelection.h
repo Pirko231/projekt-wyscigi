@@ -6,7 +6,7 @@ class LevelSelection : public BodyFunction
 {
 public:
     LevelSelection() = delete;
-    LevelSelection(sf::RenderWindow* _window, ManagingFunctionsIterator& _managingFunctionsIterator);
+    LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator);
     void handleEvents(sf::Event& _event);
     void update();
     void display();

@@ -5,8 +5,10 @@ Program::Program()
     this->clearBootLog();
     
     this->window = new sf::RenderWindow;
-    this->window->create({500, 500}, "Wyscigi", sf::Style::Titlebar | sf::Style::Close);
+    this->window->create({500, 500}, "Wyscigi", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
     this->window->setFramerateLimit(60);
+
+    this->mouse = new sf::Mouse;
 
     //ustawnienie poczatku pracy programu na mainMenu
     this->currentFunction = ManagingFunctionsIterator::mainMenu;
@@ -21,11 +23,12 @@ Program::Program()
     //-------------------------------------------
 
     //kazdy z tych obiektow bedzie mial swoj wlasny obiekt typu Raport
-    this->managingFunctions[0] = new MainMenu{this->window, this->currentFunction};
-    this->managingFunctions[1] = new LevelSelection{this->window, this->currentFunction};
-    this->managingFunctions[2] = new Level1{this->window, this->currentFunction};
-    this->managingFunctions[3] = new Level2{this->window, this->currentFunction};
-    this->managingFunctions[4] = new Level3{this->window, this->currentFunction};
+    this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction};
+    this->managingFunctions[1] = new LevelSelection{this->window, this->mouse, this->currentFunction};
+    this->managingFunctions[2] = new CarSelection{this->window, this->mouse, this->currentFunction};
+    this->managingFunctions[3] = new Level1{this->window, this->mouse, this->currentFunction};
+    this->managingFunctions[4] = new Level2{this->window, this->mouse, this->currentFunction};
+    this->managingFunctions[5] = new Level3{this->window, this->mouse, this->currentFunction};
 }
 
 void Program::handleEvents()
@@ -97,6 +100,6 @@ Program::~Program()
 
 void Program::clearBootLog()
 {
-    std::fstream file("bootLog.txt", std::ios::in | std::ios::out);
+    std::fstream file("bootLog.txt", std::ios::out);
     file << "BootLog Cleared\n";
 }
