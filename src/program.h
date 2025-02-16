@@ -7,6 +7,8 @@
 #include "level2.h"
 #include "level3.h"
 
+#include "raport.h"
+
 class Program
 {
 public:
@@ -17,6 +19,9 @@ public:
     bool running() const {return this->window->isOpen();}
     ~Program();
 private:
+    //usuwa wszystkie entries w pliku bootLog.txt
+    void clearBootLog();
+
     //w tym oknie renderowane beda wszystkie rzeczy
     sf::RenderWindow* window;
 

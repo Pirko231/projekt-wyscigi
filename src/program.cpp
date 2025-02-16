@@ -2,6 +2,8 @@
 
 Program::Program()
 {
+    this->clearBootLog();
+    
     this->window = new sf::RenderWindow;
     this->window->create({500, 500}, "Wyscigi", sf::Style::Titlebar | sf::Style::Close);
     this->window->setFramerateLimit(60);
@@ -9,6 +11,16 @@ Program::Program()
     //ustawnienie poczatku pracy programu na mainMenu
     this->currentFunction = ManagingFunctionsIterator::mainMenu;
 
+    Raport raport;
+    //miejsce na wczytanie rzeczy z plikow w tej funkcji
+    //-------------------------------------------
+    raport.open();
+
+
+    raport.close();
+    //-------------------------------------------
+
+    //kazdy z tych obiektow bedzie mial swoj wlasny obiekt typu Raport
     this->managingFunctions[0] = new MainMenu{this->window, this->currentFunction};
     this->managingFunctions[1] = new LevelSelection{this->window, this->currentFunction};
     this->managingFunctions[2] = new Level1{this->window, this->currentFunction};
@@ -77,4 +89,10 @@ Program::~Program()
     //usuwamy funkcje do wyswietlania
     for (size_t i = 0; i < Program::managingFunctionsAmount; i++)
         delete this->managingFunctions[i];
+}
+
+void Program::clearBootLog()
+{
+    std::fstream file("bootLog.txt", std::ios::in | std::ios::out);
+    file << "BootLog Cleared\n";
 }
