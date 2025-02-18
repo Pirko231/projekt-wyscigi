@@ -17,5 +17,4 @@ private:
     sf::RectangleShape shape{{50.f, 50.f}};
     sf::Font font;
     btn::TextButton button;
-    sf::Mouse mouse;
 };

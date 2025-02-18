@@ -4,7 +4,7 @@
 
 namespace btn
 {
-    class TextButton
+    class TextButton : public sf::Drawable
     {
     public:
         //pamietaj aby nadac czcionke
@@ -22,9 +22,6 @@ namespace btn
         //ustawia rozmiar czcionki na _characterSize
         //pamietaj aby dodac czcionke bo inaczej nie dziala
         TextButton(sf::Vector2f _pos, unsigned int _characterSize);
-        
-        //zwraca tekst ktory mozna narysowac
-        const sf::Text getDrawable() const {return this->text;}
 
         //zwraca hitbox przycisku, mozna sprawdzic czy przycisk jest najechany
         sf::FloatRect getHitbox() const {return this->hitBox.getGlobalBounds();}
@@ -33,7 +30,7 @@ namespace btn
         void setFont(const sf::Font& _font) {this->text.setFont(_font);}
 
         //ustawia zawartosc tekstu na _string
-        void setString(const sf::String& _string) {this->text.setString(_string);}
+        void setString(const sf::String& _string) {this->text.setString(_string); this->hitBox.setSize({static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize()), static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize())});}
         
         //ustawia pozycje na _pos
         void setPosition(sf::Vector2f _pos) {this->text.setPosition(_pos); this->hitBox.setPosition(_pos);}
@@ -53,6 +50,14 @@ namespace btn
         //to zaczyna sie animacja przycisku w druga strone
         void unHowered();
     private:
+            //rysuje obiekt.
+            //uzyj window->draw(TextButton) aby uzyc
+            void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+            {
+                // You can draw other high-level objects
+                target.draw(this->text, states);
+            }
+
         //tekst
         sf::Text text;
 

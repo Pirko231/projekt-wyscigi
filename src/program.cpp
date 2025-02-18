@@ -5,7 +5,7 @@ Program::Program()
     this->clearBootLog();
     
     this->window = new sf::RenderWindow;
-    this->window->create({500, 500}, "Wyscigi", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
+    this->window->create({1280, 720}, "Wyscigi", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
     this->window->setFramerateLimit(60);
 
     this->mouse = new sf::Mouse;

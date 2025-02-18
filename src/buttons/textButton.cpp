@@ -4,6 +4,8 @@ btn::TextButton::TextButton(sf::Vector2f _pos, const sf::Font &_font, unsigned i
 {
     //czcionka, reszta robiona konstrukoterm delegujacym
     this->text.setFont(_font);
+
+    this->hitBox.setSize({static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize()), static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize())});
 }
 
 btn::TextButton::TextButton(sf::Vector2f _pos, unsigned int _characterSize)
@@ -16,9 +18,10 @@ btn::TextButton::TextButton(sf::Vector2f _pos, unsigned int _characterSize)
     
     //obiekty
     this->text.setPosition(_pos);
-    this->hitBox.setPosition(_pos);
     this->text.setCharacterSize(_characterSize);
-    this->hitBox.setSize({(float)_characterSize, (float)_characterSize});
+    
+    this->hitBox.setPosition(_pos);
+    this->hitBox.setSize({static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize()), static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize())});
 }
 
 void btn::TextButton::clicked()

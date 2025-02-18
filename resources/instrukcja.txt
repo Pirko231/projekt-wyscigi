@@ -1,0 +1,2 @@
+tutaj wrzucajcie pliki takie jak obrazy
+mozecie je dzielic na foldery aby unikac kolizji nazw
