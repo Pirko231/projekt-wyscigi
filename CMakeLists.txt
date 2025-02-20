@@ -9,11 +9,16 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-# Ustawienie ścieżki do SFML w /usr/local
-set(CMAKE_PREFIX_PATH "/usr/local")
-link_directories("/usr/local/lib")
+# 🟢 Ustawienie ścieżek do SFML (zmień na swoją lokalizację SFML)
+set(SFML_ROOT "C:/SFML/SFML-2.6.1")
+set(CMAKE_PREFIX_PATH "${SFML_ROOT}")
+set(SFML_INCLUDE_DIR "${SFML_ROOT}/include")
+set(SFML_LIBRARY_DIR "${SFML_ROOT}/lib")
 
-# Znalezienie SFML (obsługa debug i release)
+include_directories(${SFML_INCLUDE_DIR})
+link_directories(${SFML_LIBRARY_DIR})
+
+# Znalezienie SFML
 find_package(SFML 2.6.1 COMPONENTS system window graphics audio network REQUIRED)
 
 # Jeśli kompilujemy w trybie Debug, użyjemy wersji "-d"
@@ -22,10 +27,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 else()
     set(SFML_LIBS sfml-graphics sfml-window sfml-system sfml-audio sfml-network)
 endif()
-
-# Kopiowanie zasobów
-file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_BINARY_DIR})
-file(COPY ${CMAKE_SOURCE_DIR}/fonts DESTINATION ${CMAKE_BINARY_DIR})
 
 # Tworzenie pliku wykonywalnego
 add_executable(main 
