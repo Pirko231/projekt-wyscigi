@@ -1,0 +1,3 @@
+BootLog Cleared
+!-- MainMenu --!
+-- Wczytywanie czcionki -- STATUS - SUCCESS --

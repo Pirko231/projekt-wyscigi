@@ -8,7 +8,7 @@ namespace btn
     {
     public:
         //pamietaj aby nadac czcionke
-        TextButton() = default;
+        TextButton(unsigned int _characterSize = 30);
         //ustawia przycisk na pozycji 0.f,0.f
         //nadaje czcionke _font
         TextButton(sf::Font& _font) {this->text.setFont(_font);}
@@ -30,13 +30,19 @@ namespace btn
         void setFont(const sf::Font& _font) {this->text.setFont(_font);}
 
         //ustawia zawartosc tekstu na _string
-        void setString(const sf::String& _string) {this->text.setString(_string); this->hitBox.setSize({static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize()), static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize())});}
+        void setString(const sf::String& _string);
         
         //ustawia pozycje na _pos
         void setPosition(sf::Vector2f _pos) {this->text.setPosition(_pos); this->hitBox.setPosition(_pos);}
         
         //ustawia kolor tekstu na _color
         void setFillColor(const sf::Color& _color) {this->text.setFillColor(_color);}
+
+        //ustawia rozmiar czcionki i maksymalnej czcionki
+        //_characterSize - rozmiar czcionki
+        //_maxCharacterSize - rozmiar maksymalnego powiekszenia.
+        //nie trzeba wprowadzac _maxCharacterSize bo zostanie policzone automatycznie, jednak mozna.
+        void setCharacterSize(unsigned int _characterSize, unsigned int _maxCharacterSize = 0);
         
         //kiedy klikniety (sprawdz uzywajac .getHitbox())
         //to rozpoczyna sie animacja klikniecia
@@ -54,8 +60,8 @@ namespace btn
             //uzyj window->draw(TextButton) aby uzyc
             void draw(sf::RenderTarget& target, sf::RenderStates states) const override
             {
-                // You can draw other high-level objects
                 target.draw(this->text, states);
+                //target.draw(this->hitBox, states);
             }
 
         //tekst

@@ -11,6 +11,9 @@ MainMenu::MainMenu(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctio
 
     this->button.setFont(font);
     this->button.setString("Gyat");
+    this->button.setPosition({50.f, 50.f}); //zdane
+    this->button.setCharacterSize(70); //zdane
+    this->button.setFillColor(sf::Color::Blue); //zdane
 }
 
 void MainMenu::handleEvents(sf::Event& _event)
