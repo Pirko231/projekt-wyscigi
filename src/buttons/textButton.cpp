@@ -6,7 +6,7 @@ btn::TextButton::TextButton(unsigned int _characterSize)
     this->defaultCharacterSize = _characterSize;
     this->maxCharacterSize = _characterSize * 1.3;
     this->changeSizeBy = (this->maxCharacterSize - this->defaultCharacterSize) / 60;
-    this->changeSizeBy += 1;
+    this->changeSizeBy += _characterSize / 15;
 
     //w tym momencie string ejszcze jest pusty. mozna to wywalic
     //this->hitBox.setSize({static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize()), static_cast<float>(this->text.getString().getSize() * this->text.getCharacterSize())});
@@ -51,7 +51,7 @@ void btn::TextButton::setCharacterSize(unsigned int _characterSize, unsigned int
 
     //wyliczenie predkosci zwiekszania
     this->changeSizeBy = (this->maxCharacterSize - this->defaultCharacterSize) / 60;
-    this->changeSizeBy += 1;
+    this->changeSizeBy += _characterSize / 15;
 
     //na koniec wszystkiego ustawiamy hitbox
     this->hitBox.setSize({this->text.getLocalBounds().width, static_cast<float>(this->text.getLocalBounds().height * 1.35)});
@@ -59,7 +59,16 @@ void btn::TextButton::setCharacterSize(unsigned int _characterSize, unsigned int
 
 void btn::TextButton::clicked()
 {
+    if (this->animation % this->perSecond == 0)
+        if (this->text.getFillColor() == this->baseColor)
+            this->text.setFillColor(this->animationColor);
+        else
+            this->text.setFillColor(this->baseColor);
 
+    this->animation--;
+
+    if (this->animation <= 0)
+        this->animationFinished = true;
 }
 
 void btn::TextButton::howered()

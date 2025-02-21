@@ -25,6 +25,19 @@ namespace btn
 
         //zwraca hitbox przycisku, mozna sprawdzic czy przycisk jest najechany
         sf::FloatRect getHitbox() const {return this->hitBox.getGlobalBounds();}
+
+        void startClickAnimation() {this->clicked();}
+        
+        //sprawdza czy trwa animacja klikniecia
+        bool isAnimated() {if (this->animation < this->maxAnimation) return true; return false;}
+
+        //zwraca ilosc klatek kiedy skonczy sie animacja
+        bool isAnimationFinished() {if (this->animation <= 0) {this->animation = this->maxAnimation; return true;} return false;}
+
+        //ustawia dane dotyczace animacji
+        //_length - ilosc klatek w ktorych bedzie dziala sie animacja
+        //_perSecond - na ile klatek zmienia sie kolor
+        void setAnimation(unsigned int _length = 40, unsigned int _perSecond = 5) {this->animation = _length; this->maxAnimation = _length; this->perSecond = _perSecond;}
     
         //ustawia czcionke na _font
         void setFont(const sf::Font& _font) {this->text.setFont(_font);}
@@ -36,7 +49,8 @@ namespace btn
         void setPosition(sf::Vector2f _pos) {this->text.setPosition(_pos); this->hitBox.setPosition(_pos);}
         
         //ustawia kolor tekstu na _color
-        void setFillColor(const sf::Color& _color) {this->text.setFillColor(_color);}
+        //ustawia kolor animacji na _animationColor
+        void setFillColor(const sf::Color& _color, const sf::Color& _animationColor = sf::Color{192, 190, 190}) {this->text.setFillColor(_color); this->baseColor = _color; this->animationColor = _animationColor;}
 
         //ustawia rozmiar czcionki i maksymalnej czcionki
         //_characterSize - rozmiar czcionki
@@ -55,6 +69,8 @@ namespace btn
         //kiedy przestal byc najechany (sprawdz uzywajac .getHitbox())
         //to zaczyna sie animacja przycisku w druga strone
         void unHowered();
+
+        
     private:
             //rysuje obiekt.
             //uzyj window->draw(TextButton) aby uzyc
@@ -73,6 +89,24 @@ namespace btn
         // framerate jako 60 fps
         int framerate{60};
 
+        //kiedy animacja sie skonczy to ta zmienna bedzie true
+        bool animationFinished{false};
+        
+        //licznik animacji
+        int animation{40};
+
+        //maksymalna animacja
+        int maxAnimation{40};
+
+        //ilosc razy ile zmieni sie kolor przycisku na sekunde
+        unsigned int perSecond{5};
+
+        //kolor ktory zmieni sie po animacji
+        sf::Color animationColor{sf::Color{192, 190, 190}};
+
+        //kolor podstawowy
+        sf::Color baseColor{sf::Color::White};
+        
         // zawsze podczas animacji czcionka wraca do tego rozmiaru
         unsigned int defaultCharacterSize{30};
 
