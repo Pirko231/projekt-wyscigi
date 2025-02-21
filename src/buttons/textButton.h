@@ -9,6 +9,7 @@ namespace btn
     public:
         //pamietaj aby nadac czcionke
         TextButton(unsigned int _characterSize = 30);
+
         //ustawia przycisk na pozycji 0.f,0.f
         //nadaje czcionke _font
         TextButton(sf::Font& _font) {this->text.setFont(_font);}
@@ -26,6 +27,11 @@ namespace btn
         //zwraca hitbox przycisku, mozna sprawdzic czy przycisk jest najechany
         sf::FloatRect getHitbox() const {return this->hitBox.getGlobalBounds();}
 
+        //restartuje rozmiar obiektu.
+        //uzywac przy zmianie okna
+        void reset() {this->text.setCharacterSize(this->defaultCharacterSize); this->hitBox.setSize({this->text.getLocalBounds().width, static_cast<float>(this->text.getLocalBounds().height * 1.35)});}
+
+        //rozpoczyna animacje przycisku
         void startClickAnimation() {this->clicked();}
         
         //sprawdza czy trwa animacja klikniecia
