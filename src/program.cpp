@@ -2,7 +2,6 @@
 
 Program::Program()
 {
-    this->clearBootLog();
     
     this->window = new sf::RenderWindow;
     this->window->create({1280, 720}, "Wyscigi", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
@@ -98,8 +97,4 @@ Program::~Program()
         delete this->managingFunctions[i];
 }
 
-void Program::clearBootLog()
-{
-    std::fstream file("bootLog.txt", std::ios::out);
-    file << "BootLog Cleared\n";
-}
+

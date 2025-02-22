@@ -10,6 +10,8 @@
 
 #include "raport.h"
 
+
+
 class Program
 {
 public:
@@ -20,8 +22,7 @@ public:
     bool running() const {return this->window->isOpen();}
     ~Program();
 private:
-    //usuwa wszystkie entries w pliku bootLog.txt
-    void clearBootLog();
+    
 
     //w tym oknie renderowane beda wszystkie rzeczy
     sf::RenderWindow* window;
@@ -46,3 +47,21 @@ private:
     BodyFunction* managingFunctions[managingFunctionsAmount] {nullptr, nullptr, nullptr, nullptr, nullptr};
 
 };
+
+//sluzy tylko do czyszczenia danych z pliku. zdefiniowana w 'program.h'
+class BootManager
+{
+public:
+    inline BootManager()
+    {this->clearBootLog();}
+    //usuwa wszystkie entries w pliku bootLog.txt. zdefiniowana w 'program.h'
+private:
+    inline void clearBootLog()
+    {
+        std::fstream file("bootLog.txt", std::ios::out);
+        file << "BootLog Cleared\n";
+        file.close();
+    }
+};
+
+inline BootManager clearBootLog;
