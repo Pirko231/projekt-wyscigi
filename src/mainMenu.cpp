@@ -27,11 +27,26 @@ void MainMenu::handleEvents(sf::Event& _event)
 
 void MainMenu::update()
 {
-    if(this->button.getHitbox().contains(static_cast<sf::Vector2f>(this->mouse->getPosition(*this->window))))
-        this->button.howered();
-    else
-        this->button.unHowered();
-}
+        for (int i = 0; i < buttonAmount; i++) {
+            if (buttons[i].isAnimated()) {
+                this->buttons[i].clicked(); 
+
+            }   
+            if (buttons[i].getHitbox().contains(static_cast<sf::Vector2f>(mouse->getPosition(*window)))) {
+                buttons[i].howered();
+            } else {
+                buttons[i].unHowered();
+            }
+        }
+    
+        if (buttons[0].isAnimationFinished()) {
+            functionIterator = ManagingFunctionsIterator::levelSelection;
+            buttons[0].reset();
+        }
+        if (buttons[2].isAnimationFinished()) {
+            window->close();
+        }   
+}    
 
 void MainMenu::display()
 {

@@ -17,6 +17,9 @@ private:
     sf::RectangleShape shape{{50.f, 50.f}};
     sf::Font font;
     btn::TextButton button;
-    static constexpr int buttonAmount = 3;  //liczba przysiskuf
+
+
+    static constexpr int buttonAmount = 3;  //liczba przysiskow
+
     btn::TextButton buttons[buttonAmount];  //tablica z tymi przyciskami
 };
