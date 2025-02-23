@@ -18,7 +18,11 @@ private:
     //ta przestrzen jest calkowicie dla osoby ktora pracuje nad ta klasa
     sf::RectangleShape shape{{50.f, 50.f}};
     sf::Font font;
-    btn::TextButton button;
+
+    //screen background
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite; 
+    sf::RectangleShape overlay;
 
     //moje dla pirsona
     static constexpr int buttonAmount = 3;  //liczba przysiskuf

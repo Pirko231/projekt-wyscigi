@@ -1,3 +1,4 @@
+
 #include "mainMenu.h"
 #include "raport.h"
 
@@ -9,6 +10,7 @@ MainMenu::MainMenu(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctio
     raport.open();
     raport.logMessage("MainMenu");
     raport.addEntry("Wczytywanie czcionki ekran tytulowy" , this->font.loadFromFile("fonts/BigFont.ttf"));
+    raport.addEntry("Wczytywanie tła ekran tytulowy", backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg"));
     raport.close();
 
     std::string buttonNames[buttonAmount] = {"graj", "opcje", "wyjscie"};
@@ -16,18 +18,34 @@ MainMenu::MainMenu(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctio
     auto [winWidth, winHeight] = _window->getSize();
     float buttonWidth = winWidth * 0.3f;
     float buttonHeight = winHeight * 0.1f; //10% buttonheight
-    float spacing = winHeight * 0.15f;  // 15% screenheight
-    float startX = (winWidth - buttonWidth) / 2.f;
+    float spacing = winHeight * 0.02f;  // 8% screenheight
+    float startX = (winWidth - buttonWidth) / 1.7f;
     float startY = (winHeight - (buttonAmount * (buttonHeight + spacing))) / 2.f;
 
     for (int i = 0; i < buttonAmount; i++) {
         buttons[i].setFont(font);
         buttons[i].setString(buttonNames[i]);
         buttons[i].setPosition({startX, startY + i * (buttonHeight + spacing)});
-        buttons[i].setCharacterSize(static_cast<unsigned int>(buttonHeight * 2.f));
-        buttons[i].setFillColor(sf::Color::White);  
+        buttons[i].setCharacterSize(static_cast<unsigned int>(buttonHeight * 1.f));
+        buttons[i].setFillColor(sf::Color::Black);  
 
     }
+    
+    //screen background
+    backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg");
+    backgroundSprite.setTexture(backgroundTexture);
+    backgroundSprite.setScale(
+        static_cast<float>(_window->getSize().x) / backgroundTexture.getSize().x,
+        static_cast<float>(_window->getSize().y) / backgroundTexture.getSize().y
+    );
+    
+    overlay.setSize(sf::Vector2f(buttonWidth * 1.1f, buttonHeight * 3.5 + spacing * 2));
+    overlay.setPosition(
+    startX - (buttonWidth * 0.3f),
+    startY  
+    );
+    overlay.setFillColor(sf::Color(255, 255, 255, 150));
+    
 }
 
 void MainMenu::handleEvents(sf::Event& _event)
@@ -40,6 +58,7 @@ void MainMenu::handleEvents(sf::Event& _event)
         }
     }
 }
+
 
 void MainMenu::update()
     {
@@ -57,7 +76,10 @@ void MainMenu::update()
     
         if (buttons[0].isAnimationFinished()) {
             functionIterator = ManagingFunctionsIterator::levelSelection;
-            buttons[0].reset();
+            for (int i = 0; i < buttonAmount; i++) {
+                buttons[i].reset();
+            }
+
         }
         if (buttons[2].isAnimationFinished()) {
             window->close();
@@ -68,7 +90,8 @@ void MainMenu::update()
 void MainMenu::display()
 {
     //this->window->draw(this->shape);
-    this->window->draw(this->button);
+    window->draw(backgroundSprite);
+    window->draw(overlay);
 
     for(int i = 0; i < buttonAmount; i++) {
 
