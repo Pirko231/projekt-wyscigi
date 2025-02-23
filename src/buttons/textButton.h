@@ -29,7 +29,7 @@ namespace btn
 
         //restartuje rozmiar obiektu.
         //uzywac przy zmianie okna
-        void reset() {this->text.setCharacterSize(this->defaultCharacterSize); this->hitBox.setSize({this->text.getLocalBounds().width, static_cast<float>(this->text.getLocalBounds().height * 1.35)});}
+        void reset() {this->text.setCharacterSize(this->defaultCharacterSize); this->hitBox.setSize({this->text.getLocalBounds().width, static_cast<float>(this->text.getLocalBounds().height * 1.35)}); this->animation = this->maxAnimation; this->animationFinished = false;}
 
         //rozpoczyna animacje przycisku
         void startClickAnimation() {this->clicked();}
@@ -78,13 +78,13 @@ namespace btn
 
         
     private:
-            //rysuje obiekt.
-            //uzyj window->draw(TextButton) aby uzyc
-            void draw(sf::RenderTarget& target, sf::RenderStates states) const override
-            {
-                target.draw(this->text, states);
-                //target.draw(this->hitBox, states);
-            }
+        //rysuje obiekt.
+        //uzyj window->draw(TextButton) aby uzyc
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+        {
+            target.draw(this->text, states);
+            //target.draw(this->hitBox, states);
+        }
 
         //tekst
         sf::Text text;
