@@ -13,8 +13,10 @@ public:
     void display();
     ~MainMenu();
 private:
-    //ta przestrzen jest calkowicie dla osoby ktora pracuje nad ta funckja
+    //ta przestrzen jest calkowicie dla osoby ktora pracuje nad ta klasa
     sf::RectangleShape shape{{50.f, 50.f}};
     sf::Font font;
     btn::TextButton button;
+    static constexpr int buttonAmount = 3;  //liczba przysiskuf
+    btn::TextButton buttons[buttonAmount];  //tablica z tymi przyciskami
 };

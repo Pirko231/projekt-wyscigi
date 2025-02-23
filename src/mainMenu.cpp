@@ -6,7 +6,7 @@ MainMenu::MainMenu(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctio
     Raport raport;
     raport.open();
     raport.logMessage("MainMenu");
-    raport.addEntry("Wczytywanie czcionki" , this->font.loadFromFile("fonts/BigFont.ttf"));
+    raport.addEntry("Wczytywanie czcionki ekran tytulowy" , this->font.loadFromFile("fonts/BigFont.ttf"));
     raport.close();
 
     this->button.setFont(font);
