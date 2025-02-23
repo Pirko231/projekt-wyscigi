@@ -33,12 +33,19 @@ namespace btn
 
         //rozpoczyna animacje przycisku
         void startClickAnimation() {this->clicked();}
-        
-        //sprawdza czy trwa animacja klikniecia
-        bool isAnimated() {if (this->animation < this->maxAnimation) return true; return false;}
 
+        //zwraca true czy animacja sie zakonczyla i falsz kiedy nie zakonczyla sie/ nie zaczela
+        //_lockedInput - mozna zablokowac animacje kiedy wprowadzi sie true. Domyslnie jest false.
+        //mozna ta funkcje wywolac samoistnie i sama zajmie sie animacja migania.
+        bool manage(bool _lockedInput = false);
+        
+        [[deprecated("zamiast tego wywolaj funkcje 'manage'")]]
+        //sprawdza czy trwa animacja klikniecia
+        bool isAnimated() {return this->isAnimated_();}
+
+        [[deprecated("zamiast tego wywolaj funkcje 'manage'")]]
         //zwraca ilosc klatek kiedy skonczy sie animacja
-        bool isAnimationFinished() {if (this->animation <= 0) {this->animation = this->maxAnimation; return true;} return false;}
+        bool isAnimationFinished() {return this->isAnimationFinished_();}
 
         //ustawia dane dotyczace animacji
         //_length - ilosc klatek w ktorych bedzie dziala sie animacja
@@ -64,9 +71,10 @@ namespace btn
         //nie trzeba wprowadzac _maxCharacterSize bo zostanie policzone automatycznie, jednak mozna.
         void setCharacterSize(unsigned int _characterSize, unsigned int _maxCharacterSize = 0);
         
+        [[deprecated("zamiast tego wywolaj funkcje 'manage'")]]
         //kiedy klikniety (sprawdz uzywajac .getHitbox())
         //to rozpoczyna sie animacja klikniecia
-        void clicked();
+        void clicked() {this->clicked_();}
         
         //kiedy najechany (sprawdz uzywajac .getHitbox())
         //to zaczyna sie animacja przycisku
@@ -85,6 +93,12 @@ namespace btn
             target.draw(this->text, states);
             //target.draw(this->hitBox, states);
         }
+
+        inline bool isAnimated_() {if (this->animation < this->maxAnimation) return true; return false;}
+        
+        inline bool isAnimationFinished_() {if (this->animation <= 0) {this->animation = this->maxAnimation; return true;} return false;}
+        
+        void clicked_();
 
         //tekst
         sf::Text text;

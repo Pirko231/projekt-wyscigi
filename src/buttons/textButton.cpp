@@ -31,6 +31,19 @@ btn::TextButton::TextButton(sf::Vector2f _pos, unsigned int _characterSize) : Te
     this->hitBox.setPosition(_pos);
 }
 
+bool btn::TextButton::manage(bool _lockedInput)
+{
+    if (_lockedInput)
+        return false;
+    
+    if (this->isAnimated_())
+        this->clicked_();
+
+    if (this->isAnimationFinished_())
+        return true;
+    return false;
+}
+
 void btn::TextButton::setString(const sf::String &_string)
 {
     this->text.setString(_string);
@@ -55,20 +68,6 @@ void btn::TextButton::setCharacterSize(unsigned int _characterSize, unsigned int
 
     //na koniec wszystkiego ustawiamy hitbox
     this->hitBox.setSize({this->text.getLocalBounds().width, static_cast<float>(this->text.getLocalBounds().height * 1.35)});
-}
-
-void btn::TextButton::clicked()
-{
-    if (this->animation % this->perSecond == 0)
-        if (this->text.getFillColor() == this->baseColor)
-            this->text.setFillColor(this->animationColor);
-        else
-            this->text.setFillColor(this->baseColor);
-
-    this->animation--;
-
-    if (this->animation <= 0)
-        this->animationFinished = true;
 }
 
 void btn::TextButton::howered()
@@ -97,4 +96,18 @@ void btn::TextButton::unHowered()
         this->text.setCharacterSize(this->defaultCharacterSize);
         this->hitBox.setSize({this->text.getLocalBounds().width, static_cast<float>(this->text.getLocalBounds().height * 1.35)});
     }
+}
+
+void btn::TextButton::clicked_()
+{
+    if (this->animation % this->perSecond == 0)
+        if (this->text.getFillColor() == this->baseColor)
+            this->text.setFillColor(this->animationColor);
+        else
+            this->text.setFillColor(this->baseColor);
+
+    this->animation--;
+
+    if (this->animation <= 0)
+        this->animationFinished = true;
 }
