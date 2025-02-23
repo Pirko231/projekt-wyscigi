@@ -10,16 +10,27 @@ namespace btn
 {
 
     // struktura wczytujaca dane do template definiowana w buttons.h
-    struct TemplateTexturesSpriteButton
+    class Templates
     {
-        TemplateTexturesSpriteButton();
-        
+    public:
+        //tworzy obiekt. NIE UZYWAC TEGO TYLKO OBIEKTU 'templates' zadeklarowanego w 'buttons.h'
+        Templates();
+
+        // template do ikony ustawien. Nalezy skopiowac to do innego obiektu typu btn::SpriteButton
+        const btn::SpriteButton& getSettingsTemplate() const {return this->settingsTemplate;}
+
+        //template do strzalki. Nalezy skopiowac to do innego obiektu typu btn::SpriteButton
+        const btn::SpriteButton& getArrowTemplate() const {return this->arrowTemplate;}
+    private:
+
         sf::Texture settingTemplatetxt;
+        btn::SpriteButton settingsTemplate;
+
+        sf::Texture arrowTemplatetxt;
+        btn::SpriteButton arrowTemplate;
     };
 
-    // tutaj wczytywane są tekstury. Nie nalezy tego uzywac
-    const extern TemplateTexturesSpriteButton templateData;
-
-    // template do ikony ustawien. Nalezy skopiowac to do innego obiektu typu btn::SpriteButton
-    const extern btn::SpriteButton settingsTemplate;
+    //tutaj są przechowywane templates. jesli chcesz skopiowac template
+    //to nalezy uzyc tego obiektu.
+    const extern btn::Templates templates;
 };

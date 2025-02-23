@@ -24,10 +24,17 @@ namespace btn
         void setPosition(sf::Vector2f _pos) {this->sprite.setPosition(_pos);}
 
         //skaluje obiekt na _scale
-        void setScale(sf::Vector2f _scale) {this->sprite.setScale(_scale);}
+        //_maxScale - maksymalna skala podczas animacji. Kiedy nie ruszona zostanie sama obliczona
+        void setScale(sf::Vector2f _scale, sf::Vector2f _maxScale = {0.f,0.f}) {this->sprite.setScale(_scale); this->defaultScale = _scale; if(_maxScale == sf::Vector2f{0.f,0.f}) this->maxScale = {_scale.x * 1.3f, _scale.y * 1.3f}; else this->maxScale = _maxScale;}
 
+        //ustawia kąt rotacji na _angle
+        void setRotation(float _angle) {this->sprite.setRotation(_angle);}
+        
         //zwraca hitbox obrazu aby mozna bylo porownac to z pozycja myszki
         sf::FloatRect getHitbox() {return this->hitbox.getGlobalBounds();}
+        
+        //uzyc kiedy przycisk zostal klikniety
+        void clicked();
         
         //jezeli jest najechany myszka (uzyj .getHitbox()) aby sprawdzic
         void howered();
@@ -41,6 +48,16 @@ namespace btn
 
         sf::Sprite sprite;
         sf::RectangleShape hitbox;
+
+        //podstawowa skala obiektu
+        sf::Vector2f defaultScale{1.f,1.f};
+
+        //maksymalna skala obiektu podczas animacji
+        sf::Vector2f maxScale{1.2f,1.2f};
+
+        //o ile skala ma sie zmianiac na sekunde
+        float changeBy;
+
     };
 
 };
