@@ -2,6 +2,7 @@
 
 #include "bodyFunction.h"
 #include "buttons.h"
+#include <SFML/Audio.hpp>
 
 class MainMenu : public BodyFunction    //klassa
 {
@@ -24,8 +25,12 @@ private:
     sf::Sprite backgroundSprite; 
     sf::RectangleShape overlay;
 
-    //moje dla pirsona
+    //buttons on the screen
     static constexpr int buttonAmount = 3;  //liczba przysiskuf
     btn::TextButton buttons[buttonAmount];  //tablica z tymi przyciskami
-    
+
+    //Soundtrack
+    sf::Music menuMusic;
+    void playMenuMusic();
+
 };

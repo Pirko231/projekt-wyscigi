@@ -11,6 +11,7 @@ MainMenu::MainMenu(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctio
     raport.logMessage("MainMenu");
     raport.addEntry("Wczytywanie czcionki ekran tytulowy" , this->font.loadFromFile("fonts/BigFont.ttf"));
     raport.addEntry("Wczytywanie tła ekran tytulowy", backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg"));
+    raport.addEntry("Wczytywanie muzyki na ekran tytulowy", menuMusic.openFromFile("sounds/MainMenuMusic.wav"));
     raport.close();
 
     std::string buttonNames[buttonAmount] = {"graj", "opcje", "wyjscie"};
@@ -38,14 +39,27 @@ MainMenu::MainMenu(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctio
         static_cast<float>(_window->getSize().x) / backgroundTexture.getSize().x,
         static_cast<float>(_window->getSize().y) / backgroundTexture.getSize().y
     );
-    
+
+    //overlay for buttons (alfa)
     overlay.setSize(sf::Vector2f(buttonWidth * 1.1f, buttonHeight * 3.5 + spacing * 2));
     overlay.setPosition(
     startX - (buttonWidth * 0.3f),
     startY  
     );
     overlay.setFillColor(sf::Color(255, 255, 255, 150));
+
+    //Soundtrack loading
+    //menuMusic.openFromFile("sounds/MainMenuMusic.wav");
+    menuMusic.setVolume(10.f);
+    menuMusic.setLoop(true);
     
+}
+
+//Soundtrack
+void MainMenu::playMenuMusic() {
+    if (menuMusic.getStatus() != sf::Music::Playing) {
+        menuMusic.play();
+    }
 }
 
 void MainMenu::handleEvents(sf::Event& _event)
@@ -62,6 +76,8 @@ void MainMenu::handleEvents(sf::Event& _event)
 
 void MainMenu::update()
     {
+        playMenuMusic();
+
         for (int i = 0; i < buttonAmount; i++) {
             if (buttons[i].isAnimated()) {
                 this->buttons[i].clicked(); 
