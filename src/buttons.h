@@ -1,6 +1,7 @@
 #pragma once
 #include "buttons/textButton.h"
 #include "buttons/spriteButton.h"
+#include "buttons/howeredSpriteButton.h"
 #include "raport.h"
 
 //w tym pliku zebrane beda wszystkie przyciski z folderu button.

@@ -13,7 +13,7 @@ public:
 //zrobi sie dynamiczne rzutowanie.
 //trzeba tu tylko dac konstruktory bo konstruktory nie sa dziedziczone
     Level() = delete;
-    Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator);
+    Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings);
 
     //odbiera wiadomosci z klawiatury. Uzywac w funkcji Program::handleEvents()
     virtual void handleEvents(sf::Event& _event) = 0;

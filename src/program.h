@@ -46,6 +46,10 @@ private:
     //Rozmiar tablicy wynosi 'managingFunctionsAmount'
     BodyFunction* managingFunctions[managingFunctionsAmount] {nullptr, nullptr, nullptr, nullptr, nullptr};
 
+    //ekran ustawien. Aby wyswietlic trzeba uzyc przeladowanego operatora konwersji w instrukcji if
+    //do uzycia uzywac update, display, handlEevents
+    //mozna modyfikowac czy jest wlaczany za pomoca operatora =
+    Settings* settings {nullptr};
 };
 
 //sluzy tylko do czyszczenia danych z pliku. zdefiniowana w 'program.h'

@@ -42,9 +42,11 @@ add_executable(main
     src/level3.cpp 
     src/player.cpp 
     src/raport.cpp
+    src/settings.cpp
     src/buttons.cpp
     src/buttons/textButton.cpp
     src/buttons/spriteButton.cpp
+    src/buttons/howeredSpriteButton.cpp
 )
 
 # Ustawienie wersji standardu C++

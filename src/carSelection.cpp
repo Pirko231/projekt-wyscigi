@@ -1,6 +1,6 @@
 #include "carSelection.h"
 
-CarSelection::CarSelection(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIterator &_managingFunctionsIterator) : BodyFunction{_window, _mouse, _managingFunctionsIterator}
+CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings}
 {
 }
 

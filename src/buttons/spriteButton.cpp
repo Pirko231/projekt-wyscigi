@@ -6,12 +6,18 @@ void btn::SpriteButton::startClickAnimation(sf::Vector2f _maxAdditionalScale)
     this->animation--;
     this->previousScale = this->sprite.getScale();
     this->sprite.setScale({(this->maxScale.x + _maxAdditionalScale.x), (this->maxScale.y + _maxAdditionalScale.y)});
+
+    this->sprite.setPosition({this->sprite.getPosition().x + this->sprite.getScale().x - this->previousScale.x, this->sprite.getPosition().y + this->sprite.getScale().y - this->previousScale.y});
 }
 
 void btn::SpriteButton::clicked()
 {
-    if (this->animation == this->maxAnimation / 2)    
+    if (this->animation == this->maxAnimation / 2)
+    {  
+        sf::Vector2f scale{this->sprite.getScale().x - this->previousScale.x, this->sprite.getScale().y - this->previousScale.y};
         this->sprite.setScale(this->previousScale);
+        this->sprite.setPosition({this->sprite.getPosition().x + scale.x}, this->sprite.getPosition().y + scale.y);
+    }
     
     this->animation--;
 }

@@ -50,6 +50,9 @@ namespace btn
         //wystarczy wywolac i samo sprawdzi czy ma robic animacje klikniecia
         //_lockedInput - mozna zablokowac dzialanie funkcji
         bool manage(bool _lockedInput = false);
+
+        //zwraca true kiedy animacja jest skonczona. wprzeciwnym razie zwraca flse
+        bool isAnimationFinished() const {return this->animation <= 0;}
         
         //jezeli jest najechany myszka (uzyj .getHitbox()) aby sprawdzic
         void howered();
@@ -69,12 +72,14 @@ namespace btn
         //zwraca true jesli trwa animacja. w przeciwnym razie zwraca false
         bool isAnimated() const {return this->animation < this->maxAnimation;}
 
-        //zwraca true kiedy animacja jest skonczona. wprzeciwnym razie zwraca flse
-        bool isAnimationFinished() const {return this->animation <= 0;}
+        
 
         sf::Sprite sprite;
         sf::RectangleShape hitBox;
 
+        //centruje animacje
+        bool centre{false};
+        
         //jezeli klikniety to blokuje powiekszanie i pomniejszanie
         bool locked{false};
         

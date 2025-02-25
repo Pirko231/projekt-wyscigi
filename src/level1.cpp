@@ -1,6 +1,6 @@
 #include "level1.h"
 
-Level1::Level1(sf::RenderWindow *_window, sf::Mouse* _mouse, ManagingFunctionsIterator &_managingFunctionsIterator) : Level{_window, _mouse, _managingFunctionsIterator}
+Level1::Level1(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings) : Level{_window, _mouse, _managingFunctionsIterator, _settings}
 {
 }
 

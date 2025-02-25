@@ -9,7 +9,7 @@ public:
 //do public jest taka sama zasada jak w klasie 'Level'
 
     Level2() = delete;
-    Level2(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator);
+    Level2(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings);
 
     void handleEvents(sf::Event& _event);
     void update();

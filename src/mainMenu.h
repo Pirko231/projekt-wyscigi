@@ -8,7 +8,7 @@ class MainMenu : public BodyFunction    //klassa
 {
 public:
     MainMenu() = delete;
-    MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator);
+    MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings);
     void handleEvents(sf::Event& _event);
     void update();
     void display();
