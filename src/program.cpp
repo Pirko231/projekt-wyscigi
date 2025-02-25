@@ -64,16 +64,28 @@ void Program::handleEvents()
             }
             if (event.key.code == sf::Keyboard::Escape)
             {
-                window->close();
+                if (*this->settings)
+                    *this->settings = false;
+                else
+                    *this->settings = true;
             }
         }
 
-        this->managingFunctions[this->currentFunction]->handleEvents(event);
+        if (*this->settings)
+            this->settings->handleEvents(event);
+        else
+            this->managingFunctions[this->currentFunction]->handleEvents(event);
     }
 }
 
 void Program::update()
 {
+    if (*this->settings)
+    {
+        this->settings->update();
+        return;
+    }
+    
     this->managingFunctions[this->currentFunction]->update();
 }
 
@@ -84,6 +96,9 @@ void Program::display()
 
     //wszystko co chcemy rysowac ma sie znajdowac ponizej funkcji clear
     //tutaj beda uzywane tablice wskaznikow do funkcji
+    if (*this->settings)
+        this->settings->display();
+
     this->managingFunctions[this->currentFunction]->display();
 
     //ta funkcja wyswietla na ekran narysowane rzeczy
@@ -94,6 +109,9 @@ Program::~Program()
 {
     //usuwamy okno
     delete this->window;
+
+    //usuwamy ustawienia
+    delete this->settings;
     //usuwamy funkcje do wyswietlania
     for (size_t i = 0; i < Program::managingFunctionsAmount; i++)
         delete this->managingFunctions[i];

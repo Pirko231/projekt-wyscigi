@@ -7,6 +7,12 @@ class Settings : public sf::Drawable
 public:
     Settings(sf::Mouse* _mouse);
 
+    void handleEvents(sf::Event& _event);
+
+    void update();
+
+    void display();
+
     operator bool() {return this->isTurnedOn;}
     //przypisuje do ustawien czy są obecnie wlaczane
     void operator=(bool _isOn) {this->isTurnedOn = _isOn;}
