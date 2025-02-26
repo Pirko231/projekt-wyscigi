@@ -96,10 +96,11 @@ void Program::display()
 
     //wszystko co chcemy rysowac ma sie znajdowac ponizej funkcji clear
     //tutaj beda uzywane tablice wskaznikow do funkcji
-    if (*this->settings)
-        this->settings->display();
 
     this->managingFunctions[this->currentFunction]->display();
+
+    if (*this->settings)
+        this->settings->display();
 
     //ta funkcja wyswietla na ekran narysowane rzeczy
     window->display();
