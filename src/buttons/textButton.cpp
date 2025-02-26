@@ -31,6 +31,22 @@ btn::TextButton::TextButton(sf::Vector2f _pos, unsigned int _characterSize) : Te
     this->hitBox.setPosition(_pos);
 }
 
+bool btn::TextButton::manageHover(sf::Vector2i _mousePos, bool _clicked)
+{
+    if (this->text.getGlobalBounds().contains(static_cast<sf::Vector2f>(_mousePos)))
+    {
+        if (_clicked)
+            this->startClickAnimation();
+        else
+            this->howered_();
+        return true;
+    }
+    else
+        this->unHowered_();
+
+    return false;
+}
+
 bool btn::TextButton::manage(bool _lockedInput)
 {
     if (_lockedInput)
@@ -70,7 +86,7 @@ void btn::TextButton::setCharacterSize(unsigned int _characterSize, unsigned int
     this->hitBox.setSize({this->text.getLocalBounds().width, static_cast<float>(this->text.getLocalBounds().height * 1.35)});
 }
 
-void btn::TextButton::howered()
+void btn::TextButton::howered_()
 {
     if (this->text.getCharacterSize() < this->maxCharacterSize)
     {
@@ -84,7 +100,7 @@ void btn::TextButton::howered()
     }
 }
 
-void btn::TextButton::unHowered()
+void btn::TextButton::unHowered_()
 {
     if (this->text.getCharacterSize() > this->defaultCharacterSize)
     {

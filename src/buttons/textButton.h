@@ -24,9 +24,16 @@ namespace btn
         //pamietaj aby dodac czcionke bo inaczej nie dziala
         TextButton(sf::Vector2f _pos, unsigned int _characterSize);
 
+        [[deprecated("zamiast tego uzywaj funkcji 'manageHower'")]]
         //zwraca hitbox przycisku, mozna sprawdzic czy przycisk jest najechany
         sf::FloatRect getHitbox() const {return this->hitBox.getGlobalBounds();}
 
+        //zwraca pozycje obiektu w globalnych koordynatach
+        sf::FloatRect getGlobalBounds() const {return this->hitBox.getGlobalBounds();}
+
+        //zwraca pozycje obiektu w lokalnych koordynatach
+        sf::FloatRect getLocalBounds() const {return this->hitBox.getLocalBounds();}
+        
         //restartuje rozmiar obiektu.
         //uzywac przy zmianie okna
         void reset() {this->text.setCharacterSize(this->defaultCharacterSize); this->hitBox.setSize({this->text.getLocalBounds().width, static_cast<float>(this->text.getLocalBounds().height * 1.35)}); this->animation = this->maxAnimation; this->animationFinished = false;}
@@ -34,6 +41,12 @@ namespace btn
         //rozpoczyna animacje przycisku
         void startClickAnimation() {this->clicked();}
 
+        //sprawdza czy myszka jest na przycisku i reaguje na klikniecie.
+        //_mousePos - pozycja myszki - zdobyc za pomoca mouse->getPosition(*this->window).
+        //_clicked - mozna wprowadzic czy przycisk zostal klikniety. Domyslnie false.
+        //zwraca true kiedy myszka znajduje sie na przycisku.
+        bool manageHover(sf::Vector2i _mousePos, bool _clicked = false);
+        
         //zwraca true czy animacja sie zakonczyla i falsz kiedy nie zakonczyla sie/ nie zaczela
         //_lockedInput - mozna zablokowac animacje kiedy wprowadzi sie true. Domyslnie jest false.
         //mozna ta funkcje wywolac samoistnie i sama zajmie sie animacja migania.
@@ -76,13 +89,15 @@ namespace btn
         //to rozpoczyna sie animacja klikniecia
         void clicked() {this->clicked_();}
         
+        [[deprecated("zamiast tego wywolaj funkcje 'manageHover'")]]
         //kiedy najechany (sprawdz uzywajac .getHitbox())
         //to zaczyna sie animacja przycisku
-        void howered();
+        void howered() {this->howered_();}
 
+        [[deprecated("zamiast tego wywolaj funkcje 'manageHover'")]]
         //kiedy przestal byc najechany (sprawdz uzywajac .getHitbox())
         //to zaczyna sie animacja przycisku w druga strone
-        void unHowered();
+        void unHowered() {this->unHowered_();}
 
         
     private:
@@ -94,6 +109,10 @@ namespace btn
             //target.draw(this->hitBox, states);
         }
 
+        void howered_();
+
+        void unHowered_();
+        
         inline bool isAnimated_() {if (this->animation < this->maxAnimation) return true; return false;}
         
         inline bool isAnimationFinished_() {if (this->animation <= 0) {this->animation = this->maxAnimation; return true;} return false;}

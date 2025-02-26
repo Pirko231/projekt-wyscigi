@@ -10,6 +10,22 @@ void btn::SpriteButton::startClickAnimation(sf::Vector2f _maxAdditionalScale)
     this->sprite.setPosition({this->sprite.getPosition().x + this->sprite.getScale().x - this->previousScale.x, this->sprite.getPosition().y + this->sprite.getScale().y - this->previousScale.y});
 }
 
+bool btn::SpriteButton::manageHover(sf::Vector2i _mousePos, bool _clicked)
+{
+    if (this->sprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(_mousePos)))
+    {
+        if (_clicked)
+            this->startClickAnimation();
+        else
+            this->howered_();
+        return true;
+    }
+    else
+        this->unHowered_();
+
+    return false;
+}
+
 void btn::SpriteButton::clicked()
 {
     if (this->animation == this->maxAnimation / 2)
@@ -37,7 +53,7 @@ bool btn::SpriteButton::manage(bool _lockedInput)
     return false;
 }
 
-void btn::SpriteButton::howered()
+void btn::SpriteButton::howered_()
 {
     if (this->locked)
         return;
@@ -54,7 +70,7 @@ void btn::SpriteButton::howered()
     }
 }
 
-void btn::SpriteButton::unHowered()
+void btn::SpriteButton::unHowered_()
 {
     if (this->locked)
         return;

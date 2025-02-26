@@ -23,6 +23,7 @@ namespace btn
         //ustawia pozycje na _pos
         void setPosition(sf::Vector2f _pos) {this->sprite.setPosition(_pos);}
 
+        //restartuje parametry obiektu takie jak rozmiar oraz liczniki animacji
         void reset() {this->animation = this->maxAnimation; this->locked = false; this->setScale(this->defaultScale);}
 
         //skaluje obiekt na _scale
@@ -40,8 +41,21 @@ namespace btn
         //ustawia kąt rotacji na _angle
         void setRotation(float _angle) {this->sprite.setRotation(_angle);}
         
+        [[deprecated("zamiast tego uzywaj funkcji 'manageHower'")]]
         //zwraca hitbox obrazu aby mozna bylo porownac to z pozycja myszki
         sf::FloatRect getHitbox() {return this->sprite.getGlobalBounds();/*return this->hitBox.getGlobalBounds();*/}
+        
+        //zwraca pozycje obiektu w globalnych koordynatach
+        sf::FloatRect getGlobalBounds() const {return this->sprite.getGlobalBounds();}
+
+        //zwraca pozycje obiektu w lokalnych koordynatach
+        sf::FloatRect getLocalBounds() const {return this->sprite.getLocalBounds();}
+        
+        //sprawdza czy myszka jest na przycisku i reaguje na klikniecie.
+        //_mousePos - pozycja myszki - zdobyc za pomoca mouse->getPosition(*this->window).
+        //_clicked - mozna wprowadzic czy przycisk zostal klikniety. Domyslnie false.
+        //zwraca true kiedy myszka znajduje sie na przycisku.
+        bool manageHover(sf::Vector2i _mousePos, bool _clicked = false);
         
         //uzyc kiedy przycisk zostal klikniety
         //_maxAdditionalScale - okresla o ile wiekszy bedzie przycisk od maksymalnej skali po kliknieciu
@@ -51,14 +65,16 @@ namespace btn
         //_lockedInput - mozna zablokowac dzialanie funkcji
         bool manage(bool _lockedInput = false);
 
-        //zwraca true kiedy animacja jest skonczona. wprzeciwnym razie zwraca flse
+        //zwraca true kiedy animacja jest skonczona. wprzeciwnym razie zwraca false
         bool isAnimationFinished() const {return this->animation <= 0;}
         
+        [[deprecated("zamiast tego uzywaj funkcji 'manageHower'")]]
         //jezeli jest najechany myszka (uzyj .getHitbox()) aby sprawdzic
-        void howered();
+        void howered() {this->howered_();}
 
+        [[deprecated("zamiast tego uzywaj funkcji 'manageHower'")]]
         //jezeli nie jest najechany myszka (uzyj .getHitbox()) aby sprawdzic
-        void unHowered();
+        void unHowered() {this->unHowered_();}
         
     private:
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override
@@ -72,10 +88,13 @@ namespace btn
         //zwraca true jesli trwa animacja. w przeciwnym razie zwraca false
         bool isAnimated() const {return this->animation < this->maxAnimation;}
 
-        
+        //przechowuje dane dla funkcji howered ktora bedzie usunieta i dana na private
+        void howered_();
+
+        //przechowuje dane dla funkcji unHowered ktora bedzie usunieta i dana na private
+        void unHowered_();
 
         sf::Sprite sprite;
-        sf::RectangleShape hitBox;
 
         //centruje animacje
         bool centre{false};

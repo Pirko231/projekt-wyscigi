@@ -23,6 +23,10 @@ namespace btn
 
         //template do strzalki. Nalezy skopiowac to do innego obiektu typu btn::SpriteButton
         const btn::SpriteButton& getArrowTemplate() const {return this->arrowTemplate;}
+
+        //template do x (takiego co wychodzi z czegos, jak np. ten sluzacy do zamykania okna)
+        //Nalezy skopiowac to do innego obiektu typu btn::SpriteButton
+        const btn::HoweredSpriteButton& getXTemplate() const {return this->xTemplate;}
     private:
 
         sf::Texture settingTemplatetxt;
@@ -30,6 +34,10 @@ namespace btn
 
         sf::Texture arrowTemplatetxt;
         btn::SpriteButton arrowTemplate;
+
+        sf::Texture xTemplateHoweredtxt;
+        sf::Texture xTemplateUnHoweredtxt;
+        btn::HoweredSpriteButton xTemplate;
     };
 
     //tutaj są przechowywane templates. jesli chcesz skopiowac template
