@@ -37,9 +37,9 @@ add_executable(main
     src/carSelection.cpp 
     src/mainMenu.cpp 
     src/level.cpp 
-    src/level1.cpp 
-    src/level2.cpp 
-    src/level3.cpp 
+    #src/level1.cpp 
+    #src/level2.cpp 
+    #src/level3.cpp 
     src/player.cpp 
     src/raport.cpp
     src/settings.cpp

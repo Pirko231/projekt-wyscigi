@@ -16,11 +16,11 @@ public:
     Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings);
 
     //odbiera wiadomosci z klawiatury. Uzywac w funkcji Program::handleEvents()
-    virtual void handleEvents(sf::Event& _event) = 0;
+    virtual void handleEvents(sf::Event& _event);
     //aktualizuje zmienne dla obecnego okna. Uzywac w funkcji Program::update()
-    virtual void update() = 0;
+    virtual void update();
     //wyswietla obecne okno. Uzywac w funkcji Program::display()
-    virtual void display() = 0;
+    virtual void display();
     virtual ~Level();
 private:
 //tutaj wszystkie rzeczy ktore sa wspolne dla wszystkich leveli.

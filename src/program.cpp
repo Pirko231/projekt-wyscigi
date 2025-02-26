@@ -27,9 +27,13 @@ Program::Program()
     this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction, this->settings};
     this->managingFunctions[1] = new LevelSelection{this->window, this->mouse, this->currentFunction, this->settings};
     this->managingFunctions[2] = new CarSelection{this->window, this->mouse, this->currentFunction, this->settings};
-    this->managingFunctions[3] = new Level1{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[3] = new Level{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[4] = new Level{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[5] = new Level{this->window, this->mouse, this->currentFunction, this->settings};
+
+    /*this->managingFunctions[3] = new Level1{this->window, this->mouse, this->currentFunction, this->settings};
     this->managingFunctions[4] = new Level2{this->window, this->mouse, this->currentFunction, this->settings};
-    this->managingFunctions[5] = new Level3{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[5] = new Level3{this->window, this->mouse, this->currentFunction, this->settings};*/
 }
 
 void Program::handleEvents()

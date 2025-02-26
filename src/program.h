@@ -4,9 +4,7 @@
 #include "levelSelection.h"
 #include "carSelection.h"
 
-#include "level1.h"
-#include "level2.h"
-#include "level3.h"
+#include "level.h"
 
 #include "raport.h"
 
