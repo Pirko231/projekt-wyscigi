@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Button.h"
+#include "button.h"
 
 namespace btn
 {
