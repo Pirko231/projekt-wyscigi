@@ -37,7 +37,7 @@ void btn::RectangleButton::setTexture(const sf::Texture& _texture)
     sprite.setPosition(rectangle.getPosition());
 }
 
-void btn::RectangleButton::manageHover(sf::Vector2i mousePos)
+bool btn::RectangleButton::manageHover(sf::Vector2i mousePos, bool _clicked)
 {
     if (rectangle.getGlobalBounds().contains(sf::Vector2f(mousePos)))
     {
@@ -46,6 +46,9 @@ void btn::RectangleButton::manageHover(sf::Vector2i mousePos)
             rectangle.setFillColor(hoverColor);  // Zmieniamy kolor na hover
             isHovered = true;
         }
+
+        // Jeżeli kliknięcie jest aktywne, można tu dodać kod do obsługi kliknięcia
+        return true;
     }
     else
     {
@@ -55,6 +58,28 @@ void btn::RectangleButton::manageHover(sf::Vector2i mousePos)
             isHovered = false;
         }
     }
+
+    return false;  // Przyciski poza zakresem
+}
+
+sf::Vector2f btn::RectangleButton::getPosition() const
+{
+    return rectangle.getPosition();
+}
+
+sf::FloatRect btn::RectangleButton::getLocalBounds() const
+{
+    return rectangle.getLocalBounds();
+}
+
+sf::FloatRect btn::RectangleButton::getGlobalBounds() const
+{
+    return rectangle.getGlobalBounds();
+}
+
+void btn::RectangleButton::move(sf::Vector2f _pos)
+{
+    rectangle.move(_pos);
 }
 
 void btn::RectangleButton::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -1,9 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Button.h"
 
 namespace btn
 {
-    class RectangleButton : public sf::Drawable
+    class RectangleButton : public Button
     {
     public:
         // Konstruktor domyślny
@@ -13,7 +14,7 @@ namespace btn
         RectangleButton(sf::Vector2f _pos, sf::Vector2f _size, sf::Color _color, sf::Color _hoverColor);
 
         // Ustawia pozycję przycisku
-        void setPosition(sf::Vector2f _pos);
+        void setPosition(sf::Vector2f _pos) override;
 
         // Ustawia rozmiar przycisku
         void setSize(sf::Vector2f _size);
@@ -28,7 +29,22 @@ namespace btn
         void setTexture(const sf::Texture& _texture);
 
         // Sprawdza, czy myszka jest na przycisku
-        void manageHover(sf::Vector2i mousePos);
+        bool manageHover(sf::Vector2i mousePos, bool _clicked = false) override;
+
+        // Zwraca pozycję przycisku
+        sf::Vector2f getPosition() const override;
+
+        // Zwraca lokalne granice przycisku
+        sf::FloatRect getLocalBounds() const override;
+
+        // Zwraca globalne granice przycisku
+        sf::FloatRect getGlobalBounds() const override;
+
+        // Przesuwa przycisk
+        void move(sf::Vector2f _pos) override;
+
+        // Destruktor
+        ~RectangleButton() override = default;
 
     private:
         // Rysowanie przycisku
