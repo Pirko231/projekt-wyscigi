@@ -1,6 +1,6 @@
 #include "raport.h"
 
-void Raport::logMessage(std::string _message)
+void Report::logMessage(std::string _message)
 {
     if (this->file.is_open())
         this->file << "!-- " << _message << " --!" << "\n";
@@ -8,7 +8,7 @@ void Raport::logMessage(std::string _message)
         throw FileCouldNotOpen{this->fileName};
 }
 
-void Raport::addEntry(std::string _entry, bool _status)
+void Report::addEntry(std::string _entry, bool _status)
 {
     if (!_status)
         this->status = false;
@@ -25,7 +25,7 @@ void Raport::addEntry(std::string _entry, bool _status)
         throw FileCouldNotOpen{this->fileName};
 }
 
-Raport::~Raport()
+Report::~Report()
 {
     if(this->file.is_open())
         this->file.close();

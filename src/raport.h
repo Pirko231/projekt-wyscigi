@@ -3,11 +3,13 @@
 #include <fstream>
 #include <string>
 
+
+
 //tworzymy obiekt typu raport aby logowac wczytywanie z plikow
-class Raport
+class Report
 {
 public:
-    Raport() = default;
+    Report() = default;
     //otwiera plik o podanej nazwie
     void open(std::string _filename = "bootLog.txt") {this->file.open(_filename, std::ios::app); this->fileName = _filename;}
 
@@ -28,7 +30,7 @@ public:
     void close() {this->file.close(); this->status = true;}
 
     //awaryjne zamkniecie pliku
-    ~Raport();
+    ~Report();
 private:
     //plik
     std::fstream file;
@@ -39,6 +41,9 @@ private:
     //nazwa pliku
     std::string fileName;
 };
+
+//kompatybilnosc wsteczna, lepiej przerzucic sie na Report
+using Raport = Report;
 
 //zdefiniowane w raport.h
 //ten wyjatek oznacza ze plik o nazwie (funkcja what()) nie mogl sie otworzyc
