@@ -42,7 +42,7 @@ private:
     {
     public:
         //zwraca true kiedy animacja sie zaczela i false kiedy nie lub kiedy sie skonczyla
-        operator bool() {return this->animation < this->maxAnimation && this->animation > 0;}
+        operator bool() {return this->animation < this->maxAnimation /*&& this->animation > 0*/;}
 
         //jezeli obecnie trwa animacja przycisku w gore to zwraca true, w przeciwnym razie false
         bool animationDown() const {return this->moveBy.y > 0;}

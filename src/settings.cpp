@@ -62,18 +62,20 @@ void Settings::operator=(bool _isOn)
         {
             this->isTurnedOn = false;
             this->quitting = false;
+            return;
         }
     }
     
-    if (_isOn);
+    if (_isOn)
+        this->lastTurnedOn = true;
     else
-    {
-        bool temp {_isOn};
-        _isOn = !this->lastTurnedOn;
-        this->lastTurnedOn = temp;
-    }
-    
-    if (_isOn) //_isOn
+        this->lastTurnedOn = !this->lastTurnedOn;
+        /*if (!this->animation)
+            this->lastTurnedOn = false;
+        else
+            this->lastTurnedOn = true;*/
+
+    if (this->lastTurnedOn) //_isOn
     {
         this->isTurnedOn = true;
         this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1.2)};
@@ -154,7 +156,13 @@ void Settings::AnimationUp::operator()(Settings& _settings)
     }
     else
     {
-        if (_settings.background.getPosition().y >= this->destination.y)
+        if (this->moveBy.y < 0)
+        {
+            _settings.quitting = false;
+            //this->moveBy = {this->moveBy.x * - 1, this->moveBy.y * - 1};
+            //_settings.lastTurnedOn = !_settings.lastTurnedOn;
+        }
+        else if (_settings.background.getPosition().y >= this->destination.y)
         {
             //this->animationStarted = false;
             this->animation = this->maxAnimation;
@@ -168,10 +176,11 @@ void Settings::AnimationUp::operator()(Settings& _settings)
     
     _settings.background.move(this->moveBy);
 
-    if (_settings.quitting && this->animation <= 0)
+    if (_settings.quitting && this->animation <= 0 )
     {
         //_settings.isTurnedOn = false;
         this->animation = this->maxAnimation;
+        
     }
 }
 
