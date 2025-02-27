@@ -1,10 +1,10 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "button.h"
 
 namespace btn
 {
-    class HoweredSpriteButton : public sf::Drawable
+    class HoweredSpriteButton : public btn::Button
     {
     public:
         HoweredSpriteButton() = default;
@@ -14,6 +14,8 @@ namespace btn
 
         //ustawia pozycje na _pos
         void setPosition(sf::Vector2f _pos) {this->current.setPosition(_pos);}
+
+        void move(sf::Vector2f _pos) {this->current.move(_pos);}
 
         //ustawia teksture na _howered i teksture po najechaniu na _unHowered
         void setTextures(const sf::Texture& _howered, const sf::Texture& _unHowered)

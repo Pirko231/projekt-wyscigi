@@ -1,10 +1,11 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+
+#include "button.h"
 
 namespace btn
 {
 
-    class SpriteButton : public sf::Drawable
+    class SpriteButton : public btn::Button
     {
     public:
         //pamietaj aby nadac teksture
@@ -22,6 +23,8 @@ namespace btn
 
         //ustawia pozycje na _pos
         void setPosition(sf::Vector2f _pos) {this->sprite.setPosition(_pos);}
+
+        void move(sf::Vector2f _pos) {this->sprite.move(_pos);}
 
         //restartuje parametry obiektu takie jak rozmiar oraz liczniki animacji
         void reset() {this->animation = this->maxAnimation; this->locked = false; this->setScale(this->defaultScale);}

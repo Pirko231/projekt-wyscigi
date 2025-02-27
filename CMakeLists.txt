@@ -44,6 +44,7 @@ add_executable(main
     src/raport.cpp
     src/settings.cpp
     src/buttons.cpp
+    src/buttons/button.cpp
     src/buttons/textButton.cpp
     src/buttons/spriteButton.cpp
     src/buttons/howeredSpriteButton.cpp

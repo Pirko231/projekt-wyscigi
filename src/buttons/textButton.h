@@ -1,10 +1,10 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "button.h"
 
 namespace btn
 {
-    class TextButton : public sf::Drawable
+    class TextButton : public btn::Button
     {
     public:
         //pamietaj aby nadac czcionke
@@ -73,6 +73,8 @@ namespace btn
         
         //ustawia pozycje na _pos
         void setPosition(sf::Vector2f _pos) {this->text.setPosition(_pos); this->hitBox.setPosition(_pos);}
+        
+        void move(sf::Vector2f _pos) {this->text.move(_pos); this->hitBox.move(_pos);}
         
         //ustawia kolor tekstu na _color
         //ustawia kolor animacji na _animationColor
