@@ -2,5 +2,9 @@ BootLog Cleared
 !-- Template textures --!
 -- Settings icon -- STATUS - SUCCESS --
 -- Arrow icon -- STATUS - SUCCESS --
+-- X icon unhovered -- STATUS - SUCCESS --
+-- X icon hovered -- STATUS - SUCCESS --
 !-- MainMenu --!
 -- Wczytywanie czcionki ekran tytulowy -- STATUS - SUCCESS --
+-- Wczytywanie tła ekran tytulowy -- STATUS - SUCCESS --
+-- Wczytywanie muzyki na ekran tytulowy -- STATUS - SUCCESS --

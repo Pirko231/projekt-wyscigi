@@ -14,9 +14,9 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
     
     this->background.setFillColor(sf::Color{81, 81, 81});
     this->background.setSize({static_cast<float>(this->window->getSize().x / 2.5), static_cast<float>(this->window->getSize().x / 2.2)});
-    //this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 2)};
+    this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1.2)};
     //this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)};
-    //this->background.setPosition(this->startPos);
+    this->background.setPosition(this->startPos);
     //this->background.setPosition({static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)});
     
     //wszystko musi byc zalezne od startPos i destination
@@ -58,16 +58,32 @@ void Settings::operator=(bool _isOn)
 {
     if (this->quitting)
     {
-        this->isTurnedOn = false;
-        this->quitting = false;
+        if (!this->animation)
+        {
+            this->isTurnedOn = false;
+            this->quitting = false;
+        }
     }
     
-    if (_isOn)
+    if (_isOn);
+    else
+    {
+        bool temp {_isOn};
+        _isOn = !this->lastTurnedOn;
+        this->lastTurnedOn = temp;
+    }
+    
+    if (_isOn) //_isOn
     {
         this->isTurnedOn = true;
-        this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y)};
+        this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1.2)};
+        //this->startPos = this->background.getPosition();
+        //this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y)};
         this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)};
     
+        if (this->animation)
+            this->startPos = this->background.getPosition();
+        
         this->background.setPosition(this->startPos);
         for (int i = 0; i < this->buttonAmount; i++)
         {
@@ -79,7 +95,7 @@ void Settings::operator=(bool _isOn)
         this->quitting = true;
         this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 2)};
         this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1)};
-    
+
 
         for (int i = 0; i < this->buttonAmount; i++)
         {
@@ -106,9 +122,7 @@ void Settings::AnimationUp::startAnimation(sf::Vector2f _currentPos, sf::Vector2
     this->destination = _destination;
 
     this->animation--; 
-    this->destination = _destination;
-    this->currentPos = _currentPos;
-    this->moveBy = {/*(this->currentPos.x - this->destination.y) / this->framerate*/0.f, (this->destination.y - this->currentPos.y) / this->framerate * this->speed};
+    this->moveBy = {0.f, (this->destination.y - this->currentPos.y) / this->framerate * this->speed};
 
     this->animationStarted = true;
 }

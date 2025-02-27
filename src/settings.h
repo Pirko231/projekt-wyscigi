@@ -32,7 +32,7 @@ private:
     //ilosc przyciskow w tablicy 'buttons'
     static constexpr int buttonAmount {1};
 
-    //adresy przyciskow. Uzywanie funkcji wirtualnych.
+    //adresy przyciskow. Uzywac funkcji wirtualnych. Przypisac w konstruktorze.
     //btn::Button* - adres do przycisku
     //sf::Vector2f - podstawowa pozycja na zaczecie animacji
     std::pair<btn::Button*, sf::Vector2f> buttons[buttonAmount];
@@ -43,6 +43,9 @@ private:
     public:
         //zwraca true kiedy animacja sie zaczela i false kiedy nie lub kiedy sie skonczyla
         operator bool() {return this->animation < this->maxAnimation && this->animation > 0;}
+
+        //jezeli obecnie trwa animacja przycisku w gore to zwraca true, w przeciwnym razie false
+        bool animationDown() const {return this->moveBy.y > 0;}
                
         //rozoczyna animacje obiektu
         void startAnimation(sf::Vector2f _currentPos, sf::Vector2f _destination);
@@ -62,12 +65,14 @@ private:
         sf::Vector2f moveBy;
         sf::Vector2f destination;
         sf::Vector2f currentPos;
-        int speed{3};
+        int speed{1}; //3
     }; Settings::AnimationUp animation;
     
     //jezeli prawda to ustawienia beda wyswietlane. Jezeli falsz to nie beda.
     bool isTurnedOn{false};
     bool quitting{false};
+    //funkcja operator bool zapisuje tutaj jaka byla ostatnia wgrywana wartosc
+    bool lastTurnedOn{false};
 
     //tlo ustawien
     sf::RectangleShape background;
