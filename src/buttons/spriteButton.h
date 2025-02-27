@@ -24,6 +24,8 @@ namespace btn
         //ustawia pozycje na _pos
         void setPosition(sf::Vector2f _pos) {this->sprite.setPosition(_pos);}
 
+        sf::Vector2f getPosition() const {return this->sprite.getPosition();}
+
         void move(sf::Vector2f _pos) {this->sprite.move(_pos);}
 
         //restartuje parametry obiektu takie jak rozmiar oraz liczniki animacji

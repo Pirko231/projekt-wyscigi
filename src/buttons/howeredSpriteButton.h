@@ -15,6 +15,8 @@ namespace btn
         //ustawia pozycje na _pos
         void setPosition(sf::Vector2f _pos) {this->current.setPosition(_pos);}
 
+        sf::Vector2f getPosition() const {return this->current.getPosition();}
+
         void move(sf::Vector2f _pos) {this->current.move(_pos);}
 
         //ustawia teksture na _howered i teksture po najechaniu na _unHowered

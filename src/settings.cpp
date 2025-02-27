@@ -6,25 +6,22 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
     this->window = _window;
     this->data = new SettingsData;
 
-    
-
     Raport raport;
     raport.open();
 
 
     raport.close();
     
-    
-    this->background.setFillColor(sf::Color{117, 117, 117});
+    this->background.setFillColor(sf::Color{81, 81, 81});
     this->background.setSize({static_cast<float>(this->window->getSize().x / 2.5), static_cast<float>(this->window->getSize().x / 2.2)});
-    this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, this->window->getSize().y / 2};
-    this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)};
-    this->background.setPosition(this->startPos);
+    //this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 2)};
+    //this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)};
+    //this->background.setPosition(this->startPos);
     //this->background.setPosition({static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)});
     
     //wszystko musi byc zalezne od startPos i destination
 
-    this->x.setPosition({this->background.getPosition().x + this->background.getLocalBounds().width - this->x.getLocalBounds().width / 5, this->background.getPosition().y - this->x.getLocalBounds().height / 5});
+    //this->x.setPosition({this->background.getPosition().x + this->background.getLocalBounds().width - this->x.getLocalBounds().width / 5, this->background.getPosition().y - this->x.getLocalBounds().height / 5});
 
     //przypisanie adresow do tablicy
     this->buttons[0] = {&this->x,{this->background.getPosition().x + this->background.getLocalBounds().width - this->x.getLocalBounds().width / 5, this->background.getPosition().y - this->x.getLocalBounds().height / 5}}; 
@@ -35,7 +32,7 @@ void Settings::handleEvents(sf::Event &_event)
     if (_event.type == sf::Event::MouseButtonPressed)
         if (_event.mouseButton.button == sf::Mouse::Left)
             if (this->x.manageHover(this->mouse->getPosition(*this->window), true))
-                this->isTurnedOn = false;
+                *this = false;
 }
 
 void Settings::update()
@@ -44,6 +41,11 @@ void Settings::update()
 
     if (this->animation)
         this->animation(*this);
+    else if (this->quitting)
+    {
+        *this = false;
+        this->animation.reset();
+    }
 }
 
 void Settings::display()
@@ -54,8 +56,39 @@ void Settings::display()
 
 void Settings::operator=(bool _isOn)
 {
-    this->isTurnedOn = _isOn;
-    this->animation.startAnimation(this->startPos, this->destination);
+    if (this->quitting)
+    {
+        this->isTurnedOn = false;
+        this->quitting = false;
+    }
+    
+    if (_isOn)
+    {
+        this->isTurnedOn = true;
+        this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y)};
+        this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)};
+    
+        this->background.setPosition(this->startPos);
+        for (int i = 0; i < this->buttonAmount; i++)
+        {
+            this->buttons[i].second = {this->startPos.x + this->background.getLocalBounds().width - this->buttons[i].first->getLocalBounds().width / 5, this->startPos.y - this->buttons[i].first->getLocalBounds().height / 5};
+        }
+    }
+    else
+    {
+        this->quitting = true;
+        this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 2)};
+        this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1)};
+    
+
+        for (int i = 0; i < this->buttonAmount; i++)
+        {
+            this->buttons[i].second.y = this->buttons[i].first->getPosition().y;
+        }
+    }
+    
+    //this->isTurnedOn = _isOn;
+    this->animation.startAnimation(this->background.getPosition(), this->destination);
 }
 
 Settings::~Settings()
@@ -80,7 +113,7 @@ void Settings::AnimationUp::startAnimation(sf::Vector2f _currentPos, sf::Vector2
     this->animationStarted = true;
 }
 
-void Settings::AnimationUp::operator()(Settings &_settings)
+void Settings::AnimationUp::operator()(Settings& _settings)
 {
     //tutaj dokonujemy zalozenia ze animacja sie juz zaczela
     
@@ -97,10 +130,21 @@ void Settings::AnimationUp::operator()(Settings &_settings)
         this->animationStarted = false;
     }
     
-    if (_settings.background.getPosition().y <= this->destination.y)
+    if (!_settings.quitting)
     {
-        this->animationStarted = false;
-        this->animation = this->maxAnimation;
+        if (_settings.background.getPosition().y <= this->destination.y)
+        {
+            //this->animationStarted = false;
+            this->animation = this->maxAnimation;
+        }
+    }
+    else
+    {
+        if (_settings.background.getPosition().y >= this->destination.y)
+        {
+            //this->animationStarted = false;
+            this->animation = this->maxAnimation;
+        }
     }
 
     for (int i = 0; i < _settings.buttonAmount; i++)
@@ -109,4 +153,15 @@ void Settings::AnimationUp::operator()(Settings &_settings)
     }
     
     _settings.background.move(this->moveBy);
+
+    if (_settings.quitting && this->animation <= 0)
+    {
+        //_settings.isTurnedOn = false;
+        this->animation = this->maxAnimation;
+    }
+}
+
+void Settings::AnimationUp::reset()
+{
+    this->animation = this->maxAnimation;
 }

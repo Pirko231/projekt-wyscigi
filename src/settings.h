@@ -43,12 +43,15 @@ private:
     public:
         //zwraca true kiedy animacja sie zaczela i false kiedy nie lub kiedy sie skonczyla
         operator bool() {return this->animation < this->maxAnimation && this->animation > 0;}
-        
+               
         //rozoczyna animacje obiektu
         void startAnimation(sf::Vector2f _currentPos, sf::Vector2f _destination);
         
         //animuje obiekt
         void operator()(Settings& _settings);
+
+        //resetuje wszystkie zmienne i przygotowuje obiekt do kolejnego uzycia
+        void reset();
     private:
         bool animationStarted{false};
 
@@ -64,6 +67,7 @@ private:
     
     //jezeli prawda to ustawienia beda wyswietlane. Jezeli falsz to nie beda.
     bool isTurnedOn{false};
+    bool quitting{false};
 
     //tlo ustawien
     sf::RectangleShape background;

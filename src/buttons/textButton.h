@@ -71,6 +71,8 @@ namespace btn
         //ustawia zawartosc tekstu na _string
         void setString(const sf::String& _string);
         
+        sf::Vector2f getPosition() const {return this->text.getPosition();}
+        
         //ustawia pozycje na _pos
         void setPosition(sf::Vector2f _pos) {this->text.setPosition(_pos); this->hitBox.setPosition(_pos);}
         
