@@ -21,6 +21,7 @@ namespace btn
 
         virtual void move(sf::Vector2f _pos) = 0;
 
+        virtual ~Button();
     private:
         virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const = 0;
     };
