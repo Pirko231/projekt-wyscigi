@@ -13,31 +13,54 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
     raport.close();
     
     this->background.setFillColor(sf::Color{81, 81, 81});
-    this->background.setSize({static_cast<float>(this->window->getSize().x / 2.5), static_cast<float>(this->window->getSize().x / 2.2)});
-    this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1.2)};
+    this->background.setSize({static_cast<float>(this->window->getSize().x / 2.5), static_cast<float>(this->window->getSize().x / 2.1)});
+    this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1.1)};
     //this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)};
     this->background.setPosition(this->startPos);
     //this->background.setPosition({static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)});
     
     //wszystko musi byc zalezne od startPos i destination
 
-    //this->x.setPosition({this->background.getPosition().x + this->background.getLocalBounds().width - this->x.getLocalBounds().width / 5, this->background.getPosition().y - this->x.getLocalBounds().height / 5});
+    //this->mainVolume.setPosition({this->background.getGlobalBounds().width - this->mainVolume.getLocalBounds().width / 2, 35.f});
+    this->mainVolume.setSize({400.f, 10.f});
+    this->musicVolume.setSize({400.f, 10.f});
+    this->soundsVolume.setSize({400.f, 10.f});
 
     //przypisanie adresow do tablicy
-    this->buttons[0] = {&this->x,{this->background.getPosition().x + this->background.getLocalBounds().width - this->x.getLocalBounds().width / 5, this->background.getPosition().y - this->x.getLocalBounds().height / 5}}; 
+    this->buttons[0] = {&this->x, {this->background.getLocalBounds().width - this->x.getLocalBounds().width / 5, -(this->x.getLocalBounds().height / 5)}};
+    //this->buttons[0] = {&this->x, {this->background.getPosition().x + this->background.getLocalBounds().width - this->x.getLocalBounds().width / 5, this->background.getPosition().y - this->x.getLocalBounds().height / 5}}; 
+    this->buttons[1] = {&this->mainVolume, {this->background.getLocalBounds().width - static_cast<int>(this->mainVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->mainVolume.getLocalBounds().height * 9}};
+    this->buttons[2] = {&this->musicVolume, {this->background.getLocalBounds().width - static_cast<int>(this->musicVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->musicVolume.getLocalBounds().height * 9 + this->musicVolume.getLocalBounds().height * 5}};
+    this->buttons[3] = {&this->soundsVolume, {this->background.getLocalBounds().width - static_cast<int>(this->soundsVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->soundsVolume.getLocalBounds().height * 9 + this->soundsVolume.getLocalBounds().height * 10}};
 }
 
 void Settings::handleEvents(sf::Event &_event)
 {
     if (_event.type == sf::Event::MouseButtonPressed)
+    {
         if (_event.mouseButton.button == sf::Mouse::Left)
+        {
             if (this->x.manageHover(this->mouse->getPosition(*this->window), true))
                 *this = false;
+            
+        }
+        
+    }
+    if (_event.type == sf::Event::MouseButtonPressed || _event.type == sf::Event::MouseMoved)
+    {
+        this->mainVolume.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
+        this->musicVolume.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
+        this->soundsVolume.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
+    }
 }
 
 void Settings::update()
 {
     this->x.manageHover(this->mouse->getPosition(*this->window));
+    //this->mainVolume.manageHover(this->mouse->getPosition(*this->window));
+    this->mainVolume.updateValue();
+    this->musicVolume.updateValue();
+    this->soundsVolume.updateValue();
 
     if (this->animation)
         this->animation(*this);
@@ -51,7 +74,10 @@ void Settings::update()
 void Settings::display()
 {
     this->window->draw(this->background);
-    this->window->draw(this->x);
+    for (int i = 0; i < this->buttonAmount; i++)
+        this->window->draw(*this->buttons[i].first);
+    /*this->window->draw(this->x);
+    this->window->draw(this->mainVolume);*/
 }
 
 void Settings::operator=(bool _isOn)
@@ -78,7 +104,7 @@ void Settings::operator=(bool _isOn)
     if (this->lastTurnedOn) //_isOn
     {
         this->isTurnedOn = true;
-        this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1.2)};
+        this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1.1)};
         //this->startPos = this->background.getPosition();
         //this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y)};
         this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)};
@@ -89,7 +115,7 @@ void Settings::operator=(bool _isOn)
         this->background.setPosition(this->startPos);
         for (int i = 0; i < this->buttonAmount; i++)
         {
-            this->buttons[i].second = {this->startPos.x + this->background.getLocalBounds().width - this->buttons[i].first->getLocalBounds().width / 5, this->startPos.y - this->buttons[i].first->getLocalBounds().height / 5};
+            //this->buttons[i].second = {this->startPos.x + this->background.getLocalBounds().width - this->buttons[i].first->getLocalBounds().width / 5, this->startPos.y - this->buttons[i].first->getLocalBounds().height / 5};
         }
     }
     else
@@ -102,7 +128,7 @@ void Settings::operator=(bool _isOn)
 
         for (int i = 0; i < this->buttonAmount; i++)
         {
-            this->buttons[i].second.y = this->buttons[i].first->getPosition().y;
+            //this->buttons[i].second.y = this->buttons[i].first->getPosition().y;
         }
     }
     
@@ -141,7 +167,7 @@ void Settings::AnimationUp::operator()(Settings& _settings)
 
         for (int i = 0; i < _settings.buttonAmount; i++)
         {
-            _settings.buttons[i].first->setPosition(_settings.buttons[i].second);
+            _settings.buttons[i].first->setPosition(_settings.background.getPosition() + _settings.buttons[i].second);
         }
 
         this->animationStarted = false;

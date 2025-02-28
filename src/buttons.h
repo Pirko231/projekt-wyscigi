@@ -3,6 +3,7 @@
 #include "buttons/spriteButton.h"
 #include "buttons/howeredSpriteButton.h"
 #include "buttons/RectangleButton.h"
+#include "buttons/slider.h"
 #include "raport.h"
 
 //w tym pliku zebrane beda wszystkie przyciski z folderu button.

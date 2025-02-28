@@ -1,8 +1,8 @@
 #pragma once
 
 #include "buttons.h"
+#include "settingsData.h"
 
-class SettingsData;
 
 class Settings
 {
@@ -30,11 +30,11 @@ private:
     SettingsData* data;
 
     //ilosc przyciskow w tablicy 'buttons'
-    static constexpr int buttonAmount {1};
+    static constexpr int buttonAmount {4};
 
     //adresy przyciskow. Uzywac funkcji wirtualnych. Przypisac w konstruktorze.
     //btn::Button* - adres do przycisku
-    //sf::Vector2f - podstawowa pozycja na zaczecie animacji
+    //sf::Vector2f - o ile ruszamy obiekt od background podczas animacji
     std::pair<btn::Button*, sf::Vector2f> buttons[buttonAmount];
 
     //zajmuje sie animacją wchodzenia i wychodzenia z okna
@@ -72,7 +72,7 @@ private:
         //pozycja na ktorej startuje obiekt. wylicza moveBy razem z destination
         sf::Vector2f currentPos;
         //modyfikator predkosci animacji
-        int speed{2}; //3
+        float speed{2.3f}; //3
     }; Settings::AnimationUp animation;
     
     //jezeli prawda to ustawienia beda wyswietlane. Jezeli falsz to nie beda.
@@ -88,18 +88,16 @@ private:
     //przycisk X ktory opuszcza ustawienia
     btn::HoweredSpriteButton x {btn::templates.getXTemplate()};
 
+    //suwak do glownej glosnosci
+    btn::Slider mainVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data->mainVolume};
+
+    //suwak do glosnosci muzyki
+    btn::Slider musicVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data->musicVolume};
+    
+    //suwak do glosnosci dzwiekow otoczenia
+    btn::Slider soundsVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data->soundsVolume};
+    
     sf::Vector2f startPos;
 
     sf::Vector2f destination;
-};
-
-//klasa przechowujaca dane ktore mozna ustawiac w ustawieniach.
-//zeby ich uzyc nalezy zdobyc wskaznik od obiektu Settings.
-class SettingsData
-{
-public:
-    SettingsData() = default;
-    int mainVolume {100};
-    int musicVolume {100};
-    int soundsVolume {100};
 };
