@@ -1,10 +1,10 @@
 #include "settings.h"
 
-Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
+Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse) : data{new SettingsData}
 {
     this->mouse = _mouse;
     this->window = _window;
-    this->data = new SettingsData;
+    //this->data = new SettingsData;
 
     Raport raport;
     raport.open();
