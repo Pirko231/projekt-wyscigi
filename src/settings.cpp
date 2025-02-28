@@ -95,7 +95,8 @@ void Settings::operator=(bool _isOn)
     else
     {
         this->quitting = true;
-        this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 2)};
+        this->startPos = this->background.getPosition();
+        //this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 2)};
         this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1)};
 
 
@@ -106,7 +107,7 @@ void Settings::operator=(bool _isOn)
     }
     
     //this->isTurnedOn = _isOn;
-    this->animation.startAnimation(this->background.getPosition(), this->destination);
+    this->animation.startAnimation(this->startPos, this->destination);
 }
 
 Settings::~Settings()

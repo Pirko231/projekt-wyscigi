@@ -58,18 +58,26 @@ private:
     private:
         bool animationStarted{false};
 
+        //maksymalna ilosc klatek ile bedzie trwala animacja
         int maxAnimation{40};
+        //ile klatek bedzie jeszcze trwala animacja. wspolpracuje z maxAnimation
         int animation{maxAnimation};
 
+        //ilosc klatek na sekunde
         int framerate{60};
+        //wektor przesuniecia na kazdą klatke
         sf::Vector2f moveBy;
+        //pozycja na ktora ma dostac sie obiekt. wylicza moveBy razem z currentPos
         sf::Vector2f destination;
+        //pozycja na ktorej startuje obiekt. wylicza moveBy razem z destination
         sf::Vector2f currentPos;
-        int speed{1}; //3
+        //modyfikator predkosci animacji
+        int speed{2}; //3
     }; Settings::AnimationUp animation;
     
     //jezeli prawda to ustawienia beda wyswietlane. Jezeli falsz to nie beda.
     bool isTurnedOn{false};
+    //jezeli zmienna jest prawda to ustawienia beda sie powoli wylaczaly
     bool quitting{false};
     //funkcja operator bool zapisuje tutaj jaka byla ostatnia wgrywana wartosc
     bool lastTurnedOn{false};
