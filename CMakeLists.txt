@@ -49,6 +49,7 @@ add_executable(main
     src/buttons/spriteButton.cpp
     src/buttons/howeredSpriteButton.cpp
     src/buttons/RectangleButton.cpp
+    src/buttons/slider.cpp
 )
 
 # Ustawienie wersji standardu C++
