@@ -66,7 +66,7 @@ void MainMenu::handleEvents(sf::Event& _event)
 {
     if (_event.type == sf::Event::MouseButtonPressed && _event.mouseButton.button == sf::Mouse::Left) {
         for (int i = 0; i < buttonAmount; i++) {
-            if (buttons[i].getHitbox().contains(static_cast<sf::Vector2f>(mouse->getPosition(*window)))) {
+            if (buttons[i].manageHover(mouse->getPosition(*window), true)) {
                 buttons[i].startClickAnimation();
             }
         }
@@ -75,33 +75,30 @@ void MainMenu::handleEvents(sf::Event& _event)
 
 
 void MainMenu::update()
-    {
-        playMenuMusic();
-
-        for (int i = 0; i < buttonAmount; i++) {
-            if (buttons[i].isAnimated()) {
-                this->buttons[i].clicked(); 
-
-            }   
-            if (buttons[i].getHitbox().contains(static_cast<sf::Vector2f>(mouse->getPosition(*window)))) {
-                buttons[i].howered();
-            } else {
-                buttons[i].unHowered();
-            }
-        }
+{
     
-        if (buttons[0].isAnimationFinished()) {
-            functionIterator = ManagingFunctionsIterator::levelSelection;
-            for (int i = 0; i < buttonAmount; i++) {
+    playMenuMusic();
+    for (int i = 0; i < buttonAmount; i++) 
+        buttons[i].manageHover(mouse->getPosition(*window));
+
+
+    if (buttons[0].manage()) {
+        functionIterator = ManagingFunctionsIterator::levelSelection;
+        for (int i = 0; i < buttonAmount; i++) 
+            buttons[i].reset();
+        
+    } else if (buttons[1].manage()) {
+        if (*this->settings)
+            *this->settings = false;
+        else {
+            *this->settings = true;
+            for (int i = 0; i < buttonAmount; i++) 
                 buttons[i].reset();
-            }
-
         }
-        if (buttons[2].isAnimationFinished()) {
-            window->close();
-        }   
-    }    
-
+    }else if (buttons[2].manage()) {
+        window->close();
+        }
+}
 
 void MainMenu::display()
 {
