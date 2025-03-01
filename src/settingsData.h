@@ -7,6 +7,6 @@ class SettingsData
 public:
     SettingsData() = default;
     int mainVolume {50};
-    int musicVolume {100};
-    int soundsVolume {100};
+    int musicVolume {50};
+    int soundsVolume {50};
 };

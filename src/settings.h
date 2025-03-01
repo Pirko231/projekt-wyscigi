@@ -40,12 +40,20 @@ private:
     //sf::Vector2f - o ile ruszamy obiekt od background podczas animacji
     std::pair<btn::Button*, sf::Vector2f> buttons[buttonAmount];
 
+    //ilosc obiektow w tablicy 'texts'
+    static constexpr int textsAmount{4};
+
+    //przechowuje teksty. Pierwszy element tablicy to napis ustawienia i dziala na innych zasadach
+    //sf::Text - tekst ktory przechowuje
+    //sf::Vector2f - o ile ruszamy obiekt od background podczas animacji
+    std::pair<sf::Text, sf::Vector2f> texts[textsAmount];
+
     //zajmuje sie animacją wchodzenia i wychodzenia z okna
     class AnimationUp
     {
     public:
         //zwraca true kiedy animacja sie zaczela i false kiedy nie lub kiedy sie skonczyla
-        operator bool() {return this->animation < this->maxAnimation /*&& this->animation > 0*/;}
+        operator bool() {return this->animation < this->maxAnimation; /*&& this->animation > 0*/}
 
         //jezeli obecnie trwa animacja przycisku w gore to zwraca true, w przeciwnym razie false
         bool animationDown() const {return this->moveBy.y > 0;}
@@ -84,6 +92,9 @@ private:
     bool quitting{false};
     //funkcja operator bool zapisuje tutaj jaka byla ostatnia wgrywana wartosc
     bool lastTurnedOn{false};
+
+    //czcionka licznika i wszystkich tekstow w klasie
+    sf::Font font;
 
     //tlo ustawien
     sf::RectangleShape background;
