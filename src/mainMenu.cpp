@@ -50,7 +50,7 @@ MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFuncti
 
     //Soundtrack loading
     //menuMusic.openFromFile("sounds/MainMenuMusic.wav");
-    menuMusic.setVolume(10.f);
+    //menuMusic.setVolume(settings->getData().mainVolume * settings->getData().musicVolume());
     menuMusic.setLoop(true);
     
 }
@@ -76,7 +76,10 @@ void MainMenu::handleEvents(sf::Event& _event)
 
 void MainMenu::update()
 {
-    
+    menuMusic.setVolume(settings->getData()->mainVolume * settings->getData()->musicVolume);
+
+
+
     playMenuMusic();
     for (int i = 0; i < buttonAmount; i++) 
         buttons[i].manageHover(mouse->getPosition(*window));
