@@ -1,12 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "button.h"
+#include <string>
 
 namespace btn {
 
     // Klasa Slider dziedziczy po btn::Button
-    // Slider rysowany jest jako linia (sf::RectangleShape) z kropką (sf::CircleShape),
-    // która reaguje na zdarzenia myszy.
+    // Suwak składa się z linii (sf::RectangleShape), kropki (sf::CircleShape)
+    // oraz licznika (sf::Text), który wyświetla aktualną wartość.
     class Slider : public Button
     {
     public:
@@ -38,11 +39,17 @@ namespace btn {
         void setDotColor(sf::Color color);
         void setDotHoverColor(sf::Color color);
 
-        // Aktualizuje wartość suwaka na podstawie pozycji kropki
+        // Aktualizuje wartość suwaka (i licznik) na podstawie pozycji kropki
         void updateValue();
 
+        // Nowe funkcje do obsługi licznika
+        // Ustawia czcionkę licznika – przekazywana przez argument (bez wczytywania z pliku)
+        void setCounterFont(const sf::Font &font);
+        // Ustawia przesunięcie licznika względem pozycji kropki
+        void setCounterOffset(const sf::Vector2f &offset);
+
     private:
-        sf::RectangleShape line;  // Linia, po której przesuwa się kropka
+        sf::RectangleShape line;  // Linia suwaka
         sf::CircleShape dot;      // Kropka – uchwyt przesuwania
 
         sf::Color baseDotColor;   // Podstawowy kolor kropki
@@ -52,6 +59,10 @@ namespace btn {
         int minValue, maxValue;   // Zakres wartości (domyślnie 0–100)
 
         bool isDragging;          // Flaga sprawdzająca, czy kropka jest przeciągana
+
+        // Nowe pola do obsługi licznika (counter)
+        sf::Text counterText;     // Tekst wyświetlający wartość
+        sf::Vector2f counterOffset; // Przesunięcie pozycji licznika względem kropki
     };
 
 } // namespace btn

@@ -1,14 +1,14 @@
 #include "slider.h"
 #include <cmath>
+#include <string>
 
-// Statyczna zmienna globalna – aktywny slider (tylko jeden na raz)
 namespace {
+    // Statyczna zmienna globalna – aktywny slider (tylko jeden na raz)
     btn::Slider* activeSlider = nullptr;
 }
 
 namespace btn {
 
-    // Konstruktor - ustawia wartości początkowe
     Slider::Slider(sf::Vector2f pos, sf::Vector2f size, sf::Color lineColor, sf::Color dotColor, int* linkedValue)
         : linkedValue(linkedValue), minValue(0), maxValue(100), isDragging(false)
     {
@@ -23,17 +23,23 @@ namespace btn {
         dot.setFillColor(dotColor);
         baseDotColor = dotColor;
         hoverDotColor = sf::Color::White;
-
-        // Wyśrodkowanie kropki – ustawiamy origin na środek kropki
         dot.setOrigin(dotRadius, dotRadius);
 
-        // Ustawiamy kropkę na odpowiedniej pozycji w zależności od wartości linkedValue
+        // Ustawienie kropki na odpowiedniej pozycji w zależności od wartości linkedValue
         float percent = 0.f;
         if (linkedValue)
             percent = static_cast<float>(*linkedValue - minValue) / (maxValue - minValue);
         if (percent < 0.f) percent = 0.f;
         if (percent > 1.f) percent = 1.f;
         dot.setPosition(pos.x + percent * size.x, pos.y + size.y / 2);
+
+        // Inicjalizacja licznika – wyświetla aktualną wartość
+        counterText.setString(linkedValue ? std::to_string(*linkedValue) : "0");
+        counterText.setFillColor(sf::Color::White);
+        counterText.setCharacterSize(16);
+        // Ustawienie domyślnego przesunięcia licznika względem linii suwaka (np. 10 pikseli na prawo, lekko wyśrodkowany pionowo)
+        counterOffset = sf::Vector2f(10.f, -size.y / 2);
+        counterText.setPosition(line.getPosition().x + size.x + counterOffset.x, line.getPosition().y + size.y / 2 + counterOffset.y);
     }
 
     void Slider::setPosition(sf::Vector2f pos)
@@ -45,6 +51,8 @@ namespace btn {
         if (percent < 0.f) percent = 0.f;
         if (percent > 1.f) percent = 1.f;
         dot.setPosition(pos.x + percent * line.getSize().x, pos.y + line.getSize().y / 2);
+        // Pozycja licznika względem linii
+        counterText.setPosition(pos.x + line.getSize().x + counterOffset.x, pos.y + line.getSize().y / 2 + counterOffset.y);
     }
 
     sf::Vector2f Slider::getPosition() const
@@ -66,6 +74,7 @@ namespace btn {
     {
         line.move(offset);
         dot.move(offset);
+        counterText.move(offset);
     }
 
     void Slider::setSize(sf::Vector2f size)
@@ -80,6 +89,8 @@ namespace btn {
         if (percent < 0.f) percent = 0.f;
         if (percent > 1.f) percent = 1.f;
         dot.setPosition(line.getPosition().x + percent * size.x, line.getPosition().y + size.y / 2);
+        // Aktualizacja pozycji licznika względem zmienionego rozmiaru linii
+        counterText.setPosition(line.getPosition().x + size.x + counterOffset.x, line.getPosition().y + size.y / 2 + counterOffset.y);
     }
 
     void Slider::setLineColor(sf::Color color)
@@ -98,7 +109,6 @@ namespace btn {
         hoverDotColor = color;
     }
 
-    // Zarządza interakcją myszy
     bool Slider::manageHover(sf::Vector2i mousePos, bool clicked)
     {
         sf::Vector2f mouseWorldPos = static_cast<sf::Vector2f>(mousePos);
@@ -106,7 +116,6 @@ namespace btn {
         float verticalTolerance = 20.f; // Tolerancja pionowa
 
         if (clicked) {
-            // Jeśli nikt nie jest aktywny, sprawdzamy, czy kliknięto na ten slider
             if (activeSlider == nullptr) {
                 if (std::abs(mouseWorldPos.y - centerY) < verticalTolerance &&
                     dot.getGlobalBounds().contains(mouseWorldPos))
@@ -115,7 +124,6 @@ namespace btn {
                     isDragging = true;
                 }
             }
-            // Jeśli ten slider jest aktywny, wykonujemy przeciąganie
             if (activeSlider == this && isDragging) {
                 float newX = mouseWorldPos.x;
                 float minX = line.getPosition().x;
@@ -130,14 +138,12 @@ namespace btn {
             return (activeSlider == this);
         }
         else {
-            // Zwolnij aktywny slider, jeśli to ten obiekt
             if (activeSlider == this) {
                 activeSlider = nullptr;
                 isDragging = false;
             }
         }
 
-        // Jeśli myszka jest blisko środka linii, zmieniamy kolor kropki
         if (std::abs(mouseWorldPos.y - centerY) < verticalTolerance &&
             dot.getGlobalBounds().contains(mouseWorldPos))
             dot.setFillColor(hoverDotColor);
@@ -157,12 +163,28 @@ namespace btn {
         int value = minValue + static_cast<int>(percent * (maxValue - minValue));
         if (linkedValue)
             *linkedValue = value;
+
+        counterText.setString(std::to_string(value));
+        // Licznik ustawiany względem linii, nie kropki
+        counterText.setPosition(line.getPosition().x + line.getSize().x + counterOffset.x, line.getPosition().y + line.getSize().y / 2 + counterOffset.y);
     }
 
     void Slider::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         target.draw(line, states);
         target.draw(dot, states);
+        target.draw(counterText, states);
+    }
+
+    void Slider::setCounterFont(const sf::Font &font)
+    {
+        counterText.setFont(font);
+    }
+
+    void Slider::setCounterOffset(const sf::Vector2f &offset)
+    {
+        counterOffset = offset;
+        counterText.setPosition(line.getPosition().x + line.getSize().x + counterOffset.x, line.getPosition().y + line.getSize().y / 2 + counterOffset.y);
     }
 
 } // namespace btn

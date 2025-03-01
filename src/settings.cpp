@@ -4,7 +4,6 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
 {
     this->mouse = _mouse;
     this->window = _window;
-    //this->data = new SettingsData;
 
     Raport raport;
     raport.open();
@@ -17,34 +16,46 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
     this->background.setFillColor(sf::Color{81, 81, 81});
     this->background.setSize({static_cast<float>(this->window->getSize().x / 2.5), static_cast<float>(this->window->getSize().x / 2.1)});
     this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1.1)};
-    //this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)};
     this->background.setPosition(this->startPos);
-    //this->background.setPosition({static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 8)});
     
-    //wszystko musi byc zalezne od startPos i destination
-
+    this->texts[0].first.setString("USTAWIENIA"); 
+    this->texts[0].first.setFont(this->font); 
+    this->texts[0].first.setCharacterSize(50); 
+    this->texts[0].first.setFillColor(sf::Color{255, 255, 255});
     
-    this->texts[0].first.setString("USTAWIENIA"); this->texts[0].first.setFont(this->font); this->texts[0].first.setCharacterSize(50); this->texts[0].first.setFillColor(sf::Color{255, 255, 255});
-    this->mainVolume.setSize({400.f, 10.f}); this->texts[1].first.setString("Glowna Glosnosc"); this->texts[1].first.setFont(this->font);
-    this->musicVolume.setSize({400.f, 10.f}); this->texts[2].first.setString("Glosnosc muzyki"); this->texts[2].first.setFont(this->font);
-    this->soundsVolume.setSize({400.f, 10.f}); this->texts[3].first.setString("Glosnosc dzwiekow"); this->texts[3].first.setFont(this->font);
+    this->mainVolume.setSize({400.f, 10.f}); 
+    this->texts[1].first.setString("Glowna Glosnosc"); 
+    this->texts[1].first.setFont(this->font);
+    
+    this->musicVolume.setSize({400.f, 10.f}); 
+    this->texts[2].first.setString("Glosnosc muzyki"); 
+    this->texts[2].first.setFont(this->font);
+    
+    this->soundsVolume.setSize({400.f, 10.f}); 
+    this->texts[3].first.setString("Glosnosc dzwiekow"); 
+    this->texts[3].first.setFont(this->font);
 
-    //przypisanie adresow do tablicy
+    // Ustawienie czcionki dla liczników w suwakach
+    this->mainVolume.setCounterFont(this->font);
+    this->musicVolume.setCounterFont(this->font);
+    this->soundsVolume.setCounterFont(this->font);
+
+    // Przypisanie przycisków oraz ich przesunięć
     this->buttons[0] = {&this->x, {this->background.getLocalBounds().width - this->x.getLocalBounds().width / 5, -(this->x.getLocalBounds().height / 5)}};
-    //this->buttons[0] = {&this->x, {this->background.getPosition().x + this->background.getLocalBounds().width - this->x.getLocalBounds().width / 5, this->background.getPosition().y - this->x.getLocalBounds().height / 5}}; 
     this->buttons[1] = {&this->mainVolume, {this->background.getLocalBounds().width - static_cast<int>(this->mainVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->mainVolume.getLocalBounds().height * 9}};
     this->buttons[2] = {&this->musicVolume, {this->background.getLocalBounds().width - static_cast<int>(this->musicVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->musicVolume.getLocalBounds().height * 9 + this->musicVolume.getLocalBounds().height * 6}};
     this->buttons[3] = {&this->soundsVolume, {this->background.getLocalBounds().width - static_cast<int>(this->soundsVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->soundsVolume.getLocalBounds().height * 9 + this->soundsVolume.getLocalBounds().height * 12}};
 
-
     this->texts[0].second = {this->texts[0].first.getLocalBounds().width / 1.3f, -(this->texts[0].first.getLocalBounds().height / 1.5f)};
-    //przypisanie pozycji docelowych dla tekstow. Zalezne od buttons
-    //zaczynami od indeksu 1 bo pierwszy text to napis ustaweinia
+    
+    // Ustawienie pozycji tekstów względem przycisków (od indeksu 1, gdyż 0 to nagłówek)
     for (int i = 1; i < this->textsAmount; i++)
     {
         this->texts[i].second = {this->buttons[i].second.x, this->buttons[i].second.y - this->buttons[i].first->getLocalBounds().height - this->texts[i].first.getLocalBounds().height * 1.5f};
     }
 }
+
+
 
 void Settings::handleEvents(sf::Event &_event)
 {
