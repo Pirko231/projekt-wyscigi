@@ -11,7 +11,7 @@ MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFuncti
     raport.logMessage("MainMenu");
     raport.addEntry("Wczytywanie czcionki ekran tytulowy" , this->font.loadFromFile("fonts/BigFont.ttf"));
     raport.addEntry("Wczytywanie tła ekran tytulowy", backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg"));
-    raport.addEntry("Wczytywanie muzyki na ekran tytulowy", menuMusic.openFromFile("sounds/MainMenuMusic.wav"));
+    raport.addEntry("Wczytywanie muzyki na ekran tytulowy", music->openFromFile("sounds/MainMenuMusic.wav"));
     raport.close();
 
     std::string buttonNames[buttonAmount] = {"graj", "opcje", "wyjscie"};
@@ -51,14 +51,15 @@ MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFuncti
     //Soundtrack loading
     //menuMusic.openFromFile("sounds/MainMenuMusic.wav");
     //menuMusic.setVolume(settings->getData().mainVolume * settings->getData().musicVolume());
-    menuMusic.setLoop(true);
+    
+    music->setLoop(true);
     
 }
 
 //Soundtrack
 void MainMenu::playMenuMusic() {
-    if (menuMusic.getStatus() != sf::Music::Playing) {
-        menuMusic.play();
+    if (music->getStatus() != sf::Music::Playing) {
+        music->play();
     }
 }
 
@@ -79,9 +80,9 @@ void MainMenu::update()
     float mainVol = settings->getData()->mainVolume;
     float musicVol = settings->getData()->musicVolume;
     float volume = (mainVol / 100.f) * (musicVol / 100.f) * 100.f;  //przejscie do zakresu 0-100
-    menuMusic.setVolume(volume);
-
+    music->setVolume(volume);
     playMenuMusic();
+
     for (int i = 0; i < buttonAmount; i++) 
         buttons[i].manageHover(mouse->getPosition(*window));
 

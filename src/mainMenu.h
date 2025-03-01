@@ -30,7 +30,6 @@ private:
     btn::TextButton buttons[buttonAmount];  //tablica z tymi przyciskami
 
     //Soundtrack
-    sf::Music menuMusic;
     void playMenuMusic();
 
 };
