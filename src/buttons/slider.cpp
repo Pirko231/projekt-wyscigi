@@ -1,4 +1,10 @@
 #include "slider.h"
+#include <cmath>
+
+// Statyczna zmienna globalna – aktywny slider (tylko jeden na raz)
+namespace {
+    btn::Slider* activeSlider = nullptr;
+}
 
 namespace btn {
 
@@ -6,89 +12,41 @@ namespace btn {
     Slider::Slider(sf::Vector2f pos, sf::Vector2f size, sf::Color lineColor, sf::Color dotColor, int* linkedValue)
         : linkedValue(linkedValue), minValue(0), maxValue(100), isDragging(false)
     {
-        // Ustawienie pozycji i rozmiaru linii (paska suwaka)
+        // Ustawienie linii suwaka
         line.setPosition(pos);
         line.setSize(size);
         line.setFillColor(lineColor);
 
-        // Ustawienie kropki (suwaka) na linii, jej promień zależy od wysokości linii
-        float dotRadius = size.y * 1.5f;  // Promień kropki to 1.5 razy wysokość linii
+        // Ustawienie kropki – promień kropki to 1.5-krotność wysokości linii
+        float dotRadius = size.y * 1.5f;
         dot.setRadius(dotRadius);
         dot.setFillColor(dotColor);
         baseDotColor = dotColor;
+        hoverDotColor = sf::Color::White;
 
-        // Wyśrodkowanie kropki na linii
+        // Wyśrodkowanie kropki – ustawiamy origin na środek kropki
         dot.setOrigin(dotRadius, dotRadius);
-        dot.setPosition(pos.x, pos.y + size.y / 2);
 
-        hoverDotColor = sf::Color::White;  // Kolor kropki przy najechaniu to biały
+        // Ustawiamy kropkę na odpowiedniej pozycji w zależności od wartości linkedValue
+        float percent = 0.f;
+        if (linkedValue)
+            percent = static_cast<float>(*linkedValue - minValue) / (maxValue - minValue);
+        if (percent < 0.f) percent = 0.f;
+        if (percent > 1.f) percent = 1.f;
+        dot.setPosition(pos.x + percent * size.x, pos.y + size.y / 2);
     }
 
-    // Ustawienie pozycji suwaka
     void Slider::setPosition(sf::Vector2f pos)
     {
-        line.setPosition(pos);  // Przesunięcie linii
-        dot.setPosition(pos.x, pos.y + line.getSize().y / 2);  // Przesunięcie kropki
-    }
-
-    // Zarządzanie interakcją z myszką
-    bool Slider::manageHover(sf::Vector2i mousePos, bool clicked)
-    {
-        sf::Vector2f mouseWorldPos = static_cast<sf::Vector2f>(mousePos);  // Przekształcamy pozycję myszki do współrzędnych świata
-
-        // Jeśli kliknięto, a kropka nie jest jeszcze przeciągana
-        if (clicked) {
-            if (!isDragging) {
-                if (dot.getGlobalBounds().contains(mouseWorldPos))  // Jeśli myszka jest nad kropką, zaczynamy przeciąganie
-                    isDragging = true;
-            }
-
-            // Jeśli kropka jest przeciągana
-            if (isDragging) {
-                float newX = mouseWorldPos.x;  // Nowa pozycja X kropki
-                float minX = line.getPosition().x;  // Minimalna wartość X (początek linii)
-                float maxX = line.getPosition().x + line.getSize().x;  // Maksymalna wartość X (koniec linii)
-
-                // Ograniczenie kropki do granic linii
-                if (newX < minX)
-                    newX = minX;
-                if (newX > maxX)
-                    newX = maxX;
-
-                dot.setPosition(newX, dot.getPosition().y);  // Ustawienie nowej pozycji kropki
-                updateValue();  // Zaktualizowanie powiązanej wartości
-            }
-            return true;
-        }
-        else {
-            isDragging = false;  // Jeśli nie kliknięto, kończymy przeciąganie
-        }
-
-        // Zmiana koloru kropki w zależności od tego, czy myszka nad nią
-        dot.setFillColor(dot.getGlobalBounds().contains(mouseWorldPos) ? hoverDotColor : baseDotColor);
-        return false;
-    }
-
-    // Funkcja aktualizująca wartość na podstawie pozycji kropki
-    void Slider::updateValue()
-    {
-        float relativePos = dot.getPosition().x - line.getPosition().x;  // Odległość kropki od początku linii
-        float lineWidth = line.getSize().x;  // Szerokość linii
-
-        // Obliczenie procentowej pozycji kropki
-        float percent = relativePos / lineWidth;
-        if (percent < 0.f)
-            percent = 0.f;  // Ograniczenie do zakresu [0,1]
-        if (percent > 1.f)
-            percent = 1.f;
-
-        // Przeliczenie procentowej wartości na wartość w zakresie [minValue, maxValue]
-        int value = minValue + static_cast<int>(percent * (maxValue - minValue));
+        line.setPosition(pos);
+        float percent = 0.f;
         if (linkedValue)
-            *linkedValue = value;  // Aktualizacja wartości podanej w konstruktorze
+            percent = static_cast<float>(*linkedValue - minValue) / (maxValue - minValue);
+        if (percent < 0.f) percent = 0.f;
+        if (percent > 1.f) percent = 1.f;
+        dot.setPosition(pos.x + percent * line.getSize().x, pos.y + line.getSize().y / 2);
     }
 
-    // Pozostałe funkcje, które pozwalają na pobranie i ustawienie parametrów suwaka
     sf::Vector2f Slider::getPosition() const
     {
         return line.getPosition();
@@ -112,9 +70,16 @@ namespace btn {
 
     void Slider::setSize(sf::Vector2f size)
     {
-        line.setSize(size);  // Ustawienie rozmiaru linii
-        float dotRadius = size.y * 1.5f;  // Ustawienie rozmiaru kropki w zależności od wysokości linii
+        line.setSize(size);
+        float dotRadius = size.y * 1.5f;
         dot.setRadius(dotRadius);
+        dot.setOrigin(dotRadius, dotRadius);
+        float percent = 0.f;
+        if (linkedValue)
+            percent = static_cast<float>(*linkedValue - minValue) / (maxValue - minValue);
+        if (percent < 0.f) percent = 0.f;
+        if (percent > 1.f) percent = 1.f;
+        dot.setPosition(line.getPosition().x + percent * size.x, line.getPosition().y + size.y / 2);
     }
 
     void Slider::setLineColor(sf::Color color)
@@ -133,11 +98,71 @@ namespace btn {
         hoverDotColor = color;
     }
 
-    // Rysowanie suwaka na ekranie
+    // Zarządza interakcją myszy
+    bool Slider::manageHover(sf::Vector2i mousePos, bool clicked)
+    {
+        sf::Vector2f mouseWorldPos = static_cast<sf::Vector2f>(mousePos);
+        float centerY = line.getPosition().y + line.getSize().y / 2;
+        float verticalTolerance = 20.f; // Tolerancja pionowa
+
+        if (clicked) {
+            // Jeśli nikt nie jest aktywny, sprawdzamy, czy kliknięto na ten slider
+            if (activeSlider == nullptr) {
+                if (std::abs(mouseWorldPos.y - centerY) < verticalTolerance &&
+                    dot.getGlobalBounds().contains(mouseWorldPos))
+                {
+                    activeSlider = this;
+                    isDragging = true;
+                }
+            }
+            // Jeśli ten slider jest aktywny, wykonujemy przeciąganie
+            if (activeSlider == this && isDragging) {
+                float newX = mouseWorldPos.x;
+                float minX = line.getPosition().x;
+                float maxX = line.getPosition().x + line.getSize().x;
+                if (newX < minX)
+                    newX = minX;
+                if (newX > maxX)
+                    newX = maxX;
+                dot.setPosition(newX, centerY);
+                updateValue();
+            }
+            return (activeSlider == this);
+        }
+        else {
+            // Zwolnij aktywny slider, jeśli to ten obiekt
+            if (activeSlider == this) {
+                activeSlider = nullptr;
+                isDragging = false;
+            }
+        }
+
+        // Jeśli myszka jest blisko środka linii, zmieniamy kolor kropki
+        if (std::abs(mouseWorldPos.y - centerY) < verticalTolerance &&
+            dot.getGlobalBounds().contains(mouseWorldPos))
+            dot.setFillColor(hoverDotColor);
+        else
+            dot.setFillColor(baseDotColor);
+
+        return false;
+    }
+
+    void Slider::updateValue()
+    {
+        float relativePos = dot.getPosition().x - line.getPosition().x;
+        float lineWidth = line.getSize().x;
+        float percent = relativePos / lineWidth;
+        if (percent < 0.f) percent = 0.f;
+        if (percent > 1.f) percent = 1.f;
+        int value = minValue + static_cast<int>(percent * (maxValue - minValue));
+        if (linkedValue)
+            *linkedValue = value;
+    }
+
     void Slider::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        target.draw(line, states);  // Rysowanie linii
-        target.draw(dot, states);   // Rysowanie kropki
+        target.draw(line, states);
+        target.draw(dot, states);
     }
 
 } // namespace btn
