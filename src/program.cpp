@@ -9,6 +9,8 @@ Program::Program()
 
     this->mouse = new sf::Mouse;
 
+    this->music = new sf::Music;
+
     //ustawnienie poczatku pracy programu na mainMenu
     this->currentFunction = ManagingFunctionsIterator::mainMenu;
 
@@ -24,12 +26,12 @@ Program::Program()
     this->settings = new Settings{this->window, this->mouse};
 
     //kazdy z tych obiektow bedzie mial swoj wlasny obiekt typu Raport
-    this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction, this->settings};
-    this->managingFunctions[1] = new LevelSelection{this->window, this->mouse, this->currentFunction, this->settings};
-    this->managingFunctions[2] = new CarSelection{this->window, this->mouse, this->currentFunction, this->settings};
-    this->managingFunctions[3] = new Level{this->window, this->mouse, this->currentFunction, this->settings};
-    this->managingFunctions[4] = new Level{this->window, this->mouse, this->currentFunction, this->settings};
-    this->managingFunctions[5] = new Level{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction, this->settings, this->music};
+    this->managingFunctions[1] = new LevelSelection{this->window, this->mouse, this->currentFunction, this->settings, this->music};
+    this->managingFunctions[2] = new CarSelection{this->window, this->mouse, this->currentFunction, this->settings, this->music};
+    this->managingFunctions[3] = new Level{this->window, this->mouse, this->currentFunction, this->settings, this->music};
+    this->managingFunctions[4] = new Level{this->window, this->mouse, this->currentFunction, this->settings, this->music};
+    this->managingFunctions[5] = new Level{this->window, this->mouse, this->currentFunction, this->settings, this->music};
 
     /*this->managingFunctions[3] = new Level1{this->window, this->mouse, this->currentFunction, this->settings};
     this->managingFunctions[4] = new Level2{this->window, this->mouse, this->currentFunction, this->settings};
@@ -117,6 +119,8 @@ Program::~Program()
 
     //usuwamy ustawienia
     delete this->settings;
+
+    delete this->music;
     //usuwamy funkcje do wyswietlania
     for (size_t i = 0; i < Program::managingFunctionsAmount; i++)
         delete this->managingFunctions[i];

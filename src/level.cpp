@@ -3,7 +3,7 @@
 
 typedef ManagingFunctionsIterator MFI;
 
-Level::Level(sf::RenderWindow* wind, sf::Mouse* mouse, MFI& mfi, Settings* cfg) : BodyFunction{wind, mouse, mfi, cfg}
+Level::Level(sf::RenderWindow* wind, sf::Mouse* _mouse , MFI& mfi, Settings* cfg, sf::Music* _music) : BodyFunction{wind, mouse, mfi, cfg, _music}
 {
     
 }

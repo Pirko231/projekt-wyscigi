@@ -4,7 +4,7 @@
 
 
 
-MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings}
+MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
     Raport raport;
     raport.open();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "settings.h"
 
 //Kazdy element tego typu wyliczeniowego to indeks
@@ -21,7 +22,7 @@ class BodyFunction
 {
 public:
     BodyFunction() = delete;
-    BodyFunction(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings);
+    BodyFunction(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music);
     //odbiera wiadomosci z klawiatury. Uzywac w funkcji Program::handleEvents()
     virtual void handleEvents(sf::Event& _event) = 0;
     //aktualizuje zmienne dla obecnego okna. Uzywac w funkcji Program::update()
@@ -38,6 +39,9 @@ protected:
 
     //wskaznik do ustawien. Mozna ustawiac ze jest wyswietalny za pomcoa operatora =
     Settings* settings;
+
+    //wskaznik do muzyki. Muzyke mozna tutaj zmieniac i jest wspolna dla wszystkich klas.
+    sf::Music* music;
 
     //zmienienie tego zmieni obecnie dzialajaca funkcje z tablicy.
     //jest to referencja do obiektu 'Program::currentFunction'.
