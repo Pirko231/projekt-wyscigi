@@ -1,6 +1,6 @@
 #include "settings.h"
 
-Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse) : data{new SettingsData}
+Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
 {
     this->mouse = _mouse;
     this->window = _window;
@@ -138,7 +138,6 @@ void Settings::operator=(bool _isOn)
 
 Settings::~Settings()
 {
-    delete this->data;
 }
 
 /*void Settings::animationUp::()

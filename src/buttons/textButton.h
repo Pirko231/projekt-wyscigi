@@ -24,19 +24,19 @@ namespace btn
         //pamietaj aby dodac czcionke bo inaczej nie dziala
         TextButton(sf::Vector2f _pos, unsigned int _characterSize);
 
-        [[deprecated("zamiast tego uzywaj funkcji 'manageHower'")]]
+        //[[deprecated("zamiast tego uzywaj funkcji 'manageHower'")]]
         //zwraca hitbox przycisku, mozna sprawdzic czy przycisk jest najechany
-        sf::FloatRect getHitbox() const {return this->hitBox.getGlobalBounds();}
+        //sf::FloatRect getHitbox() const {return this->hitBox.getGlobalBounds();}
 
         //zwraca pozycje obiektu w globalnych koordynatach
-        sf::FloatRect getGlobalBounds() const {return this->hitBox.getGlobalBounds();}
+        sf::FloatRect getGlobalBounds() const {return this->text.getGlobalBounds();}
 
         //zwraca pozycje obiektu w lokalnych koordynatach
-        sf::FloatRect getLocalBounds() const {return this->hitBox.getLocalBounds();}
+        sf::FloatRect getLocalBounds() const {return this->text.getLocalBounds();}
         
         //restartuje rozmiar obiektu.
         //uzywac przy zmianie okna
-        void reset() {this->text.setCharacterSize(this->defaultCharacterSize); this->hitBox.setSize({this->text.getLocalBounds().width, static_cast<float>(this->text.getLocalBounds().height * 1.35)}); this->animation = this->maxAnimation; this->animationFinished = false;}
+        void reset() {this->text.setCharacterSize(this->defaultCharacterSize);}
 
         //rozpoczyna animacje przycisku
         void startClickAnimation() {this->clicked();}
@@ -50,15 +50,7 @@ namespace btn
         //zwraca true czy animacja sie zakonczyla i falsz kiedy nie zakonczyla sie/ nie zaczela
         //_lockedInput - mozna zablokowac animacje kiedy wprowadzi sie true. Domyslnie jest false.
         //mozna ta funkcje wywolac samoistnie i sama zajmie sie animacja migania.
-        bool manage(bool _lockedInput = false);
-        
-        [[deprecated("zamiast tego wywolaj funkcje 'manage'")]]
-        //sprawdza czy trwa animacja klikniecia
-        bool isAnimated() {return this->isAnimated_();}
-
-        [[deprecated("zamiast tego wywolaj funkcje 'manage'")]]
-        //zwraca ilosc klatek kiedy skonczy sie animacja
-        bool isAnimationFinished() {return this->isAnimationFinished_();}
+        bool manage();
 
         //ustawia dane dotyczace animacji
         //_length - ilosc klatek w ktorych bedzie dziala sie animacja
@@ -74,9 +66,9 @@ namespace btn
         sf::Vector2f getPosition() const {return this->text.getPosition();}
         
         //ustawia pozycje na _pos
-        void setPosition(sf::Vector2f _pos) {this->text.setPosition(_pos); this->hitBox.setPosition(_pos);}
+        void setPosition(sf::Vector2f _pos) {this->text.setPosition(_pos);}
         
-        void move(sf::Vector2f _pos) {this->text.move(_pos); this->hitBox.move(_pos);}
+        void move(sf::Vector2f _pos) {this->text.move(_pos);}
         
         //ustawia kolor tekstu na _color
         //ustawia kolor animacji na _animationColor
@@ -86,24 +78,7 @@ namespace btn
         //_characterSize - rozmiar czcionki
         //_maxCharacterSize - rozmiar maksymalnego powiekszenia.
         //nie trzeba wprowadzac _maxCharacterSize bo zostanie policzone automatycznie, jednak mozna.
-        void setCharacterSize(unsigned int _characterSize, unsigned int _maxCharacterSize = 0);
-        
-        [[deprecated("zamiast tego wywolaj funkcje 'manage'")]]
-        //kiedy klikniety (sprawdz uzywajac .getHitbox())
-        //to rozpoczyna sie animacja klikniecia
-        void clicked() {this->clicked_();}
-        
-        [[deprecated("zamiast tego wywolaj funkcje 'manageHover'")]]
-        //kiedy najechany (sprawdz uzywajac .getHitbox())
-        //to zaczyna sie animacja przycisku
-        void howered() {this->howered_();}
-
-        [[deprecated("zamiast tego wywolaj funkcje 'manageHover'")]]
-        //kiedy przestal byc najechany (sprawdz uzywajac .getHitbox())
-        //to zaczyna sie animacja przycisku w druga strone
-        void unHowered() {this->unHowered_();}
-
-        
+        void setCharacterSize(unsigned int _characterSize, unsigned int _maxCharacterSize = 0);  
     private:
         //rysuje obiekt.
         //uzyj window->draw(TextButton) aby uzyc
@@ -113,13 +88,21 @@ namespace btn
             //target.draw(this->hitBox, states);
         }
 
+        //kiedy klikniety (sprawdz uzywajac .getHitbox())
+        //to rozpoczyna sie animacja klikniecia
+        void clicked() {this->clicked_();}
+
+        //kiedy najechany (sprawdz uzywajac .getHitbox())
+        //to zaczyna sie animacja przycisku
         void howered_();
 
+        //kiedy przestal byc najechany (sprawdz uzywajac .getHitbox())
+        //to zaczyna sie animacja przycisku w druga strone
         void unHowered_();
         
-        inline bool isAnimated_() {if (this->animation < this->maxAnimation) return true; return false;}
+        bool isAnimated_() {return this->animation < this->maxAnimation;}
         
-        inline bool isAnimationFinished_() {if (this->animation <= 0) {this->animation = this->maxAnimation; return true;} return false;}
+        bool isAnimationFinished_() {if (this->animation <= 0) {this->animation = this->maxAnimation; return true;} return false;}
         
         void clicked_();
 
@@ -127,7 +110,7 @@ namespace btn
         sf::Text text;
 
         // hitbox tego przycisku
-        sf::RectangleShape hitBox;
+        //sf::RectangleShape hitBox;
 
         // framerate jako 60 fps
         int framerate{60};
@@ -158,6 +141,9 @@ namespace btn
 
         // wyliczone w konstruktorze
         float changeSizeBy{0.2f};
+
+        //ostatnia zarejestrowana pozycja myszki
+        sf::Vector2i mousePos;
     };
 
 };

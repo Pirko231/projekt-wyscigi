@@ -9,6 +9,9 @@ class Settings
 public:
     Settings(sf::RenderWindow* _window, sf::Mouse* _mouse);
 
+    Settings(const Settings&) = delete;
+    Settings& operator=(const Settings&) = delete;
+
     void handleEvents(sf::Event& _event);
 
     void update();
@@ -19,7 +22,7 @@ public:
     //przypisuje do ustawien czy są obecnie wlaczane
     void operator=(bool _isOn);
 
-    const SettingsData* getData() const {return this->data;}
+    const SettingsData* getData() const {return &this->data;}
 
     ~Settings();
 private:
@@ -27,7 +30,7 @@ private:
 
     sf::Mouse* mouse;
 
-    SettingsData* data;
+    SettingsData data;
 
     //ilosc przyciskow w tablicy 'buttons'
     static constexpr int buttonAmount {4};
@@ -89,13 +92,13 @@ private:
     btn::HoweredSpriteButton x {btn::templates.getXTemplate()};
 
     //suwak do glownej glosnosci
-    btn::Slider mainVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data->mainVolume};
+    btn::Slider mainVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data.mainVolume};
 
     //suwak do glosnosci muzyki
-    btn::Slider musicVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data->musicVolume};
+    btn::Slider musicVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data.musicVolume};
     
     //suwak do glosnosci dzwiekow otoczenia
-    btn::Slider soundsVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data->soundsVolume};
+    btn::Slider soundsVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data.soundsVolume};
     
     sf::Vector2f startPos;
 
