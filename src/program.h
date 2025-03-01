@@ -29,9 +29,13 @@ private:
     //nalezy uzyc .getPosition(this->window) (zeby pozycja byla relatywna do okna)
     sf::Mouse* mouse;
 
-    //tutaj bedzie grala muzyka
+    //tutaj bedzie grala muzyka.
+    //ladowana jest w klasach ktore maja do niej dostep
     sf::Music* music;
 
+    //wywolywane w update, gra muzyke.
+    //reaguje na glosnosc muzyki i kontaktuje sie z ustawieniami
+    void playMusic();
 
     //rozmiar tablicy managingFunctions
     static constexpr int managingFunctionsAmount {6};

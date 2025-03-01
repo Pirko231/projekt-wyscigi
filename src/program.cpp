@@ -86,6 +86,7 @@ void Program::handleEvents()
 
 void Program::update()
 {
+    this->playMusic();
     if (*this->settings)
     {
         this->settings->update();
@@ -126,4 +127,10 @@ Program::~Program()
         delete this->managingFunctions[i];
 }
 
-
+void Program::playMusic()
+{
+    this->music->setVolume((this->settings->getData()->mainVolume / 100.f) * (this->settings->getData()->musicVolume / 100.f) * 100.f);
+    if (music->getStatus() != sf::Music::Playing) {
+        music->play();
+    }
+}
