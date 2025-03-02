@@ -24,6 +24,9 @@ public:
 
     const SettingsData* getData() const {return &this->data;}
 
+    //zwraca informacje o tym: -jaki level zostal zaczety -jaki samochod zostal wybrany
+    const StartLevel* getStartingData() const {return &this->data.startLevel;}
+
     ~Settings();
 private:
     sf::RenderWindow* window;

@@ -43,6 +43,7 @@ add_executable(main
     src/player.cpp 
     src/raport.cpp
     src/settings.cpp
+    src/settingsData.cpp
     src/buttons.cpp
     src/buttons/button.cpp
     src/buttons/textButton.cpp
