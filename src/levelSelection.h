@@ -17,6 +17,26 @@ public:
 private:
     //sekcja private jest calkowicie dla osoby ktora pracuje na funkcja
 
+
+    // Tło ekranu
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite;
+    sf::RectangleShape overlay;
+
+   // Przyciski map (RectangleButton) oraz 
+   static constexpr int MapButtonsAmount = 3;
+   btn::RectangleButton mapButtons[MapButtonsAmount];
+   
+
+   //Nazwy map
+   sf::Text mapNames[MapButtonsAmount];
+   sf::Font font;
+    
+
+    //strzalka
+    btn::SpriteButton backArrow {btn::templates.getArrowTemplate()};
     //ustawienia
     btn::SpriteButton settings {btn::templates.getSettingsTemplate()};
+
+    int selectedMapIndex = -1;
 };
