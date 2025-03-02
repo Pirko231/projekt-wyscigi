@@ -67,9 +67,9 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse , Ma
 
          backArrow.setPosition(sf::Vector2f{20.f, 15.f});
     
-    settings.setPosition(
+    settingsBtn.setPosition(
          sf::Vector2f(
-             static_cast<float>(winWidth) - 20.f - settings.getGlobalBounds().width - 20.f,
+             static_cast<float>(winWidth) - 20.f - settingsBtn.getGlobalBounds().width - 20.f,
              20.f
          )
     );
@@ -87,19 +87,11 @@ void LevelSelection::handleEvents(sf::Event& _event)
         
         if (backArrow.manageHover(mouse->getPosition(*window)))
         {
-         
-            backArrow.manage();
-            functionIterator = ManagingFunctionsIterator::mainMenu;
-
+            this->backArrow.startClickAnimation();
         } 
-        else if (settings.manageHover(mouse->getPosition(*window)))
+        else if (settingsBtn.manageHover(mouse->getPosition(*window)))
         {
-            settings.manage();
-            if (*this->BodyFunction::settings)
-                *this->BodyFunction::settings = false;
-            else
-                *this->BodyFunction::settings = true;
-                settings.reset();
+            settingsBtn.startClickAnimation();
         } 
         else 
         {
@@ -107,7 +99,7 @@ void LevelSelection::handleEvents(sf::Event& _event)
             if (mapButtons[i].manageHover(sf::Vector2i(mouse->getPosition(*window)), true))
                 {
                       
-                    selectedMapIndex = i;    
+                    this->settings->setStartingData()->mapNumber = i;    
                     functionIterator = ManagingFunctionsIterator::carSelection;
                     break;
                 }
@@ -131,15 +123,30 @@ void LevelSelection::update()
         
 
     //hover dla ustawień
-    settings.manageHover(mousePos);
-     
+    settingsBtn.manageHover(mousePos);
+
+    if (this->backArrow.manage())
+    {
+        //this->settings->setStartingData()->mapNumber 
+        functionIterator = ManagingFunctionsIterator::mainMenu;
+        this->backArrow.reset();
+    }
+    if (this->settingsBtn.manage())
+    {
+        if (*this->BodyFunction::settings)
+            *this->BodyFunction::settings = false;
+        else
+            *this->BodyFunction::settings = true;
+        this->settingsBtn.reset();
+
+    }
 }
 
 void LevelSelection::display()
 {
     window->draw(backgroundSprite);
     this->window->draw(this->backArrow);
-    this->window->draw(this->settings);
+    this->window->draw(this->settingsBtn);
 
     // Rysujemy przyciski map oraz ich etykiety
     for (int i = 0; i < MapButtonsAmount; i++) 

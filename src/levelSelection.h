@@ -36,7 +36,7 @@ private:
     //strzalka
     btn::SpriteButton backArrow {btn::templates.getArrowTemplate()};
     //ustawienia
-    btn::SpriteButton settings {btn::templates.getSettingsTemplate()};
+    btn::SpriteButton settingsBtn {btn::templates.getSettingsTemplate()};
 
     int selectedMapIndex = -1;
 };
