@@ -7,6 +7,11 @@
 class Settings
 {
 public:
+    //te deklaracje pozwalają modyfikowac odpowiedni wskaznik ktory nie jest dostepny dla reszty
+    //
+    friend class LevelSelection;
+    friend class CarSelection;
+
     Settings(sf::RenderWindow* _window, sf::Mouse* _mouse);
 
     Settings(const Settings&) = delete;
@@ -34,6 +39,10 @@ private:
     sf::Mouse* mouse;
 
     SettingsData data;
+
+    //dzieki niemu mozna modyfikowac klase zawierająca dane majace byc przekazane
+    //kolejnemu poziomowi
+    StartLevel* setStartingData() {return &this->data.startLevel;}
 
     //ilosc przyciskow w tablicy 'buttons'
     static constexpr int buttonAmount {4};
@@ -117,4 +126,6 @@ private:
     sf::Vector2f startPos;
 
     sf::Vector2f destination;
+
+    btn::TextBox textBox{{100.f, 100.f}, {50.f,50.f}};
 };
