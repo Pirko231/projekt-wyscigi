@@ -10,6 +10,15 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse , Ma
         static_cast<float>(_window->getSize().y) / backgroundTexture.getSize().y
     );
 
+
+    float scaleX = static_cast<float>(_window->getSize().x) / 30.f;
+    float scaleY = static_cast<float>(_window->getSize().y) / 22.f;
+
+    
+
+
+    std::string mapTitles[MapButtonsAmount] = {"Speedway", "Desert", "Jungle"};
+
     // pozycje i rozmiar przyciskuf
     auto [winWidth, winHeight] = _window->getSize();
     float buttonWidth = winWidth * 0.25f;
@@ -18,31 +27,55 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse , Ma
     float startX = (winWidth - (MapButtonsAmount * buttonWidth + (MapButtonsAmount - 1) * spacing)) / 2.0f;
     float startY = winHeight * 0.4f; 
 
-    for (int i = 0; i < MapButtonsAmount; i++) 
+    for (int i = 0; i < MapButtonsAmount; i++)
     {
-        sf::Vector2f pos(startX + i * (buttonWidth + spacing), startY);
-        sf::Vector2f size(buttonWidth, buttonHeight * 3.f);
-        
-        sf::Color baseColor = sf::Color(150, 150, 150);
-        sf::Color hoverColor = sf::Color(200, 200, 200);
-
-        mapButtons[i] = btn::RectangleButton(pos, size, baseColor, hoverColor);
+       
+        float startX = 2.f + (i * 9.f);
+        float startY = 5.f;   
+        float rectWidth = 8.f;
+        float rectHeight = 14.f;
 
         
+        float scaledX = startX * scaleX;
+        float scaledY = startY * scaleY;
+        float scaledW = rectWidth * scaleX;
+        float scaledH = rectHeight * scaleY;
+
+        
+        mapButtons[i] = btn::RectangleButton(
+            sf::Vector2f{scaledX, scaledY},
+            sf::Vector2f{scaledW, scaledH},
+            sf::Color(150, 150, 150),   //szary
+            sf::Color(200, 200, 200)    //jasnoszary
+        );
+
+        //tekst do nazw map
         mapNames[i].setFont(font);
-        mapNames[i].setString("Mapa " + std::to_string(i + 1));
-        mapNames[i].setCharacterSize(static_cast<unsigned int>(buttonHeight * 0.3f));
+        mapNames[i].setString(mapTitles[i]);
+        mapNames[i].setCharacterSize(static_cast<unsigned int>(24 * scaleY)); 
         mapNames[i].setFillColor(sf::Color::White);
 
-        mapNames[i].setPosition(pos.x + size.x / 2.0f - 20.f, pos.y - 30.f); 
+        // wysrodkowanie tekstu map nad przyciski
+        sf::FloatRect textRect = mapNames[i].getLocalBounds();
+         float textWidth = textRect.width;
+         float textHeight = textRect.height;
+         float textOffsetY = 1.f * scaleY;
+         float posX = scaledX + (scaledW / 2.f) - (textWidth / 2.f);
+         float posY = scaledY - textHeight - textOffsetY;
+         mapNames[i].setPosition(posX, posY);
     
-        
-    }
-    //backArrow.setScale({1.f, 1.f});
-    backArrow.setPosition(sf::Vector2f(130.f, 130.f));
-    backArrow.setRotation(180);
 
-    settings.setPosition(sf::Vector2f(winWidth - 20.f - settings.getGlobalBounds().width - 30.f, 20.f));
+         backArrow.setPosition(sf::Vector2f{20.f, 15.f});
+    
+    settings.setPosition(
+         sf::Vector2f(
+             static_cast<float>(winWidth) - 20.f - settings.getGlobalBounds().width - 20.f,
+             20.f
+         )
+    );
+    }
+    
+
 }
 
 void LevelSelection::handleEvents(sf::Event& _event)
@@ -62,15 +95,22 @@ void LevelSelection::handleEvents(sf::Event& _event)
         else if (settings.manageHover(mouse->getPosition(*window)))
         {
             settings.manage();
-
-                
+            if (*this->BodyFunction::settings)
+                *this->BodyFunction::settings = false;
+            else
+                *this->BodyFunction::settings = true;
+                settings.reset();
         } 
         else 
         {
             for (int i = 0; i < MapButtonsAmount; i++) 
-            {
-                mapButtons[i].manageHover(sf::Vector2i(mouse->getPosition(*window)), false);
-            }
+            if (mapButtons[i].manageHover(sf::Vector2i(mouse->getPosition(*window)), true))
+                {
+                      
+                    selectedMapIndex = i;    
+                    functionIterator = ManagingFunctionsIterator::carSelection;
+                    break;
+                }
                     
         }
     }
