@@ -10,7 +10,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # 🟢 Ustawienie ścieżek do SFML (zmień na swoją lokalizację SFML)
-set(SFML_ROOT "C:/SFML/SFML-2.6.1")
+set(SFML_ROOT "D:\\dokumenty\\libraries\\SFML-2.6.1")
 set(CMAKE_PREFIX_PATH "${SFML_ROOT}")
 set(SFML_INCLUDE_DIR "${SFML_ROOT}/include")
 set(SFML_LIBRARY_DIR "${SFML_ROOT}/lib")
@@ -51,6 +51,7 @@ add_executable(main
     src/buttons/howeredSpriteButton.cpp
     src/buttons/RectangleButton.cpp
     src/buttons/slider.cpp
+    src/buttons/progressbar.cpp
 )
 
 # Ustawienie wersji standardu C++
