@@ -14,4 +14,14 @@ public:
 
 private:
 
+// Tło ekranu
+sf::Texture backgroundTexture;
+sf::Sprite backgroundSprite;
+sf::RectangleShape overlay;
+
+//strzalka
+btn::SpriteButton backArrow {btn::templates.getArrowTemplate()};
+//ustawienia
+btn::SpriteButton settingsBtn {btn::templates.getSettingsTemplate()};
+
 };
