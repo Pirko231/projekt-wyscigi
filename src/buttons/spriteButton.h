@@ -46,10 +46,6 @@ namespace btn
         //ustawia kąt rotacji na _angle
         void setRotation(float _angle) {this->sprite.setRotation(_angle);}
         
-        [[deprecated("zamiast tego uzywaj funkcji 'manageHower'")]]
-        //zwraca hitbox obrazu aby mozna bylo porownac to z pozycja myszki
-        sf::FloatRect getHitbox() {return this->sprite.getGlobalBounds();/*return this->hitBox.getGlobalBounds();*/}
-        
         //zwraca pozycje obiektu w globalnych koordynatach
         sf::FloatRect getGlobalBounds() const {return this->sprite.getGlobalBounds();}
 
@@ -72,15 +68,6 @@ namespace btn
 
         //zwraca true kiedy animacja jest skonczona. wprzeciwnym razie zwraca false
         bool isAnimationFinished() const {return this->animation <= 0;}
-        
-        [[deprecated("zamiast tego uzywaj funkcji 'manageHower'")]]
-        //jezeli jest najechany myszka (uzyj .getHitbox()) aby sprawdzic
-        void howered() {this->howered_();}
-
-        [[deprecated("zamiast tego uzywaj funkcji 'manageHower'")]]
-        //jezeli nie jest najechany myszka (uzyj .getHitbox()) aby sprawdzic
-        void unHowered() {this->unHowered_();}
-        
     private:
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override
         {

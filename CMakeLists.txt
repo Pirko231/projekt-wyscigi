@@ -52,6 +52,7 @@ add_executable(main
     src/buttons/RectangleButton.cpp
     src/buttons/slider.cpp
     src/buttons/progressbar.cpp
+    src/buttons/textBox.cpp
 )
 
 # Ustawienie wersji standardu C++

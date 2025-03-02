@@ -38,8 +38,9 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse , Ma
     
         
     }
-    backArrow.setRotation(180); 
-    backArrow.setPosition(sf::Vector2f(20.f, 20.f));
+    //backArrow.setScale({1.f, 1.f});
+    backArrow.setPosition(sf::Vector2f(130.f, 130.f));
+    backArrow.setRotation(180);
 
     settings.setPosition(sf::Vector2f(winWidth - 20.f - settings.getGlobalBounds().width - 30.f, 20.f));
 }
