@@ -2,8 +2,9 @@
 
 #include "bodyFunction.h"
 #include "player.h"
+#include "raport.h"
 
-//Klasa abstrakcyjna. Zbiera wspolne zachowania i obiekty
+//Zbiera wspolne zachowania i obiekty
 //dla kazdego poziomu. Kazdy poziom dziedziczy ta klase.
 class Level : public BodyFunction
 {
@@ -23,19 +24,34 @@ public:
     virtual void display();
     virtual ~Level();
 private:
-//tutaj wszystkie rzeczy ktore sa wspolne dla wszystkich leveli.
-//DO OBIEKTOW PRIVATE TRZEBA UMIESCIC ACCESSOR FUNCTIONS W PUBLIC LUB PROTECTED
-//np. gracz, boty itd. Jezeli cos jest wspolne to nalezy umiesic tutaj.
-//mape tutaj tez najlepiej przechowywac, a w klasach dziedziczacych
-//wczytywac ja po prostu z roznych plikow 
+    //miejsce na obiekty statyczne
+    //----------------------------------------
 
-    //gracz (pojazd gracza)
+    //domyslnie true, po zaladowaniu false. Wyznacza czy wczytywac statyczne obiekty
+    static bool staticLoaded; 
+
+    //static std::vector<Bot> bots;
+
+    //----------------------------------------
+
+    //mapa rysowana w display
+    sf::Sprite map;
     
-
+    //tekstura mapy
+    sf::Texture mapTexture;
+    
 protected:
-//wszystko w tym zakresie tez bedzie dostepne dla klas dziedziczacych
-//ale nie trzeba uzywac accessor functions jak w private.
-    Player player;
+    //laduje rzeczy takie jak tekstura dla mapy
+    void loadLevel(const sf::Texture& _mapTexture);
+
+    //funkcja ktora polega na resetowaniu poziomu czyli ustawiania samochodu
+    //i botow na pozycji startowej itd. Kazda klasa dziedziczaca ma swoją wlasną implementacje
+    virtual void resetLevel() {} //jeszcze bedzie wirtualna ale nie teraz/*= 0*/;
+
+    //gracz (jako obiekt statyczny bo tylko zmienia sie mu teksture i pozycje)
+    static Player player;
+
+    //sf::Texture playerTexture;
 };
 
 

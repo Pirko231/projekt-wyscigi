@@ -28,6 +28,15 @@ else()
     set(SFML_LIBS sfml-graphics sfml-window sfml-system sfml-audio sfml-network)
 endif()
 
+set(RESOURCES_DIR "${CMAKE_SOURCE_DIR}/resources")
+set(FONTS_DIR "${CMAKE_SOURCE_DIR}/fonts")
+set(SOUNDS_DIR "${CMAKE_SOURCE_DIR}/sounds")
+
+file(COPY "${RESOURCES_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+file(COPY "${FONTS_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+file(COPY "${SOUNDS_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+
+
 # Tworzenie pliku wykonywalnego
 add_executable(main 
     src/main.cpp 
@@ -53,6 +62,8 @@ add_executable(main
     src/buttons/slider.cpp
     src/buttons/progressbar.cpp
     src/buttons/textBox.cpp
+
+    src/gameObjects/collidable.cpp
 )
 
 # Ustawienie wersji standardu C++
