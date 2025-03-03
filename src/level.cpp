@@ -3,7 +3,7 @@
 bool Level::staticLoaded = false;
 Player Level::player;
 
-Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music) : BodyFunction{_window, mouse, _managingFunctionsIterator, _settings, _music}
+Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
     Report report;
     report.open();
