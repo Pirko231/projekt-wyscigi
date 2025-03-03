@@ -44,6 +44,7 @@ void Level::display()
 
 void Level::update()
 {
+    this->player.update();
 }
 
 Level::~Level()
