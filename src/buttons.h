@@ -6,6 +6,7 @@
 #include "buttons/slider.h"
 #include "buttons/progressbar.h"
 #include "buttons/textBox.h"
+#include "buttons/circleButton.h"
 #include "raport.h"
 
 //w tym pliku zebrane beda wszystkie przyciski z folderu button.

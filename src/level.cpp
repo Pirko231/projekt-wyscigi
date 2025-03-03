@@ -8,6 +8,14 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
     Report report;
     report.open();
 
+    //obiekty dla kazdego pliku osobno
+    //na ten moment auto ale pewnie sie przeniesie gdzie indziej
+    //(projekt w drodze)
+    //ta strefa bedzie uzywala logMessage z konsruktora klasy dziedziczącej
+
+    sf::Texture playerTexture;
+    report.addEntry("tekstura auta", playerTexture.loadFromFile("resources/compact_blue.png"));
+
     //obiekty statycznie, tylko raz na dzialanie programu
     if (!Level::staticLoaded)
     {
@@ -17,14 +25,7 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
         Level::staticLoaded = true;
     }
     
-    //obiekty dla kazdego pliku osobno
-    //na ten moment auto ale pewnie sie przeniesie gdzie indziej
-    //(projekt w drodze)
-    //ta strefa bedzie uzywala logMessage z konsruktora klasy dziedziczącej
-
-    sf::Texture playerTexture;
-    report.addEntry("tekstura auta", playerTexture.loadFromFile("resources/compact_blue.png"));
-
+    
     report.close();
     
     
