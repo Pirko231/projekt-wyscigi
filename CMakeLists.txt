@@ -62,6 +62,7 @@ add_executable(main
     src/buttons/slider.cpp
     src/buttons/progressbar.cpp
     src/buttons/textBox.cpp
+    src/buttons/circleButton.cpp
 
     src/gameObjects/collidable.cpp
 )
