@@ -45,7 +45,7 @@ private:
     StartLevel* setStartingData() {return &this->data.startLevel;}
 
     //ilosc przyciskow w tablicy 'buttons'
-    static constexpr int buttonAmount {4};
+    static constexpr int buttonAmount {5};
 
     //adresy przyciskow. Uzywac funkcji wirtualnych. Przypisac w konstruktorze.
     //btn::Button* - adres do przycisku
@@ -53,7 +53,7 @@ private:
     std::pair<btn::Button*, sf::Vector2f> buttons[buttonAmount];
 
     //ilosc obiektow w tablicy 'texts'
-    static constexpr int textsAmount{4};
+    static constexpr int textsAmount{5};
 
     //przechowuje teksty. Pierwszy element tablicy to napis ustawienia i dziala na innych zasadach
     //sf::Text - tekst ktory przechowuje
@@ -98,6 +98,9 @@ private:
         float speed{2.3f}; //3
     }; Settings::AnimationUp animation;
     
+    //za pierwszym razem nie bedą rysowane obiekty
+    bool firstTime{true};
+    
     //jezeli prawda to ustawienia beda wyswietlane. Jezeli falsz to nie beda.
     bool isTurnedOn{false};
     //jezeli zmienna jest prawda to ustawienia beda sie powoli wylaczaly
@@ -105,8 +108,11 @@ private:
     //funkcja operator bool zapisuje tutaj jaka byla ostatnia wgrywana wartosc
     bool lastTurnedOn{false};
 
-    //czcionka licznika i wszystkich tekstow w klasie
+    //czcionka licznika i innych tekstow
     sf::Font font;
+
+    //czcionka uzywana w obiektach typu textBox
+    sf::Font textBoxFont;
 
     //tlo ustawien
     sf::RectangleShape background;
@@ -122,6 +128,8 @@ private:
     
     //suwak do glosnosci dzwiekow otoczenia
     btn::Slider soundsVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data.soundsVolume};
+    
+    btn::TextBox cheatCodeBox;
     
     sf::Vector2f startPos;
 

@@ -34,7 +34,7 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
 
 void Level::handleEvents(sf::Event &_event)
 {
-    this->player.handleInput(_event);
+    this->player.handleEvents(_event);
 }
 
 void Level::display()

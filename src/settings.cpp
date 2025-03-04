@@ -5,19 +5,25 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
     this->mouse = _mouse;
     this->window = _window;
 
-    Raport raport;
-    raport.open();
-    raport.logMessage("Settings");
+    Report report;
+    report.open();
+    report.logMessage("Settings");
 
-    raport.addEntry("Wczytywanie czcionki", this->font.loadFromFile("fonts/BigFont.ttf"));
-
-    raport.close();
+    report.addEntry("Wczytywanie czcionki", this->font.loadFromFile("fonts/BigFont.ttf"));
+    report.addEntry("Wczytywanie czcionki do textBox", this->textBoxFont.loadFromFile("fonts/defaultFont.ttf"));
+    
+    report.close();
 
     
     this->background.setFillColor(sf::Color{81, 81, 81});
     this->background.setSize({static_cast<float>(this->window->getSize().x / 2.5), static_cast<float>(this->window->getSize().x / 2.1)});
     this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1.1)};
     this->background.setPosition(this->startPos);
+
+    this->cheatCodeBox.setFont(this->textBoxFont);
+    this->cheatCodeBox.setSize({this->background.getLocalBounds().width / 1.2f, this->background.getLocalBounds().height / 10.f});
+    this->cheatCodeBox.setCharacterSize(45);
+    this->cheatCodeBox.setLimit(14);
     
     this->texts[0].first.setString("USTAWIENIA"); 
     this->texts[0].first.setFont(this->font); 
@@ -36,6 +42,9 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
     this->texts[3].first.setString("Glosnosc dzwiekow"); 
     this->texts[3].first.setFont(this->font);
 
+    this->texts[4].first.setString("Wprowadz cheatcode:");
+    this->texts[4].first.setFont(this->font);
+
     // Ustawienie czcionki dla liczników w suwakach
     this->mainVolume.setCounterFont(this->font);
     this->musicVolume.setCounterFont(this->font);
@@ -46,20 +55,25 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
     this->buttons[1] = {&this->mainVolume, {this->background.getLocalBounds().width - static_cast<int>(this->mainVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->mainVolume.getLocalBounds().height * 9}};
     this->buttons[2] = {&this->musicVolume, {this->background.getLocalBounds().width - static_cast<int>(this->musicVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->musicVolume.getLocalBounds().height * 9 + this->musicVolume.getLocalBounds().height * 6}};
     this->buttons[3] = {&this->soundsVolume, {this->background.getLocalBounds().width - static_cast<int>(this->soundsVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->soundsVolume.getLocalBounds().height * 9 + this->soundsVolume.getLocalBounds().height * 12}};
+    this->buttons[4] = {&this->cheatCodeBox, {this->background.getLocalBounds().width - static_cast<int>(this->cheatCodeBox.getLocalBounds().width * 1.1f), this->background.getLocalBounds().top + this->cheatCodeBox.getLocalBounds().height * 2.5f + this->cheatCodeBox.getLocalBounds().height * 2.f}};
 
     this->texts[0].second = {this->texts[0].first.getLocalBounds().width / 1.3f, -(this->texts[0].first.getLocalBounds().height / 1.5f)};
     
     // Ustawienie pozycji tekstów względem przycisków (od indeksu 1, gdyż 0 to nagłówek)
-    for (int i = 1; i < this->textsAmount; i++)
+    //aby wyswietlily sie tylko suwaki robimy 4 elelmenty
+    for (int i = 1; i < 4; i++)
     {
         this->texts[i].second = {this->buttons[i].second.x, this->buttons[i].second.y - this->buttons[i].first->getLocalBounds().height - this->texts[i].first.getLocalBounds().height * 1.5f};
     }
+
+    this->texts[4].second = {this->buttons[4].second.x, this->buttons[4].second.y - this->texts[4].first.getLocalBounds().height * 1.4f};
 }
 
 
 
 void Settings::handleEvents(sf::Event &_event)
 {
+    this->cheatCodeBox.handleEvent(_event);
     if (_event.type == sf::Event::MouseButtonPressed)
     {
         if (_event.mouseButton.button == sf::Mouse::Left)
@@ -75,6 +89,7 @@ void Settings::handleEvents(sf::Event &_event)
         this->mainVolume.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
         this->musicVolume.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
         this->soundsVolume.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
+        this->cheatCodeBox.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
     }
 }
 
@@ -85,6 +100,8 @@ void Settings::update()
     this->mainVolume.updateValue();
     this->musicVolume.updateValue();
     this->soundsVolume.updateValue();
+
+    this->cheatCodeBox.update();
 
     if (this->animation)
         this->animation(*this);
@@ -97,6 +114,12 @@ void Settings::update()
 
 void Settings::display()
 {
+    if (this->firstTime)
+    {
+        this->firstTime = false;
+        return;
+    }
+    
     this->window->draw(this->background);
     for (int i = 0; i < this->buttonAmount; i++)
         this->window->draw(*this->buttons[i].first);
