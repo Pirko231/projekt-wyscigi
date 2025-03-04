@@ -27,6 +27,16 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse , Ma
     float startX = (winWidth - (MapButtonsAmount * buttonWidth + (MapButtonsAmount - 1) * spacing)) / 2.0f;
     float startY = winHeight * 0.4f; 
 
+    //Tekstury map
+    std::string mapTextureFiles[MapButtonsAmount] = {
+        "resources/Speedway.jpeg",
+        "resources/SPEEDWAY2.0..jpg",
+        "resources/SPEEDWAY2.0..jpg"
+    };
+    
+
+
+
     for (int i = 0; i < MapButtonsAmount; i++)
     {
        
@@ -64,6 +74,25 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse , Ma
          float posY = scaledY - textHeight - textOffsetY;
          mapNames[i].setPosition(posX, posY);
     
+        //wczytywanie tekstur do map i skalowanie do wielkosci przycisku
+        mapTextures[i].loadFromFile(mapTextureFiles[i]);
+        mapSprites[i].setTexture(mapTextures[i]);
+
+        if (mapTextures[i].getSize().x > 0 && mapTextures[i].getSize().y > 0) 
+{
+    float spriteMargin = 0.1f; // 10% margines
+    float heightAdjustmentFactor = 0.85f;
+
+    mapSprites[i].setScale(
+        (scaledW * (1 - spriteMargin)) / mapTextures[i].getSize().x,  // Szerokość pozostaje bez zmian
+        (scaledH * (1 - spriteMargin) * heightAdjustmentFactor) / mapTextures[i].getSize().y  // Zmniejszenie wysokości proporcjonalnie
+    );
+
+    mapSprites[i].setPosition(
+        mapButtons[i].getPosition().x + (scaledW * spriteMargin) / 2,
+        mapButtons[i].getPosition().y + (scaledH * spriteMargin) / 4
+    );
+}
 
          backArrow.setPosition(sf::Vector2f{20.f, 15.f});
     
@@ -153,6 +182,7 @@ void LevelSelection::display()
     {
         window->draw(mapButtons[i]);
         window->draw(mapNames[i]);
+        window->draw(mapSprites[i]);
     }
 }
 

@@ -31,7 +31,10 @@ private:
    //Nazwy map
    sf::Text mapNames[MapButtonsAmount];
    sf::Font font;
-    
+
+   //dodanie tekstur do map
+   sf::Texture mapTextures[MapButtonsAmount];
+   sf::Sprite mapSprites[MapButtonsAmount];
 
     //strzalka
     btn::SpriteButton backArrow {btn::templates.getArrowTemplate()};
