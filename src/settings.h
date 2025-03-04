@@ -127,5 +127,4 @@ private:
 
     sf::Vector2f destination;
 
-    btn::TextBox textBox{{100.f, 100.f}, {50.f,50.f}};
 };

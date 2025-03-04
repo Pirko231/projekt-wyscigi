@@ -13,8 +13,6 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
 
     raport.close();
 
-    this->textBox.setFillColor(sf::Color::Black);
-    this->textBox.setFont(this->font);
     
     this->background.setFillColor(sf::Color{81, 81, 81});
     this->background.setSize({static_cast<float>(this->window->getSize().x / 2.5), static_cast<float>(this->window->getSize().x / 2.1)});
@@ -62,7 +60,6 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
 
 void Settings::handleEvents(sf::Event &_event)
 {
-    this->textBox.manageClick(this->mouse->getPosition(*this->window), _event);
     if (_event.type == sf::Event::MouseButtonPressed)
     {
         if (_event.mouseButton.button == sf::Mouse::Left)
@@ -84,7 +81,6 @@ void Settings::handleEvents(sf::Event &_event)
 void Settings::update()
 {
     this->x.manageHover(this->mouse->getPosition(*this->window));
-    this->textBox.manageHover(this->mouse->getPosition(*this->window));
     //this->mainVolume.manageHover(this->mouse->getPosition(*this->window));
     this->mainVolume.updateValue();
     this->musicVolume.updateValue();
@@ -107,7 +103,6 @@ void Settings::display()
     
     for (int i = 0; i < this->textsAmount; i++)
         this->window->draw(this->texts[i].first);
-    this->window->draw(this->textBox);
     /*this->window->draw(this->x);
     this->window->draw(this->mainVolume);*/
 }

@@ -1,89 +1,72 @@
 #pragma once
 
-#include "button.h"
+#include <SFML/Graphics.hpp>
+#include "button.h" // plik z deklaracją klasy btn::Button
 
-namespace btn
-{
+namespace btn {
 
-    class TextBox : public btn::Button
-    {
-    public:
-        TextBox() = default;
+class TextBox : public Button {
+public:
+    TextBox();
+    virtual ~TextBox();
 
-        TextBox(sf::Vector2f _pos, sf::Vector2f _size);
+    // Implementacja funkcji wirtualnych z klasy Button:
+    virtual bool manageHover(sf::Vector2i _mousePos, bool _clicked = false) override;
+    virtual sf::Vector2f getPosition() const override;
+    virtual sf::FloatRect getLocalBounds() const override;
+    virtual sf::FloatRect getGlobalBounds() const override;
+    virtual void setPosition(sf::Vector2f _pos) override;
+    virtual void move(sf::Vector2f _pos) override;
 
-        // uzywac w funkcji update, do funkcji handleEvents zastosowac 'manageClicks'
-        // sprawdza czy przycisk zostal najechany oraz animuje kursor tekstu
-        bool manageHover(sf::Vector2i _mousePos, bool _clicked = false) override;
+    // Ustawianie czcionki (przekazywana jako argument)
+    void setFont(const sf::Font& _font);
+    // Ustawienie rozmiaru czcionki – opcjonalnie (defaultowo ustawiony rozmiar obliczany jest przez klasę)
+    void setCharacterSize(unsigned int size);
+    // Ustawienia kolorów:
+    void setTextColor(const sf::Color& color);
+    void setOutlineColor(const sf::Color& color);
+    void setOutlineSize(float size);
+    // Ustawienie koloru animacji (dla stanów hover/aktywny)
+    void setAnimationColor(const sf::Color& color);
+    // Ustawienie koloru kursora
+    void setCursorColor(const sf::Color& color);
+    // Ustawienie rozmiaru TextBoxa (jego tła)
+    void setSize(sf::Vector2f size);
+    // Ustawienie limitu znaków wprowadzanych przez użytkownika
+    void setLimit(unsigned int limit);
 
-        // sprawdza czy mozna wpisywac do przycisku a potem sprawdza czy _event
-        // to jakis klawisz. Kiedy jest to klawisz to przycisk na to reaguje.
-        void manageClick(sf::Vector2i _mousePos, sf::Event &_event);
+    // Pobranie przechwyconego tekstu
+    std::string getText() const;
 
-        //ustawia czcionke na _font
-        void setFont(const sf::Font &_font) { this->font = _font; }
+    // Funkcje obsługi zdarzeń – należy wywoływać przy obsłudze pętli zdarzeń SFML
+    void handleEvent(const sf::Event& event);
+    // Aktualizacja stanu (np. migania kursora) – wywoływana w głównej pętli aplikacji
+    void update();
 
-        // TODO naprawic aby rozmiar byl dobry
-        void setSize(sf::Vector2f _size, sf::Vector2f _outlineSize = {1.f,1.f})
-        {
-            this->box.setSize(_size);
-            this->text.setCharacterSize(20);
-        }
+    // Utrata fokusu – gdy kliknięto poza TextBoxem
+    void loseFocus();
 
-        // zwraca zawartosc tekstu
-        sf::String getString() const { return this->textString; }
+private:
+    // Funkcja rysowania (wywoływana automatycznie przy target.draw)
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-        sf::Vector2f getPosition() const override { return this->box.getPosition(); }
+    sf::RectangleShape background;   // Tło przycisku (TextBoxa)
+    sf::Text displayedText;          // Wyświetlany tekst
+    const sf::Font* font;            // Wskaźnik na czcionkę (ustawiany przez setFont)
+    sf::RectangleShape cursor;       // Migający kursor
 
-        sf::FloatRect getLocalBounds() const override { return this->box.getLocalBounds(); }
+    bool focused;                    // Czy TextBox posiada fokus
+    unsigned int charLimit;          // Maksymalna liczba znaków do wprowadzenia
+    sf::Clock blinkClock;            // Zegar do obsługi migania kursora
+    bool showCursor;                 // Flaga określająca, czy kursor ma być widoczny
 
-        sf::FloatRect getGlobalBounds() const override { return this->box.getGlobalBounds(); }
-
-        void setPosition(sf::Vector2f _pos) override;
-
-        void move(sf::Vector2f _offset) override
-        {
-            this->box.move(_offset);
-            this->text.move(_offset);
-            this->cursor.move(_offset);
-        }
-
-        //ustawia kolor obiektu na _defaultColor, kolor po najechaniu na _hoverColor,
-        //kolor czcionki na _fontColor i kolor krawedzi na _outlineFillColor
-        void setFillColor(sf::Color _defaultColor, sf::Color _hoverColor = sf::Color{177,177,177}, sf::Color _fontColor = sf::Color::White, sf::Color _cursorColor = sf::Color::White, sf::Color _outlineFillColor = sf::Color::Black);
-    private:
-        void draw(sf::RenderTarget &target, sf::RenderStates states) const override
-        {
-            target.draw(this->box, states);
-            this->text.setString(this->textString);
-            target.draw(this->cursor, states);
-            target.draw(this->text, states);
-        }
-
-        // zapisuje czy teraz mozna wpisywac tekst do przycisku (jezeli true)
-        // kiedy false to nie mozna wpisywac
-        bool clicked{false};
-
-        // kwadrat w ktorym bedzie znajdowal sie tekst. Bedzie zmienial kolor
-        sf::RectangleShape box;
-
-        // podstawowy kolor miejsca na tekst
-        sf::Color defaultColor;
-
-        // kolor przycisku po najechaniu
-        sf::Color hoverColor;
-
-        // kursor ktory pokazuje gdzie obecnie sie pisze
-        sf::RectangleShape cursor;
-
-        // czcionka
-        sf::Font font;
-
-        // tekst ktory bedzie rysowany na przycisku
-        mutable sf::Text text;
-
-        // zawartosc tekstu
-        sf::String textString;
-    };
-
+    // Domyślne kolory dla poszczególnych stanów:
+    sf::Color normalColor;
+    sf::Color hoverColor;
+    sf::Color activeColor;
+    sf::Color textColor;
+    sf::Color cursorColor;
+    float outlineSize;
 };
+
+} // namespace btn
