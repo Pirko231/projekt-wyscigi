@@ -39,9 +39,13 @@ public:
     std::string getText() const;
 
     // Funkcje obsługi zdarzeń – należy wywoływać przy obsłudze pętli zdarzeń SFML
-    void handleEvent(const sf::Event& event);
+    // Zwraca true, gdy naciśnięto Enter (można pobrać tekst), false w przeciwnym wypadku.
+    bool handleEvent(const sf::Event& event);
     // Aktualizacja stanu (np. migania kursora) – wywoływana w głównej pętli aplikacji
     void update();
+
+    // Reset zawartości TextBox – usuwa cały wpisany tekst
+    void reset();
 
     // Utrata fokusu – gdy kliknięto poza TextBoxem
     void loseFocus();

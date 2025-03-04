@@ -136,9 +136,9 @@ std::string TextBox::getText() const {
     return displayedText.getString();
 }
 
-void TextBox::handleEvent(const sf::Event& event) {
+bool TextBox::handleEvent(const sf::Event& event) {
     if (!focused)
-        return;
+        return false;
     
     if (event.type == sf::Event::TextEntered) {
         // Przetwarzamy tylko drukowalne znaki (ASCII 32-126)
@@ -160,7 +160,12 @@ void TextBox::handleEvent(const sf::Event& event) {
                                      displayedText.getPosition().y);
             }
         }
+        else if (event.key.code == sf::Keyboard::Enter) {
+            return true; // Zwraca true, jeśli naciśnięto Enter (można pobrać tekst)
+        }
     }
+    
+    return false; // Zwraca false w każdym innym przypadku
 }
 
 void TextBox::update() {
@@ -176,6 +181,13 @@ void TextBox::update() {
 void TextBox::loseFocus() {
     focused = false;
     background.setFillColor(normalColor);
+}
+
+void TextBox::reset() {
+    // Wymazuje całą zawartość tekstu
+    displayedText.setString("");
+    // Ustawia kursor tuż na początku tekstu
+    cursor.setPosition(displayedText.getPosition().x + 2, displayedText.getPosition().y);
 }
 
 void TextBox::draw(sf::RenderTarget &target, sf::RenderStates states) const {
