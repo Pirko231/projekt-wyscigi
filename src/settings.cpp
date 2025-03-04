@@ -73,7 +73,15 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
 
 void Settings::handleEvents(sf::Event &_event)
 {
-    this->cheatCodeBox.handleEvent(_event);
+    if (this->cheatCodeBox.handleEvent(_event))
+    {
+        if (this->cheatCodes(this->cheatCodeBox.getText()))
+            this->cheatCodeBox.setAnimationColor(sf::Color::Green);
+        else
+            this->cheatCodeBox.setAnimationColor(sf::Color::Red);
+        this->CheatCodeBoxtimer--;
+        this->cheatCodeBox.reset();
+    }
     if (_event.type == sf::Event::MouseButtonPressed)
     {
         if (_event.mouseButton.button == sf::Mouse::Left)
@@ -102,6 +110,13 @@ void Settings::update()
     this->soundsVolume.updateValue();
 
     this->cheatCodeBox.update();
+    if (this->CheatCodeBoxtimer < this->CheatCodeBoxMaxtimer)
+        this->CheatCodeBoxtimer--;
+    if (this->CheatCodeBoxtimer <= 0)
+    {
+        this->CheatCodeBoxtimer = this->CheatCodeBoxMaxtimer;
+        this->cheatCodeBox.setAnimationColor(this->defaultCheatCodesBoxFillColor);
+    }
 
     if (this->animation)
         this->animation(*this);
@@ -261,4 +276,34 @@ void Settings::AnimationUp::operator()(Settings& _settings)
 void Settings::AnimationUp::reset()
 {
     this->animation = this->maxAnimation;
+}
+
+bool Settings::CheatCodes::operator()(std::string _code)
+{
+    //chyba w petli sie nie uda
+    if (this->codes[0] == _code) //wszystkie mapy
+    {
+        this->settingsData.level1 = true;
+        this->settingsData.level2 = true;
+        this->settingsData.level3 = true;
+        return true;
+    }
+    if (this->codes[1] == _code) //wszystkie auta
+    {
+        this->settingsData.car1 = true;
+        this->settingsData.car2 = true;
+        this->settingsData.car3 = true;
+        return true;
+    }
+    if (this->codes[2] == _code)
+    {
+        this->settingsData.level1 = true;
+        this->settingsData.level2 = true;
+        this->settingsData.level3 = true;
+        this->settingsData.car1 = true;
+        this->settingsData.car2 = true;
+        this->settingsData.car3 = true;
+        return true;
+    }
+    return false;
 }

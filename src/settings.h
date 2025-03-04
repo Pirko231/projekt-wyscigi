@@ -97,7 +97,31 @@ private:
         //modyfikator predkosci animacji
         float speed{2.3f}; //3
     }; Settings::AnimationUp animation;
-    
+
+    //przechowuje cheatcody do programu
+    struct CheatCodes
+    {
+        CheatCodes(SettingsData& _settingsData) : settingsData{_settingsData}
+        {}
+        //odbiera, sprawdza i reaguje na kody. zwraca true kiedy kod zostanie zrealizowany
+        bool operator()(std::string _code);
+        
+    private:
+        //wydobywamy dane StartingData
+        SettingsData& settingsData;
+        //cheatcody
+        std::vector<std::string> codes {"ALLMAPS", "ALLCARS", "ALL >:("};
+    }; Settings::CheatCodes cheatCodes{this->data};
+
+    //maksymalna animacja zmiany koloru po wprowadzeniu danych do CheatCodeBox
+    int CheatCodeBoxMaxtimer{15};
+
+    //animacja zmiany koloru po wprowadzeniu danych do CheatCodeBox
+    int CheatCodeBoxtimer{this->CheatCodeBoxMaxtimer};
+
+    //podstawowy kolor dla cheatCodesBox
+    sf::Color defaultCheatCodesBoxFillColor{sf::Color{200,200,200}};
+
     //za pierwszym razem nie bedą rysowane obiekty
     bool firstTime{true};
     
