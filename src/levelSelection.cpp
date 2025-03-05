@@ -30,7 +30,7 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse , Ma
     //Tekstury map
     std::string mapTextureFiles[MapButtonsAmount] = {
         "resources/Speedway.jpeg",
-        "resources/SPEEDWAY2.0..jpg",
+        "resources/mapLevel1.jpg",
         "resources/SPEEDWAY2.0..jpg"
     };
     
@@ -80,17 +80,27 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse , Ma
 
         if (mapTextures[i].getSize().x > 0 && mapTextures[i].getSize().y > 0) 
 {
-    float spriteMargin = 0.1f; // 10% margines
-    float heightAdjustmentFactor = 0.85f;
+    float spriteMargin = 0.2f;           // 20% margines dla obliczeń (dotyczy głównie osi Y)
+    float heightAdjustmentFactor = 0.75f;
+    float widthMultiplier = 1.00f;       // teraz sprite będzie tylko 2% szerszy niż przycisk
 
-    mapSprites[i].setScale(
-        (scaledW * (1 - spriteMargin)) / mapTextures[i].getSize().x,  // Szerokość pozostaje bez zmian
-        (scaledH * (1 - spriteMargin) * heightAdjustmentFactor) / mapTextures[i].getSize().y  // Zmniejszenie wysokości proporcjonalnie
-    );
+    // Skalowanie w pionie – pozostawiamy bez zmian
+    float scaleFactorY = (scaledH * (1 - spriteMargin) * heightAdjustmentFactor) / mapTextures[i].getSize().y;
+    // Skalowanie w poziomie – uwzględniamy mniejszy widthMultiplier
+    float scaleFactorX = (scaledW * widthMultiplier) / mapTextures[i].getSize().x;
+    mapSprites[i].setScale(scaleFactorX, scaleFactorY);
+
+    // Obliczamy wymiary sprite'a po skalowaniu
+    float spriteScaledWidth = mapTextures[i].getSize().x * scaleFactorX;
+    float spriteScaledHeight = mapTextures[i].getSize().y * scaleFactorY;
+    
+    // Wyliczamy offsety, aby sprite był wycentrowany względem przycisku.
+    float offsetX = (scaledW - spriteScaledWidth) / 2.0f;
+    float offsetY = (scaledH - spriteScaledHeight) / 2.0f;
 
     mapSprites[i].setPosition(
-        mapButtons[i].getPosition().x + (scaledW * spriteMargin) / 2,
-        mapButtons[i].getPosition().y + (scaledH * spriteMargin) / 4
+        mapButtons[i].getPosition().x + offsetX,
+        mapButtons[i].getPosition().y + offsetY
     );
 }
 
