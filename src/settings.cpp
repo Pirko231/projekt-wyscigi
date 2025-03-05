@@ -1,9 +1,11 @@
 #include "settings.h"
 
-Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse)
+Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars)
 {
     this->mouse = _mouse;
     this->window = _window;
+    this->cars = _cars;
+    this->setStartingData()->player = &_cars->player;
 
     Report report;
     report.open();

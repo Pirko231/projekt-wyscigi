@@ -1,10 +1,11 @@
 #include "level.h"
 
 bool Level::staticLoaded = false;
-Player Level::player;
 
 Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
+    this->player = this->settings->getStartingData()->player;
+    
     Report report;
     report.open();
 
@@ -29,23 +30,23 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
     report.close();
     
     
-    this->player.setTexture(playerTexture);
+    this->player->setTexture(playerTexture);
 }
 
 void Level::handleEvents(sf::Event &_event)
 {
-    this->player.handleEvents(_event);
+    this->player->handleEvents(_event);
 }
 
 void Level::display()
 {
     this->window->draw(this->map);
-    this->window->draw(this->player);
+    this->window->draw(*this->player);
 }
 
 void Level::update()
 {
-    this->player.update();
+    this->player->update();
 }
 
 Level::~Level()

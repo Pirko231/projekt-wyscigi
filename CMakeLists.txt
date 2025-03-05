@@ -49,12 +49,14 @@ add_executable(main
     src/level1.cpp 
     src/level2.cpp 
     src/level3.cpp 
-    src/player.cpp 
     src/raport.cpp
     src/settings.cpp
     src/settingsData.cpp
 
     src/car.cpp
+    src/cars.cpp
+    src/bot.cpp
+    src/player.cpp 
 
     src/buttons.cpp
     src/buttons/button.cpp

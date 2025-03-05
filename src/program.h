@@ -35,6 +35,9 @@ private:
     //ladowana jest w klasach ktore maja do niej dostep
     sf::Music* music;
 
+    //przechowywane auta
+    Cars* cars;
+
     //wywolywane w update, gra muzyke.
     //reaguje na glosnosc muzyki i kontaktuje sie z ustawieniami
     void playMusic();

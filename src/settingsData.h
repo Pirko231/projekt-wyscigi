@@ -1,13 +1,15 @@
 #pragma once
 
 #include <fstream>
-#include "player.h"
+//#include "player.h"
+#include "cars.h"
 
 //po tym jak wybierze sie level i car tutaj zapisane będą wybory
 //aby sie do nich dostac nalezy uzyc funkcji w settings
 struct StartLevel
 {
     Player* player{nullptr};
+    int carNumber{1}; //zakres 0-3
     int mapNumber{-1};
 };
 

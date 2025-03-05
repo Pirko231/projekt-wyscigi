@@ -3,7 +3,6 @@
 #include "buttons.h"
 #include "settingsData.h"
 
-
 class Settings
 {
 public:
@@ -12,7 +11,7 @@ public:
     friend class LevelSelection;
     friend class CarSelection;
 
-    Settings(sf::RenderWindow* _window, sf::Mouse* _mouse);
+    Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars);
 
     Settings(const Settings&) = delete;
     Settings& operator=(const Settings&) = delete;
@@ -39,6 +38,8 @@ private:
     sf::Mouse* mouse;
 
     SettingsData data;
+
+    Cars* cars;
 
     //dzieki niemu mozna modyfikowac klase zawierająca dane majace byc przekazane
     //kolejnemu poziomowi

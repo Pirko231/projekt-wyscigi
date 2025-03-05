@@ -48,8 +48,8 @@ protected:
     //i botow na pozycji startowej itd. Kazda klasa dziedziczaca ma swoją wlasną implementacje
     virtual void resetLevel() {} //jeszcze bedzie wirtualna ale nie teraz/*= 0*/;
 
-    //gracz (jako obiekt statyczny bo tylko zmienia sie mu teksture i pozycje)
-    static Player player;
+    //gracz (jako wskaznik)
+    Player* player;
 
     //sf::Texture playerTexture;
 };

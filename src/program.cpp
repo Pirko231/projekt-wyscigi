@@ -11,6 +11,8 @@ Program::Program()
 
     this->music = new sf::Music;
 
+    this->cars = new Cars;
+
     //ustawnienie poczatku pracy programu na mainMenu
     this->currentFunction = ManagingFunctionsIterator::mainMenu;
 
@@ -23,7 +25,7 @@ Program::Program()
     raport.close();
     //-------------------------------------------
 
-    this->settings = new Settings{this->window, this->mouse};
+    this->settings = new Settings{this->window, this->mouse, this->cars};
 
     //kazdy z tych obiektow bedzie mial swoj wlasny obiekt typu Raport
     this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction, this->settings, this->music};
@@ -122,6 +124,9 @@ Program::~Program()
     delete this->settings;
 
     delete this->music;
+
+    delete this->cars;
+    
     //usuwamy funkcje do wyswietlania
     for (size_t i = 0; i < Program::managingFunctionsAmount; i++)
         delete this->managingFunctions[i];

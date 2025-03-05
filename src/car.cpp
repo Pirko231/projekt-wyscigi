@@ -4,9 +4,9 @@
 //includuj pliki w naglowkowym klasy a tutaj tylko plik klasy.h
 
 // mozna by zrobic folder utils/ gdzie takie rozne pomocne funkcje moga byc
-double eucl_mod(double x, double y)
+float eucl_mod(float x, float y)
 {
-    double ret = fmod(x, y);
+    float ret = fmod(x, y);
     if (ret < 0) ret = ret + fabs(y);
     return ret;
 }
@@ -64,23 +64,23 @@ void Car::move()
     if (wPressed)
     {
         direction = 1;
-        speed += acceleration;
-        speed = std::clamp(speed, 0.0, maxSpeed);
+        speed += stats.acceleration;
+        speed = std::clamp(speed, 0.f, stats.maxSpeed);
     }
     if (sPressed)
     {
         direction = -1;
-        speed += acceleration;
-        speed = std::clamp(speed, 0.0, maxSpeed);
+        speed += stats.acceleration;
+        speed = std::clamp(speed, 0.f, stats.maxSpeed);
     }
     if (aPressed)
     {
-        rotation = eucl_mod(rotation - rotationSpeed, 360.0);
-        rotation = std::clamp(rotation, 0.0, 360.0);
+        rotation = eucl_mod(rotation - stats.rotationSpeed, 360.f);
+        rotation = std::clamp(rotation, 0.f, 360.f);
     }
     if (dPressed)
     {
-        rotation = eucl_mod(rotation + rotationSpeed, 360.0);
+        rotation = eucl_mod(rotation + stats.rotationSpeed, 360.f);
     }
     car.setPosition(posX, posY);
     car.setRotation(rotation);
@@ -89,9 +89,9 @@ void Car::move()
 void Car::update(void)
 {
     // FIXME: obliczyc gdzies deltatime naprawde
-    double dt = 1.0/60.0;
-    double radians = rotation * (M_PI / 180); // bylo na matmie ;)
-    double s = dt * speed;
+    float dt = 1.f / 60.f;
+    float radians = rotation * (M_PI / 180); // bylo na matmie ;)
+    float s = dt * speed;
     posX += s * direction * sin(radians);
     posY -= s * direction * cos(radians);
     speed -= s;
