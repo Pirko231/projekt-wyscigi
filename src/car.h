@@ -1,5 +1,6 @@
 #pragma once
 
+#include "util.h"
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <cmath>
@@ -57,10 +58,7 @@ private:
     //porusza obiekt w zaleznosci od wattosci zmiennch xPressed
     void move();
 
-    bool wPressed{false};
-    bool sPressed{false};
-    bool aPressed{false};
-    bool dPressed{false};
+    util::Pressed pressed;
 
     sf::Sprite car;
     sf::Texture carTexture;

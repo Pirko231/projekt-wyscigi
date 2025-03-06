@@ -11,67 +11,28 @@ Car::Car() :
     this->car.setScale(1.f,1.f);
 }
 
-void Car::handleEvents(sf::Event& _event)
+void Car::handleEvents(sf::Event& ev)
 {
-    //przenioslem do funkcji move a tutaj są ustawiane tylko zmienne bool
-    if (_event.type == sf::Event::KeyPressed)
-    {
-        if (_event.key.code == sf::Keyboard::W)
-        {
-            wPressed = true;
-        }
-        if (_event.key.code == sf::Keyboard::S)
-        {
-            sPressed = true;
-        }
-        if (_event.key.code == sf::Keyboard::A)
-        {
-            aPressed = true;
-        }
-        if (_event.key.code == sf::Keyboard::D)
-        {
-            dPressed = true;
-        }
-    }
-
-    if (_event.type == sf::Event::KeyReleased)
-    {
-        if (_event.key.code == sf::Keyboard::W)
-            wPressed = false;
-        
-        if (_event.key.code == sf::Keyboard::S)
-            sPressed = false;
-        
-        if (_event.key.code == sf::Keyboard::A)
-            aPressed = false;
-        
-        if (_event.key.code == sf::Keyboard::D)
-            dPressed = false;
-        
-    }
+    pressed.check(ev);
 }
 
 void Car::move()
 {
-    if (wPressed)
-    {
+    if (pressed.w) {
         direction = 1;
         speed += stats.acceleration;
         speed = std::clamp(speed, 0.f, stats.maxSpeed);
     }
-    if (sPressed)
-    {
+    if (pressed.s) {
         direction = -1;
         speed += stats.acceleration;
         speed = std::clamp(speed, 0.f, stats.maxSpeed);
     }
-    if (aPressed)
-    {
+    if (pressed.a) {
         rotation = util::rem_euclid(rotation - stats.rotationSpeed, 360.f);
         rotation = std::clamp(rotation, 0.f, 360.f);
     }
-    if (dPressed)
-    {
+    if (pressed.d) {
         rotation = util::rem_euclid(rotation + stats.rotationSpeed, 360.f);
     }
     car.setPosition(posX, posY);
