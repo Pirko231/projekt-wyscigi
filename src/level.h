@@ -22,6 +22,7 @@ public:
     virtual void update();
     //wyswietla obecne okno. Uzywac w funkcji Program::display()
     virtual void display();
+    bool useDefaultView() const override {return false;}
     virtual ~Level();
 private:
     //miejsce na obiekty statyczne
@@ -29,6 +30,8 @@ private:
 
     //domyslnie true, po zaladowaniu false. Wyznacza czy wczytywac statyczne obiekty
     static bool staticLoaded; 
+
+    static sf::View gameView;
 
     //static std::vector<Bot> bots;
 
@@ -39,6 +42,9 @@ private:
     
     //tekstura mapy
     sf::Texture mapTexture;
+
+    //laduje widok aby byl na samochod
+    //void loadView();
     
 protected:
     //laduje rzeczy takie jak tekstura dla mapy

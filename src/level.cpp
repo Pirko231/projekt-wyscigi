@@ -1,10 +1,16 @@
 #include "level.h"
 
 bool Level::staticLoaded = false;
+sf::View Level::gameView{};
 
 Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
     this->player = this->settings->getStartingData()->player;
+
+    this->gameView.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
+    this->gameView.setCenter(this->player->getPosition().x / 2.f, this->player->getPosition().y / 2.f);
+
+    this->window->setView(this->gameView);
     
     Report report;
     report.open();
@@ -47,6 +53,11 @@ void Level::display()
 void Level::update()
 {
     this->player->update();
+
+    this->window->setView(this->gameView);
+    this->gameView.setCenter({this->player->getPosition().x / 2.f, this->player->getPosition().y});
+    //rotacja zbyt szarpie ekranem na razie to wykomentuje
+    //this->gameView.setRotation(this->player->getRotation());
 }
 
 Level::~Level()

@@ -13,8 +13,14 @@ Program::Program()
 
     this->cars = new Cars;
 
+    this->defaultView.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
+    this->defaultView.setCenter(this->window->getSize().x / 2, this->window->getSize().y / 2);
+    this->window->setView(this->defaultView);
+
     //ustawnienie poczatku pracy programu na mainMenu
     this->currentFunction = ManagingFunctionsIterator::mainMenu;
+
+    this->previousFunction = ManagingFunctionsIterator::carSelection;
 
     Raport raport;
     //miejsce na wczytanie rzeczy z plikow w tej funkcji
@@ -96,6 +102,18 @@ void Program::update()
     }
     
     this->managingFunctions[this->currentFunction]->update();
+
+    //sprawdzamy czy nie zostal zmieniony ekran. Ustawiamy widok.
+    if (this->currentFunction != this->previousFunction)
+    {
+        this->previousFunction = this->currentFunction;
+        if (this->managingFunctions[this->currentFunction]->useDefaultView())
+            this->window->setView(this->defaultView);
+        //wywolanie zbedne bo widok ma podążac za kamera.
+        //nie wystarczy tutaj wywolac tylko trzeba caly czas zmieniac
+        /*else
+            this->window->setView( this->managingFunctions[this->currentFunction]->getView());*/
+    }
 }
 
 void Program::display()

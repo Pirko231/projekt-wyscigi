@@ -44,6 +44,10 @@ public:
     void setTexture(const sf::Texture& _carTexture) {this->carTexture = _carTexture; this->car.setTexture(this->carTexture);}
 
     void setStats(CarStats& _stats) {this->stats = _stats;}
+
+    sf::Vector2f getPosition() const {return this->car.getPosition();}
+
+    float getRotation() const {return this->rotation;}
 private:
     //co tylko moze byc private zamiast protected powiino sie tutaj znalezc
     //wszystko co jest uniwersalne dla klasy gracz i bot powinno sie znalezc tutaj.

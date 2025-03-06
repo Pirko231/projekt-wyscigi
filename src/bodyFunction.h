@@ -29,7 +29,15 @@ public:
     virtual void update() = 0;
     //wyswietla obecne okno. Uzywac w funkcji Program::display()
     virtual void display() = 0;
+    //zwraca czy klasa uzywa podstawowego widoku.
+    //jezeli jakas klasa nie uzywa to nalezy zdefiniowac
+    //funkcje o tej samej nazwie ktora zwraca false.
+    virtual bool useDefaultView() const {return true;}
     virtual ~BodyFunction();
+private:
+    //podstawowy widok aplikacji
+    //static sf::View defaultView;
+    //static bool viewLoaded;
 protected:
     //wskaznik do okna, przypisany za pomoca konstruktora
     sf::RenderWindow* window;

@@ -1,5 +1,8 @@
 #include "bodyFunction.h"
 
+//sf::View BodyFunction::defaultView;
+//bool BodyFuncion::viewLoaded{false};
+
 BodyFunction::BodyFunction(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music) : functionIterator{_managingFunctionsIterator}
 {
     this->window = _window;
