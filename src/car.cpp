@@ -1,15 +1,7 @@
 #include "car.h"
-#include <bits/algorithmfwd.h>
+#include "util.h"
 
 //includuj pliki w naglowkowym klasy a tutaj tylko plik klasy.h
-
-// mozna by zrobic folder utils/ gdzie takie rozne pomocne funkcje moga byc
-float eucl_mod(float x, float y)
-{
-    float ret = fmod(x, y);
-    if (ret < 0) ret = ret + fabs(y);
-    return ret;
-}
 
 Car::Car() :
     posX(50), posY(50)
@@ -75,12 +67,12 @@ void Car::move()
     }
     if (aPressed)
     {
-        rotation = eucl_mod(rotation - stats.rotationSpeed, 360.f);
+        rotation = util::rem_euclid(rotation - stats.rotationSpeed, 360.f);
         rotation = std::clamp(rotation, 0.f, 360.f);
     }
     if (dPressed)
     {
-        rotation = eucl_mod(rotation + stats.rotationSpeed, 360.f);
+        rotation = util::rem_euclid(rotation + stats.rotationSpeed, 360.f);
     }
     car.setPosition(posX, posY);
     car.setRotation(rotation);

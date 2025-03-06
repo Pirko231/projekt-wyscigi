@@ -10,7 +10,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # 🟢 Ustawienie ścieżek do SFML (zmień na swoją lokalizację SFML)
-set(SFML_ROOT "C:/SFML/SFML-2.6.1")
+set(SFML_ROOT "/home/dawid/.local/lib/SFML-2.6.2")
 set(CMAKE_PREFIX_PATH "${SFML_ROOT}")
 set(SFML_INCLUDE_DIR "${SFML_ROOT}/include")
 set(SFML_LIBRARY_DIR "${SFML_ROOT}/lib")
@@ -70,6 +70,8 @@ add_executable(main
     src/buttons/circleButton.cpp
 
     src/gameObjects/collidable.cpp
+	
+	src/util.cpp
 )
 
 # Ustawienie wersji standardu C++
