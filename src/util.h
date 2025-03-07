@@ -34,6 +34,7 @@ struct Vector2 {
 
     Vector2() : x(0), y(0) {};
     Vector2(float _x, float _y) : x(_x), y(_y) {};
+    Vector2(const Vector2& other) : x(other.x), y(other.y) {}
 
     friend void swap(Vector2& v1, Vector2& v2);
     sf::Vector2f sfml() const { return sf::Vector2(x, y); }
