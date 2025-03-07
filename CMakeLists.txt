@@ -78,6 +78,10 @@ add_executable(main
 	src/util.cpp
 )
 
+if(NOT MSVC)
+	target_compile_options(main PRIVATE -Wall -Wextra -pedantic)
+endif()
+
 # Ustawienie wersji standardu C++
 target_compile_features(main PRIVATE cxx_std_17)
 
