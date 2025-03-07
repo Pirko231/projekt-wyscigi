@@ -104,13 +104,12 @@ void Program::update()
     
     this->managingFunctions[this->currentFunction]->update();
 
-    //sprawdzamy czy nie zostal zmieniony ekran. Ustawiamy widok.
-    if (this->currentFunction != this->previousFunction)
+    /*if (this->currentFunction != this->previousFunction)
     {
         this->previousFunction = this->currentFunction;
         if (this->managingFunctions[this->currentFunction]->useDefaultView())
             this->window->setView(this->defaultView);
-    }
+    }*/
 }
 
 void Program::display()
@@ -121,6 +120,9 @@ void Program::display()
     //wszystko co chcemy rysowac ma sie znajdowac ponizej funkcji clear
     //tutaj beda uzywane tablice wskaznikow do funkcji
 
+    if (this->managingFunctions[this->currentFunction]->useDefaultView())
+        this->window->setView(this->defaultView);
+    
     this->managingFunctions[this->currentFunction]->display();
 
     if (*this->settings)

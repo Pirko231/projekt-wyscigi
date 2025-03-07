@@ -48,6 +48,8 @@ void Level::handleEvents(sf::Event &_event)
 
 void Level::display()
 {
+    //widok wrzucimy tutaj aby sie lepiej udpdatowal
+    this->window->setView(this->gameView);
     this->window->draw(this->map);
     this->window->draw(*this->player);
 }
@@ -60,7 +62,7 @@ void Level::update()
     this->gameView.setCenter(this->player->getPosition());
     //rotacja zbyt szarpie ekranem na razie to wykomentuje
     //this->gameView.setRotation(this->player->getRotation());
-    this->window->setView(this->gameView);
+    //this->window->setView(this->gameView);
 }
 
 Level::~Level()
