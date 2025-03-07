@@ -41,6 +41,8 @@ private:
 
     Cars* cars;
 
+    sf::View defaultView;
+
     //dzieki niemu mozna modyfikowac klase zawierająca dane majace byc przekazane
     //kolejnemu poziomowi
     StartLevel* setStartingData() {return &this->data.startLevel;}

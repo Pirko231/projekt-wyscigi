@@ -7,6 +7,9 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars)
     this->cars = _cars;
     this->setStartingData()->player = &_cars->player;
 
+    this->defaultView.setSize(this->window->getSize().x, this->window->getSize().y);
+    this->defaultView.setCenter(this->window->getSize().x / 2, this->window->getSize().y / 2);
+    
     Report report;
     report.open();
     report.logMessage("Settings");
@@ -136,6 +139,8 @@ void Settings::display()
         this->firstTime = false;
         return;
     }
+
+    this->window->setView(this->defaultView);
     
     this->window->draw(this->background);
     for (int i = 0; i < this->buttonAmount; i++)

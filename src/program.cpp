@@ -97,6 +97,7 @@ void Program::update()
     this->playMusic();
     if (*this->settings)
     {
+        
         this->settings->update();
         return;
     }
@@ -109,10 +110,6 @@ void Program::update()
         this->previousFunction = this->currentFunction;
         if (this->managingFunctions[this->currentFunction]->useDefaultView())
             this->window->setView(this->defaultView);
-        //wywolanie zbedne bo widok ma podążac za kamera.
-        //nie wystarczy tutaj wywolac tylko trzeba caly czas zmieniac
-        /*else
-            this->window->setView( this->managingFunctions[this->currentFunction]->getView());*/
     }
 }
 
@@ -127,7 +124,11 @@ void Program::display()
     this->managingFunctions[this->currentFunction]->display();
 
     if (*this->settings)
+    {
+        /*if (!this->managingFunctions[this->currentFunction]->useDefaultView())
+            this->window->setView(this->defaultView);*/
         this->settings->display();
+    }
 
     //ta funkcja wyswietla na ekran narysowane rzeczy
     window->display();

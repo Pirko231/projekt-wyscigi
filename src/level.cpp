@@ -59,7 +59,7 @@ void Level::update()
     this->gameView.setSize(static_cast<sf::Vector2f>(sf::Vector2i(this->window->getSize().x / 2, this->window->getSize().y / 2)));
     this->gameView.setCenter(this->player->getPosition());
     //rotacja zbyt szarpie ekranem na razie to wykomentuje
-    this->gameView.setRotation(this->player->getRotation());
+    //this->gameView.setRotation(this->player->getRotation());
     this->window->setView(this->gameView);
 }
 
