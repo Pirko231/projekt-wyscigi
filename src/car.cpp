@@ -7,7 +7,6 @@ Car::Car() :
     posX(50), posY(50)
 {
     this->car.setPosition(posX, posY);
-
     this->car.setScale(0.4f,0.4f);
 }
 
@@ -16,7 +15,7 @@ void Car::handleEvents(sf::Event& ev)
     pressed.check(ev);
 }
 
-void Car::move()
+void Car::actuallyHandleInput()
 {
     if (pressed.w) {
         direction = 1;
@@ -30,17 +29,26 @@ void Car::move()
     }
     if (pressed.a) {
         rotation = util::rem_euclid(rotation - stats.rotationSpeed, 360.f);
-        rotation = std::clamp(rotation, 0.f, 360.f);
     }
     if (pressed.d) {
         rotation = util::rem_euclid(rotation + stats.rotationSpeed, 360.f);
     }
+}
+
+void Car::display()
+{
+    auto lb = car.getLocalBounds();
+
+    car.setOrigin(lb.width / 2.f, lb.height / 2.f);
     car.setPosition(posX, posY);
     car.setRotation(rotation);
+
 }
 
 void Car::update(void)
 {
+    actuallyHandleInput();
+
     // FIXME: obliczyc gdzies deltatime naprawde
     float dt = 1.f / 60.f;
     float radians = rotation * (M_PI / 180); // bylo na matmie ;)
@@ -50,6 +58,6 @@ void Car::update(void)
     speed -= s;
     if (speed < 0) speed = 0;
 
-    this->move();
+    display();
 }
 

@@ -2,7 +2,6 @@
 
 #include "util.h"
 #include <SFML/Graphics.hpp>
-#include <algorithm>
 #include <cmath>
 
 //przechowuje dane o statysktychach auta. Definiowana w car.h
@@ -16,7 +15,7 @@ struct CarStats
         this->rotationSpeed = _rotationSpeed;
     }
     //maksymalna predkosc samochodu. Wczesniej makro CAR_MAX_SPEED
-    float maxSpeed{100};
+    float maxSpeed{300};
 
     //przyspieszenie samochodu. Wczesniej makro CAR_ACCELERATION
     float acceleration{10};
@@ -41,6 +40,7 @@ public:
     virtual void update();
     //wywolac w funkcji handleEvents
     virtual void handleEvents(sf::Event& _event);
+    virtual void display();
 
     void setTexture(const sf::Texture& _carTexture) {this->carTexture = _carTexture; this->car.setTexture(this->carTexture);}
 
@@ -57,14 +57,11 @@ private:
     //co tylko moze byc private zamiast protected powiino sie tutaj znalezc
     //wszystko co jest uniwersalne dla klasy gracz i bot powinno sie znalezc tutaj.
     //wszystko co mozna policzyc juz w tym miejscu niech tutaj zostanie policzone
-    
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override
     {
         target.draw(this->car, states);
     }
-
-    //porusza obiekt w zaleznosci od wattosci zmiennch xPressed
-    void move();
+    void actuallyHandleInput();
 
     util::Pressed pressed;
 
