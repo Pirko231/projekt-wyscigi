@@ -38,6 +38,9 @@ private:
     //przechowywane auta
     Cars* cars;
 
+    //podstawowy widok aplikacji
+    sf::View defaultView;
+
     //wywolywane w update, gra muzyke.
     //reaguje na glosnosc muzyki i kontaktuje sie z ustawieniami
     void playMusic();
@@ -49,6 +52,10 @@ private:
     //nie trzeba bylo zapamietywac zmian
     //zdefiniowane w bodyFunction.h
     ManagingFunctionsIterator currentFunction;
+
+    //zapamietujemy jaka byla poprzdnia funkcja aby moc sprawdzic
+    //czy ekran sie zmienil.
+    ManagingFunctionsIterator previousFunction;
     
 
     //tablica wskaznikow do funkcji w ktorych znajdowac beda sie
