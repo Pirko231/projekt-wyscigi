@@ -60,6 +60,7 @@ add_executable(main
 
     src/gameObjects/border.cpp
     src/gameObjects/circle.cpp
+    src/gameObjects/lapTimer.cpp
 
     src/buttons.cpp
     src/buttons/button.cpp
