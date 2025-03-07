@@ -1,8 +1,11 @@
 #pragma once
 
+#include <memory>
+
 #include "bodyFunction.h"
 #include "player.h"
 #include "raport.h"
+#include "gameObjects.h"
 
 //Zbiera wspolne zachowania i obiekty
 //dla kazdego poziomu. Kazdy poziom dziedziczy ta klase.
@@ -57,7 +60,10 @@ protected:
     //gracz (jako wskaznik)
     Player* player;
 
-    //sf::Texture playerTexture;
+    //przechowuje obiekty do kolizji.
+    //Przehcowywane są tutaj obiekty statyczne (takie ktore są ustawiane na początku gry)
+    //oraz dynamiczne (takie ktore są ustawiane przy wlaczeniu poziomu).
+    std::vector<std::unique_ptr<bdr::Collidable>>collisions;
 };
 
 

@@ -13,6 +13,9 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     report.close();
     
     this->loadLevel(mapTxt);
+
+    //ustawianie kolizji statycznych
+    collisions.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{}));
 }
 
 /*void Level1::handleEvents(sf::Event &_event)

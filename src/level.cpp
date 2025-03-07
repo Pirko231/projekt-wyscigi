@@ -49,17 +49,22 @@ void Level::handleEvents(sf::Event &_event)
 void Level::display()
 {
     //widok wrzucimy tutaj aby sie lepiej udpdatowal
+    this->gameView.setSize(static_cast<sf::Vector2f>(sf::Vector2i(this->window->getSize().x / 2, this->window->getSize().y / 2)));
+    this->gameView.setCenter(this->player->getPosition());
     this->window->setView(this->gameView);
+
+
     this->window->draw(this->map);
     this->window->draw(*this->player);
+
+    //w przyszlosci do testow
+    /*for (std::size_t i = 0; i < collisions.size(); i++)
+        this->window->draw(*this->collisions[i]);*/
 }
 
 void Level::update()
 {
     this->player->update();
-
-    this->gameView.setSize(static_cast<sf::Vector2f>(sf::Vector2i(this->window->getSize().x / 2, this->window->getSize().y / 2)));
-    this->gameView.setCenter(this->player->getPosition());
     //rotacja zbyt szarpie ekranem na razie to wykomentuje
     //this->gameView.setRotation(this->player->getRotation());
     //this->window->setView(this->gameView);

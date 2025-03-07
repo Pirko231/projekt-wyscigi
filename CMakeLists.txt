@@ -58,6 +58,9 @@ add_executable(main
     src/bot.cpp
     src/player.cpp 
 
+    src/gameObjects/border.cpp
+    src/gameObjects/circle.cpp
+
     src/buttons.cpp
     src/buttons/button.cpp
     src/buttons/textButton.cpp
