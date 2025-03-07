@@ -4,6 +4,9 @@
 
 namespace util {
 
+// zamiana ze stopni na radiany x * (pi / 180)
+float toRadians(float);
+
 // Dzielenie z reszta
 // Oblicza liczbe calkowita `n` tak ze:
 // `lhs = n * rhs + rem_euclid(lhs, rhs)`
@@ -25,7 +28,7 @@ float div_euclid(float, float);
 float rem_euclid(float, float);
 
 struct Pressed {
-    Pressed() = default;
+    Pressed();
     void check(sf::Event);
 
     bool unknown;

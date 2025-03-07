@@ -8,6 +8,13 @@
 
 namespace util {
 
+#define PI_OVER_180 0.01745329251994329576
+float toRadians(float x)
+{
+    return x * PI_OVER_180;
+}
+#undef PI_OVER_180
+
 float div_euclid(float lhs, float rhs)
 {
     float q = std::trunc(lhs / rhs);
@@ -23,6 +30,38 @@ float rem_euclid(float lhs, float rhs)
     return (r < 0.0) ? r + std::fabs(rhs) : r;
 }
 
+
+Pressed::Pressed() {
+    unknown = false;
+    a = false; b = false; c = false;
+    d = false; e = false; f = false; g = false;
+    h = false; i = false; j = false; k = false;
+    l = false; m = false; n = false; o = false;
+    p = false; q = false; r = false; s = false;
+    t = false; u = false; v = false; w = false;
+    x = false; y = false; z = false; num0 = false;
+    num1 = false; num2 = false; num3 = false; num4 = false;
+    num5 = false; num6 = false; num7 = false; num8 = false;
+    num9 = false; escape = false; lControl = false; lShift = false;
+    lAlt = false; lSystem = false; rControl = false; rShift = false;
+    rAlt = false; rSystem = false; menu = false; lBracket = false;
+    rBracket = false; semicolon = false; comma = false; period = false;
+    apostrophe = false; slash = false; backslash = false; grave = false;
+    equal = false; hyphen = false; space = false; enter = false;
+    backspace = false; tab = false; pageUp = false; pageDown = false;
+    end = false; home = false; insert = false; del = false;
+    add = false; subtract = false; multiply = false; divide = false;
+    left = false; right = false; up = false; down = false;
+    numpad0 = false; numpad1 = false; numpad2 = false; numpad3 = false;
+    numpad4 = false; numpad5 = false; numpad6 = false; numpad7 = false;
+    numpad8 = false; numpad9 = false; f1 = false; f2 = false;
+    f3 = false; f4 = false; f5 = false; f6 = false;
+    f7 = false; f8 = false; f9 = false; f10 = false;
+    f11 = false; f12 = false; f13 = false; f14 = false;
+    f15 = false; pause = false; keyCount = false; tilde = false;
+    dash = false; backSpace = false; backSlash = false; semiColon = false;
+    ret = false; quote = false;
+}
 
 void Pressed::check(sf::Event ev)
 {
