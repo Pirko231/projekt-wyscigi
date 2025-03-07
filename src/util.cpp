@@ -1,8 +1,10 @@
+#include <algorithm>
 #include <cmath>
 #include <cstdlib>
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
+#include <utility>
 
 #include "util.h"
 
@@ -30,6 +32,125 @@ float rem_euclid(float lhs, float rhs)
     return (r < 0.0) ? r + std::fabs(rhs) : r;
 }
 
+void swap(Vector2& v1, Vector2& v2)
+{
+    using std::swap;
+    swap(v1.x, v2.x);
+    swap(v1.y, v2.y);
+}
+
+float Vector2::len() const
+{
+    return sqrtf(x*x + y*y);
+}
+
+float Vector2::lenSquared() const
+{
+    return x*x + y*y;
+}
+
+float Vector2::dot(const Vector2& other) const
+{
+    return x*other.x + y*other.y;
+}
+
+float Vector2::cross(const Vector2& other) const
+{
+    return x*other.y + y*other.x;
+}
+
+float Vector2::distance(const Vector2& other) const
+{
+    float a = x - other.x;
+    float b = y - other.y;
+    return sqrtf(a*a + b*b);
+}
+float Vector2::distanceSquared(const Vector2& other) const
+{
+    float a = x - other.x;
+    float b = y - other.y;
+    return a*a + b*b;
+}
+
+Vector2 Vector2::normalize() const
+{
+    Vector2 ret = Vector2::zero();
+    float length = this->len();
+    if (length > 0) {
+        float ilength = 1.f/length;
+        ret = *this * ilength;
+    }
+    return ret;
+}
+
+Vector2& Vector2::operator=(Vector2 other)
+{
+    swap(*this, other);
+
+    return *this;
+}
+Vector2& Vector2::operator+=(const Vector2& other)
+{
+    x += other.x;
+    y += other.y;
+    return *this;
+}
+Vector2& Vector2::operator+=(const float scalar)
+{
+    x += scalar;
+    y += scalar;
+    return *this;
+}
+Vector2& Vector2::operator-=(const Vector2& other)
+{
+    x -= other.x;
+    y -= other.y;
+    return *this;
+}
+Vector2& Vector2::operator-=(const float scalar)
+{
+    x -= scalar;
+    y -= scalar;
+    return *this;
+}
+Vector2& Vector2::operator*=(const float scalar)
+{
+    x *= scalar;
+    y *= scalar;
+    return *this;
+}
+Vector2& Vector2::operator/=(const float scalar)
+{
+    x /= scalar;
+    y /= scalar;
+    return *this;
+}
+Vector2 operator+(Vector2 lhs, const Vector2& rhs)
+{
+    lhs += rhs;
+    return lhs;
+}
+Vector2 operator-(Vector2 lhs, const Vector2& rhs)
+{
+    lhs -= rhs;
+    return lhs;
+}
+Vector2 operator*(Vector2 lhs, const float rhs)
+{
+    lhs *= rhs;
+    return lhs;
+}
+Vector2 operator*(float lhs, const Vector2 rhs)
+{
+    Vector2 ret(rhs.x, rhs.y);
+    ret *= lhs;
+    return ret;
+}
+Vector2 operator/(Vector2 lhs, const float rhs)
+{
+    lhs /= rhs;
+    return lhs;
+}
 
 Pressed::Pressed() {
     unknown = false;

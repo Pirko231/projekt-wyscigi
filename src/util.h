@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
 
 namespace util {
@@ -26,6 +27,46 @@ float div_euclid(float, float);
 // rem_euclid( 7.0, -4.0) == 3.0
 // rem_euclid(-7.0, -4.0) == 1.0
 float rem_euclid(float, float);
+
+struct Vector2 {
+    float x;
+    float y;
+
+    Vector2() : x(0), y(0) {};
+    Vector2(float _x, float _y) : x(_x), y(_y) {};
+
+    friend void swap(Vector2& v1, Vector2& v2);
+    sf::Vector2f sfml() const { return sf::Vector2(x, y); }
+    static Vector2 zero() { return Vector2(0, 0); }
+    static Vector2 one() { return Vector2(1, 1); }
+    float len() const;
+    float lenSquared() const;
+    float dot(const Vector2& other) const;
+    float cross(const Vector2& other) const;
+    float distance(const Vector2& other) const;
+    float distanceSquared(const Vector2& other) const;
+    Vector2 normalize() const;
+
+    Vector2 &operator=(Vector2 other);
+    Vector2& operator+=(const Vector2& other);
+    Vector2& operator+=(const float scalar);
+    Vector2& operator-=(const Vector2& other);
+    Vector2& operator-=(const float scalar);
+    Vector2& operator*=(float scalar);
+    Vector2& operator/=(float scalar);
+
+    friend Vector2 operator+(Vector2 lhs, const Vector2& rhs);
+    friend Vector2 operator+(Vector2 lhs, const float rhs);
+    Vector2 operator-() const;
+    friend Vector2 operator-(Vector2 lhs, const Vector2& rhs);
+    friend Vector2 operator-(Vector2 lhs, const float rhs);
+    friend Vector2 operator*(Vector2 lhs, const float rhs);
+    friend Vector2 operator*(float lhs, const Vector2 rhs);
+    friend Vector2 operator/(Vector2 lhs, const float rhs);
+
+    inline bool operator==(const Vector2& other) const { return x == other.x && y == other.y; };
+    inline bool operator!=(const Vector2& other) const { return !(*this == other); };
+};
 
 struct Pressed {
     Pressed();
