@@ -48,6 +48,10 @@ public:
     sf::Vector2f getPosition() const {return this->car.getPosition();}
 
     float getRotation() const {return this->rotation;}
+
+    sf::FloatRect getLocalBounds() const {return this->car.getLocalBounds();}
+
+    sf::FloatRect getGlobalBounds() const {return this->car.getGlobalBounds();}
 private:
     //co tylko moze byc private zamiast protected powiino sie tutaj znalezc
     //wszystko co jest uniwersalne dla klasy gracz i bot powinno sie znalezc tutaj.

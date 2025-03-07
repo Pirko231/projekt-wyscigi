@@ -16,7 +16,7 @@ Car::Car() :
 {
     this->car.setPosition(posX, posY);
 
-    this->car.setScale(1.f,1.f);
+    this->car.setScale(0.4f,0.4f);
 }
 
 void Car::handleEvents(sf::Event& _event)

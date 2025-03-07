@@ -7,10 +7,12 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
 {
     this->player = this->settings->getStartingData()->player;
 
-    this->gameView.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
+    //FIX rozmiar okna nie zmienia sie zaleznie od rozmiaru gracza
+    this->gameView.setSize(this->player->getLocalBounds().width, this->player->getLocalBounds().height);
+    //this->gameView.setSize(static_cast<float>(this->window->getSize().x / 3), static_cast<float>(this->window->getSize().y / 3));
     this->gameView.setCenter(this->player->getPosition().x / 2.f, this->player->getPosition().y / 2.f);
 
-    this->window->setView(this->gameView);
+    //this->window->setView(this->gameView);
     
     Report report;
     report.open();
@@ -54,10 +56,11 @@ void Level::update()
 {
     this->player->update();
 
-    this->window->setView(this->gameView);
-    this->gameView.setCenter({this->player->getPosition().x / 2.f, this->player->getPosition().y});
+    this->gameView.setSize(static_cast<sf::Vector2f>(sf::Vector2i(this->window->getSize().x / 2, this->window->getSize().y / 2)));
+    this->gameView.setCenter(this->player->getPosition());
     //rotacja zbyt szarpie ekranem na razie to wykomentuje
-    //this->gameView.setRotation(this->player->getRotation());
+    this->gameView.setRotation(this->player->getRotation());
+    this->window->setView(this->gameView);
 }
 
 Level::~Level()
