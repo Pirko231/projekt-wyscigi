@@ -24,4 +24,10 @@ btn::SpriteButton backArrow {btn::templates.getArrowTemplate()};
 //ustawienia
 btn::SpriteButton settingsBtn {btn::templates.getSettingsTemplate()};
 
+//circlebutton
+btn::CircleButton CarCircleBtn[3];
+
+//nazwy aut
+sf::Font font;
+sf::Text carTexts[3];
 };
