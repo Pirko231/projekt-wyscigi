@@ -1,6 +1,6 @@
 #include "settings.h"
 
-Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars)
+Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars, ManagingFunctionsIterator& _currentFunction) : currentFunction{_currentFunction}
 {
     this->mouse = _mouse;
     this->window = _window;
@@ -29,7 +29,16 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars)
     this->cheatCodeBox.setSize({this->background.getLocalBounds().width / 1.2f, this->background.getLocalBounds().height / 10.f});
     this->cheatCodeBox.setCharacterSize(45);
     this->cheatCodeBox.setLimit(14);
-    
+
+    //this->mainMenuButton.setScale({4.f,4.f});
+    this->mainMenuButton.setSize({this->background.getLocalBounds().width / 2.6f,this->background.getLocalBounds().height / 9.f});
+    this->mainMenuButton.setColor(sf::Color::White);
+    this->mainMenuButton.setHoverColor(sf::Color{150,150,150});
+
+    this->leaveButton.setSize({this->background.getLocalBounds().width / 2.6f,this->background.getLocalBounds().height / 9.f});
+    this->leaveButton.setColor(sf::Color::White);
+    this->leaveButton.setHoverColor(sf::Color{150,150,150});
+
     this->texts[0].first.setString("USTAWIENIA"); 
     this->texts[0].first.setFont(this->font); 
     this->texts[0].first.setCharacterSize(50); 
@@ -50,6 +59,16 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars)
     this->texts[4].first.setString("Wprowadz cheatcode:");
     this->texts[4].first.setFont(this->font);
 
+    this->texts[5].first.setString("Ekran glowny");
+    this->texts[5].first.setFillColor(sf::Color::Black);
+    this->texts[5].first.setFont(this->font);
+    this->texts[5].first.setCharacterSize(35);
+
+    this->texts[6].first.setString("Wyjscie");
+    this->texts[6].first.setFillColor(sf::Color::Black);
+    this->texts[6].first.setFont(this->font);
+    this->texts[6].first.setCharacterSize(35);
+
     // Ustawienie czcionki dla liczników w suwakach
     this->mainVolume.setCounterFont(this->font);
     this->musicVolume.setCounterFont(this->font);
@@ -61,6 +80,8 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars)
     this->buttons[2] = {&this->musicVolume, {this->background.getLocalBounds().width - static_cast<int>(this->musicVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->musicVolume.getLocalBounds().height * 9 + this->musicVolume.getLocalBounds().height * 6}};
     this->buttons[3] = {&this->soundsVolume, {this->background.getLocalBounds().width - static_cast<int>(this->soundsVolume.getLocalBounds().width * 1.15), this->background.getLocalBounds().top + this->soundsVolume.getLocalBounds().height * 9 + this->soundsVolume.getLocalBounds().height * 12}};
     this->buttons[4] = {&this->cheatCodeBox, {this->background.getLocalBounds().width - static_cast<int>(this->cheatCodeBox.getLocalBounds().width * 1.1f), this->background.getLocalBounds().top + this->cheatCodeBox.getLocalBounds().height * 2.5f + this->cheatCodeBox.getLocalBounds().height * 2.f}};
+    this->buttons[5] = {&this->mainMenuButton, {this->background.getLocalBounds().width - static_cast<int>(this->mainMenuButton.getLocalBounds().width * 2.35f), this->background.getLocalBounds().top + this->mainMenuButton.getLocalBounds().height * 7.5f /*+ this->mainMenuButton.getLocalBounds().height * 2.f*/}};
+    this->buttons[6] = {&this->leaveButton, {this->background.getLocalBounds().width - static_cast<int>(this->mainMenuButton.getLocalBounds().width * 1.25f), this->background.getLocalBounds().top + this->mainMenuButton.getLocalBounds().height * 7.5f /*+ this->mainMenuButton.getLocalBounds().height * 2.f*/}};
 
     this->texts[0].second = {this->texts[0].first.getLocalBounds().width / 1.3f, -(this->texts[0].first.getLocalBounds().height / 1.5f)};
     
@@ -72,6 +93,8 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars)
     }
 
     this->texts[4].second = {this->buttons[4].second.x, this->buttons[4].second.y - this->texts[4].first.getLocalBounds().height * 1.4f};
+    this->texts[5].second = {this->buttons[5].second.x + this->texts[5].first.getLocalBounds().width / this->buttons[5].first->getLocalBounds().width, this->buttons[5].second.y + this->texts[5].first.getLocalBounds().height / 2.f};
+    this->texts[6].second = {this->buttons[6].second.x + this->texts[6].first.getLocalBounds().width / 2.5f, this->buttons[6].second.y + this->texts[6].first.getLocalBounds().height / 2.f};
 }
 
 
@@ -103,6 +126,14 @@ void Settings::handleEvents(sf::Event &_event)
         this->musicVolume.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
         this->soundsVolume.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
         this->cheatCodeBox.manageHover(this->mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left));
+    
+        if (this->mainMenuButton.manageHover(mouse->getPosition(*window), this->mouse->isButtonPressed(sf::Mouse::Left)) && this->mouse->isButtonPressed(sf::Mouse::Left))
+        {
+            this->currentFunction = ManagingFunctionsIterator::mainMenu;
+            *this = false;
+        }
+        if (this->leaveButton.manageHover(mouse->getPosition(*this->window), this->mouse->isButtonPressed(sf::Mouse::Left)) && this->mouse->isButtonPressed(sf::Mouse::Left))
+            this->window->close();
     }
 }
 
@@ -113,6 +144,9 @@ void Settings::update()
     this->mainVolume.updateValue();
     this->musicVolume.updateValue();
     this->soundsVolume.updateValue();
+
+    this->mainMenuButton.manageHover(mouse->getPosition(*window));
+    this->leaveButton.manageHover(mouse->getPosition(*this->window));
 
     this->cheatCodeBox.update();
     if (this->CheatCodeBoxtimer < this->CheatCodeBoxMaxtimer)

@@ -40,3 +40,17 @@ private:
     StartLevel startLevel;
 };
 
+//Kazdy element tego typu wyliczeniowego to indeks
+//pozycji w tablicy 'managingFunctions' dla danego typu
+//np. na indekse numer 0 znajduje sie obiekt typu 'MainMenu'
+//definiowane w settingsData.h
+enum ManagingFunctionsIterator
+{
+    mainMenu = 0,
+    levelSelection  = 1,
+    carSelection = 2,
+    level1 = 3,
+    level2 = 4,
+    level3 = 5
+};
+

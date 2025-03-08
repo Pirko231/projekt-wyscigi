@@ -31,7 +31,7 @@ Program::Program()
     raport.close();
     //-------------------------------------------
 
-    this->settings = new Settings{this->window, this->mouse, this->cars};
+    this->settings = new Settings{this->window, this->mouse, this->cars, this->currentFunction};
 
     //kazdy z tych obiektow bedzie mial swoj wlasny obiekt typu Raport
     this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction, this->settings, this->music};

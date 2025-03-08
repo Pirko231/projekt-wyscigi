@@ -11,7 +11,7 @@ public:
     friend class LevelSelection;
     friend class CarSelection;
 
-    Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars);
+    Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars, ManagingFunctionsIterator& _currentFunction);
 
     Settings(const Settings&) = delete;
     Settings& operator=(const Settings&) = delete;
@@ -43,12 +43,14 @@ private:
 
     sf::View defaultView;
 
+    ManagingFunctionsIterator& currentFunction;
+
     //dzieki niemu mozna modyfikowac klase zawierająca dane majace byc przekazane
     //kolejnemu poziomowi
     StartLevel* setStartingData() {return &this->data.startLevel;}
 
     //ilosc przyciskow w tablicy 'buttons'
-    static constexpr int buttonAmount {5};
+    static constexpr int buttonAmount {7};
 
     //adresy przyciskow. Uzywac funkcji wirtualnych. Przypisac w konstruktorze.
     //btn::Button* - adres do przycisku
@@ -56,7 +58,7 @@ private:
     std::pair<btn::Button*, sf::Vector2f> buttons[buttonAmount];
 
     //ilosc obiektow w tablicy 'texts'
-    static constexpr int textsAmount{5};
+    static constexpr int textsAmount{7};
 
     //przechowuje teksty. Pierwszy element tablicy to napis ustawienia i dziala na innych zasadach
     //sf::Text - tekst ktory przechowuje
@@ -157,6 +159,14 @@ private:
     btn::Slider soundsVolume {sf::Vector2f{0.f,0.f}, sf::Vector2f{400.f,25.f}, sf::Color::Black, sf::Color{180,180,180}, &this->data.soundsVolume};
     
     btn::TextBox cheatCodeBox;
+
+    btn::RectangleButton mainMenuButton {};
+            /*sf::Vector2f{scaledX, scaledY},
+            sf::Vector2f{scaledW, scaledH},
+            sf::Color(150, 150, 150), 
+            sf::Color(200, 200, 200) }*/
+
+    btn::RectangleButton leaveButton;
     
     sf::Vector2f startPos;
 

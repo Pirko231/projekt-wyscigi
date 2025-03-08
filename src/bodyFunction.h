@@ -4,18 +4,6 @@
 #include <SFML/Audio.hpp>
 #include "settings.h"
 
-//Kazdy element tego typu wyliczeniowego to indeks
-//pozycji w tablicy 'managingFunctions' dla danego typu
-//np. na indekse numer 0 znajduje sie obiekt typu 'MainMenu'
-enum ManagingFunctionsIterator
-{
-    mainMenu = 0,
-    levelSelection  = 1,
-    carSelection = 2,
-    level1 = 3,
-    level2 = 4,
-    level3 = 5
-};
 
 //klasa wirtualna. Uzywac w kodzie tylko na zasadach polimorfizmu.
 class BodyFunction
