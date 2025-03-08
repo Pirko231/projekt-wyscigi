@@ -14,9 +14,9 @@ namespace bdr
         Border() = default;
         Border(T obj) { this->object = obj; }
         Border(sf::Vector2f _pos, sf::Vector2f _size) {this->object.setPosition(_pos); this->object.setSize(_size);}
-        sf::Vector2f getPosition() const { return object.getPosition(); }
-        sf::FloatRect getLocalBounds() const { return object.getLocalBounds(); }
-        sf::FloatRect getGlobalBounds() const { return object.getGlobalBounds(); }
+        sf::Vector2f getPosition() const override { return object.getPosition(); }
+        sf::FloatRect getLocalBounds() const override { return object.getLocalBounds(); }
+        sf::FloatRect getGlobalBounds() const override { return object.getGlobalBounds(); }
 
     private:
 

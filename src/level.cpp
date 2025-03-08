@@ -16,10 +16,10 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
     //ustawienie obszarow w odpowiednim ulozeniu.
     //ustwiane są tak jak uklad wspolrzednych na matematyce
     //pierwsza cwiartka jest w prawym gornym rogu.
-    this->sections[0].second = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, 0.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
-    this->sections[1].second = sf::FloatRect{{0.f,0.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
-    this->sections[2].second = sf::FloatRect{{0.f, static_cast<float>(this->window->getSize().y) / 2.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
-    this->sections[3].second = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y) / 2.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
+    this->sections[0].second = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, 0.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
+    this->sections[1].second = sf::FloatRect{{0.f,0.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
+    this->sections[2].second = sf::FloatRect{{0.f, static_cast<float>(this->window->getSize().y) / 2.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
+    this->sections[3].second = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y) / 2.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
 
     Report report;
     report.open();
@@ -64,10 +64,36 @@ void Level::display()
     this->window->draw(this->map);
     this->window->draw(*this->player);
 
-    //w przyszlosci do testow
+    
+    //przestrzen testow - aby zaczac testowac nalezy odkomentowac
+    //----------------------------------------------------------------------------------
+
+    /* ----miejsce do odkomentowania - na koniec testow wykomentowac
+    //testy sektorow
+    sf::RectangleShape shape; //wiem ze duzo kopiowania ale tylko do testow, ustawiopne lokalnie aby nie przeszkadalo
+    shape.setOutlineColor(sf::Color::Black);
+    shape.setOutlineThickness(3.f);
+    shape.setFillColor(sf::Color{255,255,255, 80});
     for (std::size_t i = 0; i < this->sectionAmount; i++)
-        for (auto & i : this->sections[i].first)
-            this->window->draw(*i);
+    {
+        shape.setPosition(sections[i].second.getPosition());
+        shape.setSize(sections[i].second.getSize());
+        window->draw(shape);
+    }
+
+    //testy hitboxow
+    shape.setOutlineThickness(2.f);
+    sf::Color hitboxColors[4] {sf::Color::White, sf::Color::Red, sf::Color::Yellow, sf::Color::Blue};
+    for (std::size_t i = 0; i < this->sectionAmount; i++)
+        for (auto & obj : this->sections[i].first)
+        {
+            shape.setFillColor(hitboxColors[i]);
+            shape.setPosition(obj->getPosition());
+            shape.setSize({obj->getLocalBounds().width, obj->getLocalBounds().height});
+            this->window->draw(shape);
+        }
+    */ //- miejsce do odkomentowania. Pod koniec testow nalezy wykomentowac
+    //--------------------------------------------------------------------------------
 }
 
 void Level::update()
