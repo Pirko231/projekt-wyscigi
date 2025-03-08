@@ -45,10 +45,6 @@ private:
     
     //tekstura mapy
     sf::Texture mapTexture;
-
-    //ilosc sekcji na ekran
-    static constexpr int sectionAmount {4};
-
     
 
     //laduje widok aby byl na samochod
@@ -65,6 +61,8 @@ protected:
     //gracz (jako wskaznik)
     Player* player;
 
+    //ilosc sekcji na ekran
+    static constexpr int sectionAmount {4}; 
     
     //sf::Floatrect
     //obszary, koordynaty roznych stref
@@ -74,7 +72,7 @@ protected:
     //przechowuje obiekty do kolizji.
     //Przehcowywane są tutaj obiekty statyczne (takie ktore są ustawiane na początku gry)
     //oraz dynamiczne (takie ktore są ustawiane przy wlaczeniu poziomu).
-    std::pair<sf::FloatRect, std::vector<std::unique_ptr<bdr::Collidable>>>  sections[sectionAmount];
+    std::pair<std::vector<std::unique_ptr<bdr::Collidable>>, sf::FloatRect>  sections[sectionAmount];
 };
 
 

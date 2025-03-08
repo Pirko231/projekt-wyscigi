@@ -16,10 +16,10 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
     //ustawienie obszarow w odpowiednim ulozeniu.
     //ustwiane są tak jak uklad wspolrzednych na matematyce
     //pierwsza cwiartka jest w prawym gornym rogu.
-    this->sections[0].first = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, 0.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
-    this->sections[1].first = sf::FloatRect{{0.f,0.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
-    this->sections[2].first = sf::FloatRect{{0.f, static_cast<float>(this->window->getSize().y) / 2.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
-    this->sections[3].first = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y) / 2.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
+    this->sections[0].second = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, 0.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
+    this->sections[1].second = sf::FloatRect{{0.f,0.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
+    this->sections[2].second = sf::FloatRect{{0.f, static_cast<float>(this->window->getSize().y) / 2.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
+    this->sections[3].second = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y) / 2.f}, {this->window->getSize().x / 2, this->window->getSize().y / 2}};
 
     Report report;
     report.open();
@@ -66,7 +66,7 @@ void Level::display()
 
     //w przyszlosci do testow
     for (std::size_t i = 0; i < this->sectionAmount; i++)
-        for (auto & i : this->sections[i].second)
+        for (auto & i : this->sections[i].first)
             this->window->draw(*i);
 }
 
@@ -75,8 +75,8 @@ void Level::update()
 
     //tutaj sprawdzenie w jakiej sekcji jest gracz i przeslanie odpowiedniego wskaznika
     for (std::size_t i = 0; i < this->sectionAmount; i++)
-        if (this->sections[i].first.intersects(this->player->getGlobalBounds()))
-            this->player->setCollisions(&this->sections[i].second);
+        if (this->sections[i].second.intersects(this->player->getGlobalBounds()))
+            this->player->setCollisions(&this->sections[i].first);
     
     this->player->update();
 }
