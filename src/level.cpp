@@ -68,7 +68,7 @@ void Level::display()
     //przestrzen testow - aby zaczac testowac nalezy odkomentowac
     //----------------------------------------------------------------------------------
 
-    /* ----miejsce do odkomentowania - na koniec testow wykomentowac
+    /* //----miejsce do odkomentowania - na koniec testow wykomentowac
     //testy sektorow
     sf::RectangleShape shape; //wiem ze duzo kopiowania ale tylko do testow, ustawiopne lokalnie aby nie przeszkadalo
     shape.setOutlineColor(sf::Color::Black);
