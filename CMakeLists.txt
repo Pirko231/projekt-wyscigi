@@ -58,9 +58,12 @@ add_executable(main
     src/bot.cpp
     src/player.cpp 
 
+    src/gameObjects/collidable.cpp
     src/gameObjects/border.cpp
     src/gameObjects/circle.cpp
+    src/gameObjects/rectangle.cpp
     src/gameObjects/lapTimer.cpp
+    src/gameObjects/trap.cpp
 
     src/buttons.cpp
     src/buttons/button.cpp

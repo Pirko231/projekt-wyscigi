@@ -4,3 +4,4 @@
 
 #include "gameObjects/rectangle.h"
 #include "gameObjects/circle.h"
+#include "gameObjects/trap.h"

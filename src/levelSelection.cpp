@@ -111,7 +111,7 @@ void LevelSelection::handleEvents(sf::Event& _event)
         else 
         {
             for (int i = 0; i < MapButtonsAmount; i++) 
-            if (mapButtons[i].manageHover(sf::Vector2i(mouse->getPosition(*window)), true))
+                if (mapButtons[i].manageHover(sf::Vector2i(mouse->getPosition(*window)), true))
                 {
                       
                     this->settings->setStartingData()->mapNumber = i;    
