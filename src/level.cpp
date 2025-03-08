@@ -6,6 +6,7 @@ sf::View Level::gameView{};
 Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
     this->player = this->settings->getStartingData()->player;
+    this->player->setCollisions(&this->collisions); //pozniej bedzie wiele sektorow
 
     //FIX rozmiar okna nie zmienia sie zaleznie od rozmiaru gracza
     this->gameView.setSize(this->player->getLocalBounds().width, this->player->getLocalBounds().height);
@@ -58,8 +59,8 @@ void Level::display()
     this->window->draw(*this->player);
 
     //w przyszlosci do testow
-    /*for (std::size_t i = 0; i < collisions.size(); i++)
-        this->window->draw(*this->collisions[i]);*/
+    for (auto & i : this->collisions)
+        this->window->draw(*i);
 }
 
 void Level::update()

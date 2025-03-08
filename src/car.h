@@ -1,8 +1,10 @@
 #pragma once
 
 #include "util.h"
+#include "gameObjects.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <memory>
 
 //przechowuje dane o statysktychach auta. Definiowana w car.h
 struct CarStats
@@ -46,6 +48,8 @@ public:
 
     void setStats(CarStats& _stats) {this->stats = _stats;}
 
+    void setCollisions(std::vector<std::unique_ptr<bdr::Collidable>>* _collisions) {this->collisions = _collisions;}
+
     sf::Vector2f getPosition() const {return this->car.getPosition();}
 
     float getRotation() const {return this->rotation;}
@@ -75,16 +79,9 @@ private:
     int direction = 1;
 
     CarStats stats;
-    //zamkniemy to w strukturze CarStats
     
-    /*//maksymalna predkosc samochodu. Wczesniej makro CAR_MAX_SPEED
-    double maxSpeed{100};
 
-    //przyspieszenie samochodu. Wczesniej makro CAR_ACCELERATION
-    double acceleration{10};
-
-    //predkosc rotacji samochodu. Wczesniej makro CAR_ROTATION_SPEED
-    double rotationSpeed{5};*/
+    std::vector<std::unique_ptr<bdr::Collidable>>* collisions {nullptr};
 
     protected:
     //w tym miejscu mozna trzymac rzeczy ktore będą tez widoczne dla klas dziedziczacych

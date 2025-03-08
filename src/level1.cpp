@@ -8,14 +8,14 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     report.open();
     report.logMessage("Level1");
 
-    report.addEntry("Mapa", mapTxt.loadFromFile("resources/Speedway.jpeg"));
+    report.addEntry("Mapa", mapTxt.loadFromFile("resources/mapLevel1.jpg"));
 
     report.close();
     
     this->loadLevel(mapTxt);
 
     //ustawianie kolizji statycznych
-    collisions.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{}));
+    collisions.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{100.f,100.f}, {60.f,60.f}}));
 }
 
 /*void Level1::handleEvents(sf::Event &_event)
