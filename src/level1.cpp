@@ -25,6 +25,19 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
 
     sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{550.f,535.f}, {480.f, 30.f}}));
     sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{590.f,655.f}, {480.f, 30.f}}));
+    sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1170.f,315.f}, {30.f, 350.f}}));
+    sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1043.f,255.f}, {30.f, 280.f}}));
+
+    //zakret od wewnatrz
+    {
+        //sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1023.f,548.f}, {15.f, 15.f}}));
+        //sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1028.f,543.f}, {15.f, 15.f}}));
+        sf::Vector2f pos{1023.f, 548.f};
+        for (int i = 0; i < 6; i++, pos.x += 6.f, pos.y -= 4.f)
+        {
+            sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos, {15.f, 15.f}}));
+        }
+    }
 }
 
 /*void Level1::handleEvents(sf::Event &_event)
