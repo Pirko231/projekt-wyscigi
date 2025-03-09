@@ -18,6 +18,12 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{100.f,100.f}, {60.f,60.f}}));
 }
 
+void Level1::resetLevel()
+{
+    this->player->setPosition({676.f, 636.f});
+    this->player->setRotation(270);
+}
+
 /*void Level1::handleEvents(sf::Event &_event)
 {
 }

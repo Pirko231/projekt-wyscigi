@@ -98,6 +98,13 @@ void Level::display()
 
 void Level::update()
 {
+    //reset poziomu na start gry
+    if (this->shouldReset)
+    {
+        this->resetLevel();
+        this->shouldReset = false;
+    }
+
 
     //tutaj sprawdzenie w jakiej sekcji jest gracz i przeslanie odpowiedniego wskaznika
     for (std::size_t i = 0; i < this->sectionAmount; i++)

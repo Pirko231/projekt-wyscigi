@@ -50,6 +50,10 @@ public:
 
     void setCollisions(const std::vector<std::unique_ptr<bdr::Collidable>>* _collisions) {this->collisions = _collisions;}
 
+    void setPosition(sf::Vector2f pos) {this->posX = pos.x; this->posY = pos.y;}
+
+    void setRotation(float angle) {this->rotation = angle;}
+    
     sf::Vector2f getPosition() const {return this->car.getPosition();}
 
     float getRotation() const {return this->rotation;}

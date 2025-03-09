@@ -15,6 +15,6 @@ public:
     //void display();
 private:
 //calkowicie dla osoby ktora pracuje nad klasa.
-
+    void resetLevel() override {}
 
 };

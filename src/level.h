@@ -46,9 +46,9 @@ private:
     //tekstura mapy
     sf::Texture mapTexture;
     
-
-    //laduje widok aby byl na samochod
-    //void loadView();
+    //kiedy zmienna jest true to pozycja wszystkiego zostanie ustawiona na
+    //'pozycje startowe'. Nalezy ustawic ją na true przy wychodzeniu z poziomu
+    bool shouldReset{true};
     
 protected:
     //laduje rzeczy takie jak tekstura dla mapy
@@ -56,7 +56,7 @@ protected:
 
     //funkcja ktora polega na resetowaniu poziomu czyli ustawiania samochodu
     //i botow na pozycji startowej itd. Kazda klasa dziedziczaca ma swoją wlasną implementacje
-    virtual void resetLevel() {} //jeszcze bedzie wirtualna ale nie teraz/*= 0*/;
+    virtual void resetLevel() = 0; //jeszcze bedzie wirtualna ale nie teraz/*= 0*/;
 
     //gracz (jako wskaznik)
     Player* player;
