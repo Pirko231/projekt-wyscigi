@@ -1,6 +1,8 @@
 #include "car.h"
 #include "util.h"
 
+#include <iostream>
+
 //includuj pliki w naglowkowym klasy a tutaj tylko plik klasy.h
 
 Car::Car() :
@@ -57,6 +59,15 @@ void Car::update(void)
     posY -= s * direction * cos(radians);
     speed -= s;
     if (speed < 0) speed = 0;
+
+    //tylko test potem wywlali sie pomiar czasu
+    sf::Clock clock;
+    for (auto& obj : *collisions)
+        if (this->car.getGlobalBounds().intersects(obj->getGlobalBounds()))
+            std::clog << "collision\n";
+    sf::Time time {clock.getElapsedTime()};
+    std::clog << time.asMicroseconds() << '\n';
+    clock.restart();
 
     display();
 }
