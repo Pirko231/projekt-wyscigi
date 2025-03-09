@@ -6,7 +6,7 @@ namespace bdr
 {
     //klasa ktora ma być bazą do dziedziczenia wszystkich pulapek
     //oferuje implementacje funkcji wirtualnych i przechowuje obiekt sf::Sprite i jego teksture
-    class Trap : public bdr::Collidable
+    class Trap : public bdr::Collidable, public sf::Drawable
     {
     public:
         sf::Vector2f getPosition() const override {return this->sprite.getPosition();}
