@@ -1,7 +1,5 @@
 #pragma once
-
 #include "bodyFunction.h"
-
 #include "buttons.h"
 #include "raport.h"
 
@@ -18,12 +16,12 @@ private:
     //sekcja private jest calkowicie dla osoby ktora pracuje na funkcja
 
 
-    // Tło ekranu
+    //screenbackground
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
     sf::RectangleShape overlay;
 
-   // Przyciski map (RectangleButton) oraz 
+   // przyciski map (RectBtn)
    static constexpr int MapButtonsAmount = 3;
    btn::RectangleButton mapButtons[MapButtonsAmount];
    
@@ -32,7 +30,7 @@ private:
    sf::Text mapNames[MapButtonsAmount];
    sf::Font font;
 
-   //dodanie tekstur do map
+   //tekstury do map
    sf::Texture mapTextures[MapButtonsAmount];
    sf::Sprite mapSprites[MapButtonsAmount];
 
@@ -42,4 +40,8 @@ private:
     btn::SpriteButton settingsBtn {btn::templates.getSettingsTemplate()};
 
     int selectedMapIndex = -1;
+
+    //tekstura kłódki 
+    sf::Texture lockTexture;
+    sf::Sprite lockSprite;
 };

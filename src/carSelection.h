@@ -24,10 +24,21 @@ btn::SpriteButton backArrow {btn::templates.getArrowTemplate()};
 //ustawienia
 btn::SpriteButton settingsBtn {btn::templates.getSettingsTemplate()};
 
-//circlebutton
-btn::CircleButton CarCircleBtn[3];
 
-//nazwy aut
+//nazwy samochodow i ich atrybuty
+static constexpr int NUM_CARS = 3;
+static constexpr int NUM_ATTRS = 3; 
+
+//circlebutton
+btn::CircleButton CarCircleBtn[NUM_CARS];
+
+int carAttributes[NUM_CARS][NUM_ATTRS];
+btn::ProgressBar* carProgressBars[NUM_CARS][NUM_ATTRS];
+std::vector<sf::RectangleShape> carInfoRects;
+sf::Text carNames[NUM_CARS];
 sf::Font font;
-sf::Text carTexts[3];
+
+//tekstura kłódki 
+sf::Texture lockTexture;
+sf::Sprite lockSprite;
 };
