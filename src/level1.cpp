@@ -16,7 +16,13 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
 
     //ustawianie kolizji statycznych
     sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{32.f,100.f}, {30.f,280.f}}));
-    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{32.f,100.f}, {30.f,280.f}}));
+    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{402.f,229.f}, {152.f,30.f}}));
+    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{385.f,354.f}, {200.f,30.f}}));
+    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{354.f,125.f}, {30.f,80.f}}));
+    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{231.f,163.f}, {30.f,97.f}}));
+    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{156.f,163.f}, {30.f,180.f}}));
+    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{565.f,128.f}, {30.f,90.f}}));
+    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{158.f,8.f}, {98.f,15.f}}));
 
     sections[2].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{220.f,535.f}, {480.f, 30.f}}));
     sections[2].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{160.f,655.f}, {520.f, 30.f}}));
