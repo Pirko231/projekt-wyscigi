@@ -73,6 +73,12 @@ protected:
     //Przehcowywane są tutaj obiekty statyczne (takie ktore są ustawiane na początku gry)
     //oraz dynamiczne (takie ktore są ustawiane przy wlaczeniu poziomu).
     std::pair<std::vector<std::unique_ptr<bdr::Collidable>>, sf::FloatRect>  sections[sectionAmount];
+
+    //pojemnik na checkpointy, ustawia sie je w kontruktorach
+    //klas dziedziczacych od Level.
+    //sf::floatRect to podzial na strefy zeby checkpointy tylko z jednej
+    //strefy byly sprawdzane
+    std::pair< std::vector<bdr::CheckPoint>, sf::FloatRect> checkPoints[sectionAmount];
 };
 
 

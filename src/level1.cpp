@@ -15,7 +15,7 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     this->loadLevel(mapTxt);
 
     //ustawianie kolizji statycznych
-    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{100.f,100.f}, {60.f,60.f}}));
+    checkPoints[1].first.push_back(bdr::CheckPoint{{65.f,150.f}, {90.f, 20.f}});
 }
 
 void Level1::resetLevel()
