@@ -47,6 +47,15 @@ void Car::display()
 
 }
 
+void Car::reset()
+{
+    this->speed = 0;
+    pressed.a = false;
+    pressed.w = false;
+    pressed.s = false;
+    pressed.d = false;
+}
+
 void Car::update(void)
 {
     actuallyHandleInput();

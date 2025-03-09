@@ -16,6 +16,10 @@ public:
     Settings(const Settings&) = delete;
     Settings& operator=(const Settings&) = delete;
 
+    void handleFunctionChange();
+
+    bool hasFunctionChanged() {return this->previousFunction != this->currentFunction;}
+
     void handleEvents(sf::Event& _event);
 
     void update();
@@ -44,6 +48,8 @@ private:
     sf::View defaultView;
 
     ManagingFunctionsIterator& currentFunction;
+
+    ManagingFunctionsIterator previousFunction;
 
     //dzieki niemu mozna modyfikowac klase zawierająca dane majace byc przekazane
     //kolejnemu poziomowi

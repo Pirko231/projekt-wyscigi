@@ -21,6 +21,9 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
     this->sections[2].second = sf::FloatRect{{0.f, static_cast<float>(this->window->getSize().y) / 2.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
     this->sections[3].second = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y) / 2.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
 
+    for (std::size_t i = 0; i < sectionAmount; i++)
+        checkPoints[i].second = sections[i].second;
+    
     Report report;
     report.open();
 
@@ -53,6 +56,35 @@ void Level::handleEvents(sf::Event &_event)
     this->player->handleEvents(_event);
 }
 
+void Level::update()
+{
+    if (this->settings->hasFunctionChanged())
+        this->shouldReset = true;
+    //reset poziomu na start gry
+    if (this->shouldReset)
+    {
+        this->reset();
+        this->shouldReset = false;
+    }
+
+
+    //tutaj sprawdzenie w jakiej sekcji jest gracz i przeslanie odpowiedniego wskaznika
+    for (std::size_t i = 0; i < this->sectionAmount; i++)
+        if (this->sections[i].second.intersects(this->player->getGlobalBounds()))
+            this->player->setCollisions(&this->sections[i].first);
+    
+    this->player->update();
+
+    //sprawdzenie checkpointow
+    for (std::size_t i = 0; i < this->sectionAmount; i++)
+        if (this->checkPoints[i].second.intersects(this->player->getGlobalBounds()))
+        {
+            for (auto& checkPoint : checkPoints[i].first)
+                if (this->player->getGlobalBounds().intersects(checkPoint.getGlobalBounds()))
+                    checkPoint.activate();
+        }
+}
+
 void Level::display()
 {
     //widok wrzucimy tutaj aby sie lepiej udpdatowal
@@ -68,7 +100,7 @@ void Level::display()
     //przestrzen testow - aby zaczac testowac nalezy odkomentowac
     //----------------------------------------------------------------------------------
 
-     //----miejsce do odkomentowania - na koniec testow wykomentowac
+    /* //----miejsce do odkomentowania - na koniec testow wykomentowac
     //testy sektorow
     sf::RectangleShape shape; //wiem ze duzo kopiowania ale tylko do testow, ustawiopne lokalnie aby nie przeszkadalo
     shape.setOutlineColor(sf::Color::Black);
@@ -83,7 +115,7 @@ void Level::display()
 
     //testy hitboxow
     shape.setOutlineThickness(2.f);
-    sf::Color hitboxColors[4] {sf::Color::White, sf::Color::Red, sf::Color::Yellow, sf::Color::Blue};
+    sf::Color hitboxColors[4] {sf::Color::White, sf::Color::Cyan, sf::Color::Yellow, sf::Color::Blue};
     for (std::size_t i = 0; i < this->sectionAmount; i++)
         for (auto & obj : this->sections[i].first)
         {
@@ -92,23 +124,38 @@ void Level::display()
             shape.setSize({obj->getLocalBounds().width, obj->getLocalBounds().height});
             this->window->draw(shape);
         }
-     //- miejsce do odkomentowania. Pod koniec testow nalezy wykomentowac
+
+    //testy checkpointow
+    for (std::size_t i = 0; i < this->sectionAmount; i++)
+        for (auto & obj : this->checkPoints[i].first)
+        {
+            if (obj.isActive())
+                shape.setFillColor(sf::Color::Green);
+            else
+                shape.setFillColor(sf::Color::Red);
+            shape.setPosition(obj.getPosition());
+            shape.setSize({obj.getLocalBounds().width, obj.getLocalBounds().height});
+            this->window->draw(shape);
+        }
+    */ //- miejsce do odkomentowania. Pod koniec testow nalezy wykomentowac
     //--------------------------------------------------------------------------------
 }
 
-void Level::update()
-{
 
-    //tutaj sprawdzenie w jakiej sekcji jest gracz i przeslanie odpowiedniego wskaznika
-    for (std::size_t i = 0; i < this->sectionAmount; i++)
-        if (this->sections[i].second.intersects(this->player->getGlobalBounds()))
-            this->player->setCollisions(&this->sections[i].first);
-    
-    this->player->update();
-}
 
 Level::~Level()
 {
+}
+
+void Level::reset()
+{
+    this->resetCurrentLevel();
+
+    this->player->reset();
+
+    for (std::size_t i = 0; i < this->sectionAmount; i++)
+        for (auto& obj : checkPoints[i].first)
+            obj.reset();
 }
 
 void Level::loadLevel(const sf::Texture &_mapTexture)

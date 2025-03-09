@@ -46,9 +46,13 @@ private:
     //tekstura mapy
     sf::Texture mapTexture;
     
+    //kiedy zmienna jest true to pozycja wszystkiego zostanie ustawiona na
+    //'pozycje startowe'. Nalezy ustawic ją na true przy wychodzeniu z poziomu
+    bool shouldReset{true};
 
-    //laduje widok aby byl na samochod
-    //void loadView();
+    //wywoluje funkcje resetCurrentLevel i robi rzeczy
+    //uniwersalne dla kazdego levelu.
+    void reset();
     
 protected:
     //laduje rzeczy takie jak tekstura dla mapy
@@ -56,7 +60,7 @@ protected:
 
     //funkcja ktora polega na resetowaniu poziomu czyli ustawiania samochodu
     //i botow na pozycji startowej itd. Kazda klasa dziedziczaca ma swoją wlasną implementacje
-    virtual void resetLevel() {} //jeszcze bedzie wirtualna ale nie teraz/*= 0*/;
+    virtual void resetCurrentLevel() = 0; //jeszcze bedzie wirtualna ale nie teraz/*= 0*/;
 
     //gracz (jako wskaznik)
     Player* player;
@@ -73,6 +77,12 @@ protected:
     //Przehcowywane są tutaj obiekty statyczne (takie ktore są ustawiane na początku gry)
     //oraz dynamiczne (takie ktore są ustawiane przy wlaczeniu poziomu).
     std::pair<std::vector<std::unique_ptr<bdr::Collidable>>, sf::FloatRect>  sections[sectionAmount];
+
+    //pojemnik na checkpointy, ustawia sie je w kontruktorach
+    //klas dziedziczacych od Level.
+    //sf::floatRect to podzial na strefy zeby checkpointy tylko z jednej
+    //strefy byly sprawdzane
+    std::pair< std::vector<bdr::CheckPoint>, sf::FloatRect> checkPoints[sectionAmount];
 };
 
 
