@@ -97,7 +97,14 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars, Ma
     this->texts[6].second = {this->buttons[6].second.x + this->texts[6].first.getLocalBounds().width / 2.5f, this->buttons[6].second.y + this->texts[6].first.getLocalBounds().height / 2.f};
 }
 
-
+void Settings::handleFunctionChange()
+{
+    if (this->currentFunction != this->previousFunction)
+    {
+        
+        this->previousFunction = this->currentFunction;
+    }
+}
 
 void Settings::handleEvents(sf::Event &_event)
 {

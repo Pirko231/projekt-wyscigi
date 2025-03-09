@@ -53,6 +53,9 @@ public:
     void setPosition(sf::Vector2f pos) {this->posX = pos.x; this->posY = pos.y;}
 
     void setRotation(float angle) {this->rotation = angle;}
+
+    //resetuje predkosc oraz zapisane klikniecia klawiszy
+    void reset();
     
     sf::Vector2f getPosition() const {return this->car.getPosition();}
 

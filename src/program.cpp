@@ -101,8 +101,10 @@ void Program::update()
         this->settings->update();
         return;
     }
-    
+
     this->managingFunctions[this->currentFunction]->update();
+
+    this->settings->handleFunctionChange();
 
     /*if (this->currentFunction != this->previousFunction)
     {

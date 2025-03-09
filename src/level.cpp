@@ -56,6 +56,35 @@ void Level::handleEvents(sf::Event &_event)
     this->player->handleEvents(_event);
 }
 
+void Level::update()
+{
+    if (this->settings->hasFunctionChanged())
+        this->shouldReset = true;
+    //reset poziomu na start gry
+    if (this->shouldReset)
+    {
+        this->reset();
+        this->shouldReset = false;
+    }
+
+
+    //tutaj sprawdzenie w jakiej sekcji jest gracz i przeslanie odpowiedniego wskaznika
+    for (std::size_t i = 0; i < this->sectionAmount; i++)
+        if (this->sections[i].second.intersects(this->player->getGlobalBounds()))
+            this->player->setCollisions(&this->sections[i].first);
+    
+    this->player->update();
+
+    //sprawdzenie checkpointow
+    for (std::size_t i = 0; i < this->sectionAmount; i++)
+        if (this->checkPoints[i].second.intersects(this->player->getGlobalBounds()))
+        {
+            for (auto& checkPoint : checkPoints[i].first)
+                if (this->player->getGlobalBounds().intersects(checkPoint.getGlobalBounds()))
+                    checkPoint.activate();
+        }
+}
+
 void Level::display()
 {
     //widok wrzucimy tutaj aby sie lepiej udpdatowal
@@ -86,7 +115,7 @@ void Level::display()
 
     //testy hitboxow
     shape.setOutlineThickness(2.f);
-    sf::Color hitboxColors[4] {sf::Color::White, sf::Color::Red, sf::Color::Yellow, sf::Color::Blue};
+    sf::Color hitboxColors[4] {sf::Color::White, sf::Color::Black, sf::Color::Yellow, sf::Color::Blue};
     for (std::size_t i = 0; i < this->sectionAmount; i++)
         for (auto & obj : this->sections[i].first)
         {
@@ -112,35 +141,21 @@ void Level::display()
     //--------------------------------------------------------------------------------
 }
 
-void Level::update()
-{
-    //reset poziomu na start gry
-    if (this->shouldReset)
-    {
-        this->resetLevel();
-        this->shouldReset = false;
-    }
 
-
-    //tutaj sprawdzenie w jakiej sekcji jest gracz i przeslanie odpowiedniego wskaznika
-    for (std::size_t i = 0; i < this->sectionAmount; i++)
-        if (this->sections[i].second.intersects(this->player->getGlobalBounds()))
-            this->player->setCollisions(&this->sections[i].first);
-    
-    this->player->update();
-
-    //sprawdzenie checkpointow
-    for (std::size_t i = 0; i < this->sectionAmount; i++)
-        if (this->checkPoints[i].second.intersects(this->player->getGlobalBounds()))
-        {
-            for (auto& checkPoint : checkPoints[i].first)
-                if (this->player->getGlobalBounds().intersects(checkPoint.getGlobalBounds()))
-                    checkPoint.activate();
-        }
-}
 
 Level::~Level()
 {
+}
+
+void Level::reset()
+{
+    this->resetCurrentLevel();
+
+    this->player->reset();
+
+    for (std::size_t i = 0; i < this->sectionAmount; i++)
+        for (auto& obj : checkPoints[i].first)
+            obj.reset();
 }
 
 void Level::loadLevel(const sf::Texture &_mapTexture)

@@ -18,7 +18,7 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     checkPoints[1].first.push_back(bdr::CheckPoint{{65.f,150.f}, {90.f, 20.f}});
 }
 
-void Level1::resetLevel()
+void Level1::resetCurrentLevel()
 {
     this->player->setPosition({676.f, 636.f});
     this->player->setRotation(270);
