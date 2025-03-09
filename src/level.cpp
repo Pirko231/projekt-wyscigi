@@ -65,6 +65,8 @@ void Level::update()
     {
         this->reset();
         this->shouldReset = false;
+        this->settings->getCars()->setPlayerNumber(this->settings->getStartingData()->carNumber);
+        //this->settings->getStartingData()->carNumber;
     }
 
 

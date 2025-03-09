@@ -11,10 +11,10 @@ class Cars
 {
 public:
     Cars();
-    Player player;
-    void setPlayerNumber(int _number);
+    mutable Player player;
+    void setPlayerNumber(int _number) const;
 private:
-    CarStats playerStats[3] {{100.f,10.f,5.f}, {110.f, 15.f, 5.f}, {120.f, 15.f, 7.f}};
+    CarStats playerStats[3] {{300.f,10.f,5.f}, {350.f, 20.f, 5.f}, {370.f, 55.f, 10.f}};
     sf::Texture playerTextures[3];
 };
 

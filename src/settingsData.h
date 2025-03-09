@@ -4,12 +4,26 @@
 //#include "player.h"
 #include "cars.h"
 
+//Kazdy element tego typu wyliczeniowego to indeks
+//pozycji w tablicy 'managingFunctions' dla danego typu
+//np. na indekse numer 0 znajduje sie obiekt typu 'MainMenu'
+//definiowane w settingsData.h
+enum ManagingFunctionsIterator
+{
+    mainMenu = 0,
+    levelSelection  = 1,
+    carSelection = 2,
+    level1 = 3,
+    level2 = 4,
+    level3 = 5
+};
+
 //po tym jak wybierze sie level i car tutaj zapisane będą wybory
 //aby sie do nich dostac nalezy uzyc funkcji w settings
 struct StartLevel
 {
     Player* player{nullptr};
-    int carNumber{1}; //zakres 0-3
+    int carNumber{0}; //zakres 0-3
     int mapNumber{-1};
 };
 
@@ -40,17 +54,5 @@ private:
     StartLevel startLevel;
 };
 
-//Kazdy element tego typu wyliczeniowego to indeks
-//pozycji w tablicy 'managingFunctions' dla danego typu
-//np. na indekse numer 0 znajduje sie obiekt typu 'MainMenu'
-//definiowane w settingsData.h
-enum ManagingFunctionsIterator
-{
-    mainMenu = 0,
-    levelSelection  = 1,
-    carSelection = 2,
-    level1 = 3,
-    level2 = 4,
-    level3 = 5
-};
+
 

@@ -46,7 +46,7 @@ public:
 
     void setTexture(const sf::Texture& _carTexture) {this->carTexture = _carTexture; this->car.setTexture(this->carTexture);}
 
-    void setStats(CarStats& _stats) {this->stats = _stats;}
+    void setStats(const CarStats& _stats) {this->stats = _stats;}
 
     void setCollisions(const std::vector<std::unique_ptr<bdr::Collidable>>* _collisions) {this->collisions = _collisions;}
 

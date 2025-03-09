@@ -17,7 +17,7 @@ Cars::Cars()
     report.close();
 }
 
-void Cars::setPlayerNumber(int _number)
+void Cars::setPlayerNumber(int _number) const
 {
     this->player.setTexture(this->playerTextures[_number]);
     this->player.setStats(this->playerStats[_number]);
