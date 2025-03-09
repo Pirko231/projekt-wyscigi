@@ -119,16 +119,28 @@ void LevelSelection::handleEvents(sf::Event& _event)
             {
                 if (mapButtons[i].manageHover(sf::Vector2i(mouse->getPosition(*window)), true))
                 {
-                    bool isUnlocked = (i == 0);
+
+                    bool isUnlocked = (i == 0) ? true : ((i == 1) ? settings->getData()->level2 : settings->getData()->level3);
                     if (!isUnlocked)
                     {
+                        
                         continue;
                     }
                     else
                     {
-                        this->settings->setStartingData()->mapNumber = i;
-                        functionIterator = ManagingFunctionsIterator::carSelection;
-                        break;
+                       
+                        for (int i = 0; i < MapButtonsAmount; i++) 
+                        {
+                            if (mapButtons[i].manageHover(sf::Vector2i(mouse->getPosition(*window)), true))
+                            {
+                                if (isUnlocked) // Sprawdza, czy mapa jest odblokowana
+                                {
+                                    settings->setStartingData()->mapNumber = i;
+                                    functionIterator = ManagingFunctionsIterator::carSelection;
+                                    break; // Żeby nie nadpisywało się więcej razy
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -140,11 +152,13 @@ void LevelSelection::update()
 {
     sf::Vector2i mousePos = mouse->getPosition(*window);
 
+    
     for (int i = 0; i < MapButtonsAmount; i++) 
     {
         mapButtons[i].manageHover(mousePos, false);
     }
 
+   
     backArrow.manageHover(mousePos);
     settingsBtn.manageHover(mousePos);
 
@@ -166,18 +180,20 @@ void LevelSelection::display()
     window->draw(backArrow);
     window->draw(settingsBtn);
 
+    
     for (int i = 0; i < MapButtonsAmount; i++) 
     {
         window->draw(mapButtons[i]);
         window->draw(mapNames[i]);
         window->draw(mapSprites[i]);
 
+        
         if (i > 0)
         {
-            bool isUnlocked = (i == 0);
+            bool isUnlocked = (i == 0) ? true : ((i == 1) ? settings->getData()->level2 : settings->getData()->level3);
             if (!isUnlocked)
             {
-
+                
                 sf::FloatRect btnBounds = mapButtons[i].getGlobalBounds();
                 lockSprite.setPosition(
                     btnBounds.left + btnBounds.width / 2.f - lockSprite.getGlobalBounds().width / 2.f,
