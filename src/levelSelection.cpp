@@ -133,11 +133,11 @@ void LevelSelection::handleEvents(sf::Event& _event)
                         {
                             if (mapButtons[i].manageHover(sf::Vector2i(mouse->getPosition(*window)), true))
                             {
-                                if (isUnlocked) // Sprawdza, czy mapa jest odblokowana
+                                if (isUnlocked) 
                                 {
                                     settings->setStartingData()->mapNumber = i;
                                     functionIterator = ManagingFunctionsIterator::carSelection;
-                                    break; // Żeby nie nadpisywało się więcej razy
+                                    break; 
                                 }
                             }
                         }
