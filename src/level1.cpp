@@ -72,6 +72,10 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
         sf::Vector2f pos6{256.f, 11.f};
         sf::Vector2f pos7{357.f, 200.f};
         sf::Vector2f pos8{350.f, 356.f};
+        sf::Vector2f pos9{590.f, 355.f};
+        sf::Vector2f pos10{683.f, 46.f};
+        sf::Vector2f pos11{1024.f, 159.f};
+        sf::Vector2f pos12{1054.f, 42.f};
         //zakret _| ostry
         for (int i = 0; i < 7; i++, pos1.x += 5.f, pos1.y -= 4.f)
         {
@@ -115,6 +119,16 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
             sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos5, {15.f, 15.f}}));
         }
         sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{48.f,95.f}, {15.f,16.f}}));
+        //inny
+        for (int i = 0; i < 6; i++, pos10.x -= 8.f, pos10.y += 2.f)
+        {
+            sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos10, {15.f, 15.f}}));
+        }
+        for (int i = 0; i < 12; i++, pos10.x -= 4.f, pos10.y += 5.f)
+        {
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos10, {15.f, 15.f}}));
+        }
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{48.f,95.f}, {15.f,16.f}}));
 
         //zakret -| lagodny
         for (int i = 0; i < 6; i++, pos6.x += 8.f, pos6.y += 2.f)
@@ -134,6 +148,35 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     
         for (int i = 0; i < 9; i++, pos8.x -= 3.8f, pos8.y -= 6.f)
             sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos8, {15.f, 15.f}}));
+        //chuj wi juz co
+        //pierwsza czesc
+        for (int i = 0; i < 7; i++, pos9.x += 8.f, pos9.y -= 3.f)
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos9, {15.f, 15.f}}));
+    
+        //druga czesc
+        for (int i = 0; i < 9; i++, pos9.x += 5.f, pos9.y -= 7.5f){
+            sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos9, {15.f, 15.f}}));
+        }
+        sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{690.f,254.f}, {15.f,17.f}}));
+        //ostry
+        for (int i = 0; i < 6; i++, pos11.x += 6.f, pos11.y += 6.f)
+        {
+            sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos11, {15.f, 15.f}}));
+        }
+        //zakret -| lagodny
+        for (int i = 0; i < 6; i++, pos12.x += 8.f, pos12.y += 2.f)
+        {
+            sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos12, {15.f, 15.f}}));
+        }
+        for (int i = 0; i < 8; i++, pos12.x += 6.f, pos12.y += 5.f)
+        {
+            sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos12, {15.f, 15.f}}));
+        }
+        for (int i = 0; i < 9; i++, pos12.x += 3.f, pos12.y += 7.f)
+        {
+            sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos12, {15.f, 15.f}}));
+        }
+
     }
     {
         //sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1023.f,548.f}, {15.f, 15.f}}));
