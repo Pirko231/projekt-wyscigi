@@ -24,6 +24,9 @@ struct CarStats
 
     //predkosc rotacji samochodu. Wczesniej makro CAR_ROTATION_SPEED
     float rotationSpeed{5};
+
+    // nie dotykac bardzo mozliwe ze bedzie gdzie indziej
+    float friction{0.98f};
 };
 
 class Car : public sf::Drawable
@@ -83,6 +86,7 @@ private:
     float rotation = 0;
     float speed = 0;
     int direction = 1;
+    bool carMoving = false;
 
     CarStats stats;
     

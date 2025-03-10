@@ -64,8 +64,15 @@ void Car::update(void)
     float s = dt * speed;
     position.x += s * direction * sin(radians);
     position.y -= s * direction * cos(radians);
-    speed -= s;
-    if (speed < 0) speed = 0;
+    speed *= stats.friction;
+
+    if (speed > 10 && !carMoving) {
+        carMoving = true;
+    }
+    if (speed < 7 && carMoving) {
+        speed = 0;
+        carMoving = false;
+    }
 
     display();
 }
