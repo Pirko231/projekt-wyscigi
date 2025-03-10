@@ -4,9 +4,9 @@
 //includuj pliki w naglowkowym klasy a tutaj tylko plik klasy.h
 
 Car::Car() :
-    posX(50), posY(50)
+    position(50, 50)
 {
-    this->car.setPosition(posX, posY);
+    this->car.setPosition(position.x, position.y);
     this->car.setScale(0.4f,0.4f);
 }
 
@@ -40,7 +40,7 @@ void Car::display()
     auto lb = car.getLocalBounds();
 
     car.setOrigin(lb.width / 2.f, lb.height / 2.f);
-    car.setPosition(posX, posY);
+    car.setPosition(position.x, position.y);
     car.setRotation(rotation);
 
 }
@@ -60,10 +60,10 @@ void Car::update(void)
 
     // FIXME: obliczyc gdzies deltatime naprawde
     float dt = 1.f / 60.f;
-    float radians = rotation * (M_PI / 180); // bylo na matmie ;)
+    float radians = util::toRadians(rotation);
     float s = dt * speed;
-    posX += s * direction * sin(radians);
-    posY -= s * direction * cos(radians);
+    position.x += s * direction * sin(radians);
+    position.y -= s * direction * cos(radians);
     speed -= s;
     if (speed < 0) speed = 0;
 

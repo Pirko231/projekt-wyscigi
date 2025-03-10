@@ -50,7 +50,7 @@ public:
 
     void setCollisions(const std::vector<std::unique_ptr<bdr::Collidable>>* _collisions) {this->collisions = _collisions;}
 
-    void setPosition(sf::Vector2f pos) {this->posX = pos.x; this->posY = pos.y;}
+    void setPosition(sf::Vector2f pos) { util::Vector2(pos.x, pos.y); }
 
     void setRotation(float angle) {this->rotation = angle;}
 
@@ -79,8 +79,7 @@ private:
     sf::Sprite car;
     sf::Texture carTexture;
 
-    float posX = 0;
-    float posY = 0;
+    util::Vector2 position;
     float rotation = 0;
     float speed = 0;
     int direction = 1;
