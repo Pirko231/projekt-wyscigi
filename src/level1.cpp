@@ -15,11 +15,17 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     this->loadLevel(mapTxt);
 
     //ustawianie kolizji statycznych
+    sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{691.f,213.f}, {30.f,50.f}}));
+    sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{736.f,154.f}, {292.f,30.f}}));
+    sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{691.f,31.f}, {362.f,30.f}}));
+    sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1043.f,200.f}, {30.f,180.f}}));
+    sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1169.f,162.f}, {30.f,180.f}}));
+
     sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{32.f,100.f}, {30.f,280.f}}));
     sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{402.f,229.f}, {152.f,30.f}}));
-    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{385.f,354.f}, {200.f,30.f}}));
+    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{365.f,354.f}, {220.f,30.f}}));
     sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{354.f,125.f}, {30.f,80.f}}));
-    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{231.f,163.f}, {30.f,97.f}}));
+    sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{231.f,163.f}, {30.f,120.f}}));
     sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{156.f,163.f}, {30.f,180.f}}));
     sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{565.f,128.f}, {30.f,90.f}}));
     sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{158.f,8.f}, {98.f,15.f}}));
@@ -56,6 +62,79 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1043.f,255.f}, {30.f, 280.f}}));
 
     //zakret od wewnatrz
+    {
+        
+        sf::Vector2f pos1{547.f, 241.f};
+        sf::Vector2f pos2{732.f, 157.f};
+        sf::Vector2f pos3{230.f, 105.f};
+        sf::Vector2f pos4{204.f, 120.f};
+        sf::Vector2f pos5{144.f, 11.f};
+        sf::Vector2f pos6{256.f, 11.f};
+        sf::Vector2f pos7{357.f, 200.f};
+        sf::Vector2f pos8{350.f, 356.f};
+        //zakret _| ostry
+        for (int i = 0; i < 7; i++, pos1.x += 5.f, pos1.y -= 4.f)
+        {
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos1, {15.f, 15.f}}));
+        }
+        //zakret |_ ostry
+        for (int i = 0; i < 6; i++, pos7.x += 4.f, pos7.y += 6.f)
+        {
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos7, {15.f, 15.f}}));
+        }
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{390.f,237.f}, {15.f,15.f}}));
+        //zakret |- ostry
+        for (int i = 0; i < 5; i++, pos2.x -= 6.f, pos2.y += 3.f, pos3.x -= 6.f, pos3.y += 3.f)
+        {
+            sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos2, {15.f, 15.f}}));
+        }
+        for (int i = 0; i < 6; i++, pos3.x -= 6.f, pos3.y += 3.f)
+        {
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos3, {15.f, 15.f}}));
+        }
+        sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{694.f,192.f}, {15.f,19.f}}));
+        sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{698.f,182.f}, {15.f,15.f}}));
+        sections[0].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{703.f,175.f}, {15.f,15.f}}));
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{166.f,142.f}, {15.f,15.f}}));
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{162.f,146.f}, {15.f,19.f}}));
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{158.f,152.f}, {15.f,19.f}}));
+        //zakret -| ostry
+        for (int i = 0; i < 6; i++, pos4.x += 6.f, pos4.y += 3.f)
+        {
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos4, {15.f, 15.f}}));
+        }
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{236.f,147.f}, {15.f,15.f}}));
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{242.f,152.f}, {15.f,15.f}}));
+        //zakret |- lagodny
+        for (int i = 0; i < 6; i++, pos5.x -= 8.f, pos5.y += 2.f)
+        {
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos5, {15.f, 15.f}}));
+        }
+        for (int i = 0; i < 12; i++, pos5.x -= 4.f, pos5.y += 5.f)
+        {
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos5, {15.f, 15.f}}));
+        }
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{48.f,95.f}, {15.f,16.f}}));
+
+        //zakret -| lagodny
+        for (int i = 0; i < 6; i++, pos6.x += 8.f, pos6.y += 2.f)
+        {
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos6, {15.f, 15.f}}));
+        }
+        for (int i = 0; i < 12; i++, pos6.x += 4.f, pos6.y += 5.f)
+        {
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos6, {15.f, 15.f}}));
+        }
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{351.f,95.f}, {15.f,17.f}}));
+        sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{357.f,108.f}, {15.f,17.f}}));
+
+        //zakret |_ lagdny
+        for (int i = 0; i < 8; i++, pos8.x -= 8.f, pos8.y -= 3.f)
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos8, {15.f, 15.f}}));
+    
+        for (int i = 0; i < 9; i++, pos8.x -= 3.8f, pos8.y -= 6.f)
+            sections[1].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos8, {15.f, 15.f}}));
+    }
     {
         //sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1023.f,548.f}, {15.f, 15.f}}));
         //sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1028.f,543.f}, {15.f, 15.f}}));
