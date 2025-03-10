@@ -3,8 +3,15 @@
 LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music)
     : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
+    Raport raport;
+    raport.open();
+    raport.logMessage("LevelSelection");
+    raport.addEntry("Wczytywanie tekstury czcionki", lockTexture.loadFromFile("resources/Lock.png"));
+    raport.addEntry("Wczytywanie czcionki", font.loadFromFile("fonts/BigFont.ttf"));
+    raport.addEntry("Wczytywanie tla ekranu", backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg"));
+    raport.close();
     //screen background
-    backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg");
+    
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setScale(
         static_cast<float>(_window->getSize().x) / backgroundTexture.getSize().x,
@@ -21,10 +28,10 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Man
         "resources/SPEEDWAY2.0..jpg"
     };
 
-    //wczytywanie klodki i czcionki
-    lockTexture.loadFromFile("resources/Lock.png");
+    
+    
     lockSprite.setTexture(lockTexture);
-    font.loadFromFile("fonts/BigFont.ttf");
+    
     
 
     float baseRectWidth = 8.f;

@@ -3,8 +3,15 @@
 CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music)
     : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
+    Raport raport;
+    raport.open();
+    raport.logMessage("CarSelection");
+    raport.addEntry("Wczytywanie tekstury czcionki", lockTexture.loadFromFile("resources/Lock.png"));
+    raport.addEntry("Wczytywanie czcionki", font.loadFromFile("fonts/BigFont.ttf"));
+    raport.addEntry("Wczytywanie tla ekranu", backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg"));
+    raport.close();
+   
     //screenbackground
-    backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg");
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setScale(
         static_cast<float>(_window->getSize().x) / backgroundTexture.getSize().x,
@@ -12,7 +19,6 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
     );
 
     //wczytywanie tekstury klodki
-    lockTexture.loadFromFile("resources/Lock.png");
     lockSprite.setTexture(lockTexture);
 
     //wymiary 
@@ -36,7 +42,6 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
     float settingsOffsetY = winHeight * 0.02f;
 
     //wczytanie czcionki
-    font.loadFromFile("fonts/BigFont.ttf");
     std::string names[NUM_CARS] = {"Auto 1", "Auto 2", "Auto 3"};
 
     //klodka
