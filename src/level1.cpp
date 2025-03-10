@@ -76,6 +76,13 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
         for (int i = 0; i < 9; i++, pos.x += 5.f, pos.y -= 7.5f)
             sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos, {15.f, 15.f}}));
     }
+
+    //ustawienie checkpointow
+
+    //pierwszy checkpoint to start i meta
+    checkPoints[2].first.push_back(bdr::CheckPoint{{521.f,564.f}, {20.f, 90.f}});
+    checkPoints[3].first.push_back(bdr::CheckPoint{{720.f,564.f}, {20.f, 90.f}});
+
     checkPoints[1].first.push_back(bdr::CheckPoint{{65.f,150.f}, {90.f, 20.f}});
 }
 
@@ -84,15 +91,3 @@ void Level1::resetCurrentLevel()
     this->player->setPosition({676.f, 636.f});
     this->player->setRotation(270);
 }
-
-/*void Level1::handleEvents(sf::Event &_event)
-{
-}
-
-void Level1::update()
-{
-}
-
-void Level1::display()
-{
-}*/
