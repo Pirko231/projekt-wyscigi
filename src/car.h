@@ -52,8 +52,8 @@ public:
     void setStats(const CarStats& _stats) {this->stats = _stats;}
 
     void setCollisions(const std::vector<std::unique_ptr<bdr::Collidable>>* _collisions) {this->collisions = _collisions;}
-
-    void setPosition(sf::Vector2f pos) { util::Vector2(pos.x, pos.y); }
+    
+    void setPosition(sf::Vector2f pos) { this->position.x = pos.x; this->position.y = pos.y;}
 
     void setRotation(float angle) {this->rotation = angle;}
 
