@@ -4,8 +4,6 @@ void Report::logMessage(std::string _message)
 {
     if (this->file.is_open())
         this->file << "!-- " << _message << " --!" << "\n";
-    else
-        throw FileCouldNotOpen{this->fileName};
 }
 
 void Report::addEntry(std::string _entry, bool _status)
@@ -21,8 +19,6 @@ void Report::addEntry(std::string _entry, bool _status)
             this->file << "FAILURE";
         this->file << " --\n";
     }
-    else
-        throw FileCouldNotOpen{this->fileName};
 }
 
 Report::~Report()
