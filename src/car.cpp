@@ -1,6 +1,8 @@
 #include "car.h"
 #include "util.h"
 
+#include <iostream>
+
 //includuj pliki w naglowkowym klasy a tutaj tylko plik klasy.h
 
 Car::Car() :
@@ -48,10 +50,29 @@ void Car::display()
 void Car::reset()
 {
     this->speed = 0;
+    this->loops = 0;
     pressed.a = false;
     pressed.w = false;
     pressed.s = false;
     pressed.d = false;
+}
+
+void Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end)
+{
+    if (this->getGlobalBounds().intersects(this->checkpoints->at(currentCheckpoint).getGlobalBounds()))
+    {
+        this->checkpoints->at(currentCheckpoint).activate();
+        if (this->currentCheckpoint != (int)checkpoints->size() - 1)
+            this->currentCheckpoint++;
+        else
+        {
+            this->currentCheckpoint = 0;
+            for (auto& it = begin; it != end; it++)
+                it->reset();
+            
+            loops++;
+        }
+    }
 }
 
 void Car::update(void)
@@ -73,6 +94,15 @@ void Car::update(void)
         speed = 0;
         carMoving = false;
     }
+
+    //tylko test potem wywlali sie pomiar czasu
+    sf::Clock clock;
+    for (auto& obj : *collisions)
+        if (this->car.getGlobalBounds().intersects(obj->getGlobalBounds()))
+            std::clog << "collision\n";
+    sf::Time time {clock.getElapsedTime()};
+    std::clog << time.asMicroseconds() << '\n';
+    clock.restart();
 
     display();
 }

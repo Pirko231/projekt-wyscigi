@@ -12,7 +12,7 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
     this->gameView.setSize(this->player->getLocalBounds().width, this->player->getLocalBounds().height);
     //this->gameView.setSize(static_cast<float>(this->window->getSize().x / 3), static_cast<float>(this->window->getSize().y / 3));
     this->gameView.setCenter(this->player->getPosition().x / 2.f, this->player->getPosition().y / 2.f);
-
+    
     //ustawienie obszarow w odpowiednim ulozeniu.
     //ustwiane są tak jak uklad wspolrzednych na matematyce
     //pierwsza cwiartka jest w prawym gornym rogu.
@@ -21,8 +21,6 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
     this->sections[2].second = sf::FloatRect{{0.f, static_cast<float>(this->window->getSize().y) / 2.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
     this->sections[3].second = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y) / 2.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
 
-    for (std::size_t i = 0; i < sectionAmount; i++)
-        checkPoints[i].second = sections[i].second;
     
     Report report;
     report.open();
@@ -78,13 +76,34 @@ void Level::update()
     this->player->update();
 
     //sprawdzenie checkpointow
+    //this->checkCheckpoints();
+
+    this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end());
+
+    //sprawdzanie ukonczenia toru
+    /*bool isInactive{false};
     for (std::size_t i = 0; i < this->sectionAmount; i++)
-        if (this->checkPoints[i].second.intersects(this->player->getGlobalBounds()))
+    {
+        for (auto& checkPoint : checkPoints)
         {
-            for (auto& checkPoint : checkPoints[i].first)
-                if (this->player->getGlobalBounds().intersects(checkPoint.getGlobalBounds()))
-                    checkPoint.activate();
+            if (!checkPoint.isActive())
+            {
+                isInactive = true;
+                break;
+            }
         }
+        if (isInactive)
+            break;
+        else if (i == this->sectionAmount - 1)
+        {
+            this->loops++;
+            for (std::size_t i = 0; i < this->sectionAmount; i++)
+                for (auto& checkPoint : checkPoints)
+                    checkPoint.reset();
+        }
+            
+    }*/
+            
 }
 
 void Level::display()
@@ -102,7 +121,7 @@ void Level::display()
     //przestrzen testow - aby zaczac testowac nalezy odkomentowac
     //----------------------------------------------------------------------------------
 
-    /*  //----miejsce do odkomentowania - na koniec testow wykomentowac
+     //----miejsce do odkomentowania - na koniec testow wykomentowac
     //testy sektorow
     sf::RectangleShape shape; //wiem ze duzo kopiowania ale tylko do testow, ustawiopne lokalnie aby nie przeszkadalo
     shape.setOutlineColor(sf::Color::Black);
@@ -117,7 +136,7 @@ void Level::display()
 
     //testy hitboxow
     shape.setOutlineThickness(2.f);
-    sf::Color hitboxColors[4] {sf::Color::White, sf::Color::Black, sf::Color::Yellow, sf::Color::Blue};
+    sf::Color hitboxColors[4] {sf::Color::White, sf::Color::Cyan, sf::Color::Yellow, sf::Color::Blue};
     for (std::size_t i = 0; i < this->sectionAmount; i++)
         for (auto & obj : this->sections[i].first)
         {
@@ -129,7 +148,7 @@ void Level::display()
 
     //testy checkpointow
     for (std::size_t i = 0; i < this->sectionAmount; i++)
-        for (auto & obj : this->checkPoints[i].first)
+        for (auto & obj : this->checkPoints)
         {
             if (obj.isActive())
                 shape.setFillColor(sf::Color::Green);
@@ -139,7 +158,7 @@ void Level::display()
             shape.setSize({obj.getLocalBounds().width, obj.getLocalBounds().height});
             this->window->draw(shape);
         }
-    */ //- miejsce do odkomentowania. Pod koniec testow nalezy wykomentowac
+     //- miejsce do odkomentowania. Pod koniec testow nalezy wykomentowac
     //--------------------------------------------------------------------------------
 }
 
@@ -155,9 +174,30 @@ void Level::reset()
 
     this->player->reset();
 
+    this->player->setCheckPoints(&this->checkPoints);
+
+    this->loops = 0;
+
     for (std::size_t i = 0; i < this->sectionAmount; i++)
-        for (auto& obj : checkPoints[i].first)
+        for (auto& obj : checkPoints)
             obj.reset();
+}
+
+void Level::checkCheckpoints()
+{
+    //sprawdzenie checkpointow
+    /*for (std::size_t i = 0; i < this->sectionAmount; i++)
+        if (this->checkPoints[i].second.intersects(this->player->getGlobalBounds()))
+        {
+            for (int j = 0; j < checkPoints[i].first.size(); j++)
+                if (this->player->getGlobalBounds().intersects(checkPoints[i].first[j].getGlobalBounds()))
+                    if (j > 0 && this->checkPoints[i].first[j - 1].isActive())
+                        checkPoints[i].first[j].activate();
+                    else if (j == 0 && i > 0)
+                        checkPoints[i - 1].first[j].activate();
+                    else if (i == 0)
+                        checkPoints[i].first[0].activate();
+        }*/
 }
 
 void Level::loadLevel(const sf::Texture &_mapTexture)

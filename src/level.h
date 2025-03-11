@@ -53,6 +53,11 @@ private:
     //wywoluje funkcje resetCurrentLevel i robi rzeczy
     //uniwersalne dla kazdego levelu.
     void reset();
+
+    //ile okrazen zostalo przejechane do tej pory
+    int loops{0};
+
+    void checkCheckpoints();
     
 protected:
     //laduje rzeczy takie jak tekstura dla mapy
@@ -82,7 +87,7 @@ protected:
     //klas dziedziczacych od Level.
     //sf::floatRect to podzial na strefy zeby checkpointy tylko z jednej
     //strefy byly sprawdzane
-    std::pair< std::vector<bdr::CheckPoint>, sf::FloatRect> checkPoints[sectionAmount];
+    std::vector<bdr::CheckPoint> checkPoints;
 };
 
 

@@ -19,12 +19,6 @@ namespace bdr
         sf::FloatRect getGlobalBounds() const override { return object.getGlobalBounds(); }
 
     private:
-
-        //rysowanko
-        void draw(sf::RenderTarget &target, sf::RenderStates states) const override
-        {
-            target.draw(this->object, states);
-        }
     protected:
         // obiekt ktorego sprawdzamy kolizje
         T object;
