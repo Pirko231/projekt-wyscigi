@@ -8,7 +8,7 @@ Level2::Level2(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     report.open();
     report.logMessage("Level2");
 
-    report.addEntry("Mapa", mapTxt.loadFromFile("resources/SPEEDWAY2.0..jpg"));
+    report.addEntry("Mapa", mapTxt.loadFromFile("resources/mapLevel2.jpg"));
 
     report.close();
     

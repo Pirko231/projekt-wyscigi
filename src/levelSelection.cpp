@@ -23,8 +23,8 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Man
 
     std::string mapTitles[MapButtonsAmount] = {"Speedway", "Desert", "Jungle"};
     std::string mapTextureFiles[MapButtonsAmount] = {
-        "resources/Speedway.jpeg",
         "resources/mapLevel1.jpg",
+        "resources/mapLevel2.jpg",
         "resources/SPEEDWAY2.0..jpg"
     };
 
@@ -110,7 +110,7 @@ void LevelSelection::handleEvents(sf::Event& _event)
 {
     if (_event.type == sf::Event::MouseButtonPressed && _event.mouseButton.button == sf::Mouse::Left)
     {
-        sf::Vector2f mousePos = static_cast<sf::Vector2f>(mouse->getPosition(*window));
+        
 
         if (backArrow.manageHover(mouse->getPosition(*window)))
         {

@@ -3,6 +3,7 @@
 CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music)
     : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
+    //raporcik dla szefa
     Raport raport;
     raport.open();
     raport.logMessage("CarSelection");
@@ -13,10 +14,7 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
    
     //screenbackground
     backgroundSprite.setTexture(backgroundTexture);
-    backgroundSprite.setScale(
-        static_cast<float>(_window->getSize().x) / backgroundTexture.getSize().x,
-        static_cast<float>(_window->getSize().y) / backgroundTexture.getSize().y
-    );
+    backgroundSprite.setScale(static_cast<float>(_window->getSize().x)/backgroundTexture.getSize().x, static_cast<float>(_window->getSize().y)/backgroundTexture.getSize().y);
 
     //wczytywanie tekstury klodki
     lockSprite.setTexture(lockTexture);
@@ -24,11 +22,8 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
     //wymiary 
     auto [winWidth, winHeight] = _window->getSize();
     float buttonWidth = winWidth * 0.09f;
-    float buttonHeight = winHeight * 0.15f;
     float spacing = winWidth * 0.07f;
     float buttonRadius = winWidth * 0.12f;
-    
-
 
     constexpr int NUM_CARS = 3;
     constexpr int NUM_ATTRS = 3;
@@ -38,21 +33,22 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
 
     float arrowOffsetX = winWidth * 0.02f;
     float arrowOffsetY = winHeight * 0.02f;
-    float settingsOffsetX = winWidth  * 0.02f;
+    float settingsOffsetX = winWidth * 0.02f;
     float settingsOffsetY = winHeight * 0.02f;
 
-    //wczytanie czcionki
+    //etykiedy dla kazdego auta
     std::string names[NUM_CARS] = {"Auto 1", "Auto 2", "Auto 3"};
+    std::string labelTexts[NUM_ATTRS] = {"Szybkosc", "Zwrotnosc", "TURBO"};
 
     //klodka
-    float desiredLockWidth = buttonRadius * 0.6f;
+    float desiredLockWidth = buttonRadius * 1.3f;
     float lockScaleFactor = desiredLockWidth / lockTexture.getSize().x;
     lockSprite.setScale(lockScaleFactor, lockScaleFactor);
 
     for (int i = 0; i < NUM_CARS; i++)
     {
         //ustawienia circlebutton
-        sf::Vector2f btnPos(startX + i * (2 * buttonRadius + spacing), centerY);
+        sf::Vector2f btnPos(startX + i * (2.f * buttonRadius + spacing), centerY);
         CarCircleBtn[i].setPosition(btnPos);
         CarCircleBtn[i].setRadius(buttonRadius);
         CarCircleBtn[i].setColor(sf::Color::White);
@@ -64,58 +60,61 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
         carNames[i].setCharacterSize(24);
         carNames[i].setFillColor(sf::Color::Black);
 
-        //PRZYKLAD NA SAM POCZATEK
+        //przykladowe atrybuty
         carAttributes[i][0] = 100; // szybkosc
         carAttributes[i][1] = 75;  // Turbo
         carAttributes[i][2] = 50;  // zwrotnosc
 
         //pozycjonowanie locka
-        lockSprite.setPosition(
-            btnPos.x - lockSprite.getGlobalBounds().width / 2.f,
-            btnPos.y - lockSprite.getGlobalBounds().height / 2.f
-        );
+        lockSprite.setPosition(btnPos.x - lockSprite.getGlobalBounds().width/2.f, btnPos.y - lockSprite.getGlobalBounds().height/2.f);
 
-        // progressbar 
-        for (int j = 0; j < NUM_ATTRS; j++)
-        {
-            float pbWidth  = buttonRadius * 1.5f;
-            float pbHeight = buttonRadius * 0.1f;
-            sf::Vector2f pbPos;
-            pbPos.x = btnPos.x - pbWidth / 2.f;
-            pbPos.y = btnPos.y + buttonRadius + (j + 1) * (pbHeight + 5.f);
-            sf::Vector2f pbSize(pbWidth, pbHeight);
-            carProgressBars[i][j] = new btn::ProgressBar(pbPos, pbSize, &carAttributes[i][j]);
-        }
+        float margin = buttonRadius * 0.05f;
+        float extraOffset = buttonRadius * 0.1f;
+        float pbWidth = buttonRadius * 1.5f;
+        float pbHeight = buttonRadius * 0.1f;
+        float barSectionHeight = pbHeight * 2.f;
+        float rectWidth = pbWidth + 2.f * margin;
+        float rectHeight = NUM_ATTRS * barSectionHeight + 2.f * margin + pbHeight * 0.2f;
 
         //rectangle texture na progressbar
-        constexpr float margin      = 10.f;
-        constexpr float extraOffset = 20.f;
-        float pbWidth  = buttonRadius * 1.5f;
-        float pbHeight = buttonRadius * 0.1f;
-        float rectWidth  = pbWidth + 2 * margin;
-        float rectHeight = NUM_ATTRS * (pbHeight + 5.f) + margin;
         sf::RectangleShape rect;
         rect.setSize({rectWidth, rectHeight});
-        rect.setFillColor(sf::Color(200, 200, 200, 150)); //przezroczyste
+        rect.setFillColor(sf::Color(200, 200, 200, 150));
         rect.setOutlineColor(sf::Color::Black);
         rect.setOutlineThickness(1.f);
-        rect.setPosition(btnPos.x - rectWidth / 2.f, btnPos.y + buttonRadius + margin + extraOffset);
+        rect.setPosition(btnPos.x - rectWidth/2.f, btnPos.y + buttonRadius + margin + extraOffset);
         carInfoRects.push_back(rect);
 
-        sf::FloatRect textRect = carNames[i].getLocalBounds();
-        carNames[i].setOrigin(textRect.left + textRect.width / 2.f, textRect.top + textRect.height / 2.f);
-        carNames[i].setPosition(
-            rect.getPosition().x + rect.getSize().x / 2.f,
-            rect.getPosition().y + rect.getSize().y + margin + textRect.height / 2.f
-        );
+        sf::FloatRect nameRect = carNames[i].getLocalBounds();
+        carNames[i].setOrigin(nameRect.left + nameRect.width/2.f, nameRect.top + nameRect.height/2.f);
+        carNames[i].setPosition(rect.getPosition().x + rect.getSize().x/2.f, rect.getPosition().y + rect.getSize().y + margin + nameRect.height/2.f);
+
+        float startY = rect.getPosition().y + margin;
+        for (int j = 0; j < NUM_ATTRS; j++)
+        {
+            float posY = startY + j * barSectionHeight + pbHeight * 0.3f;
+            sf::Vector2f pbPos(rect.getPosition().x + margin, posY);
+            sf::Vector2f pbSize(pbWidth, pbHeight);
+            carProgressBars[i][j] = new btn::ProgressBar(pbPos, pbSize, &carAttributes[i][j]);
+
+            attributeLabels[i][j].setFont(font);
+            attributeLabels[i][j].setString(labelTexts[j]);
+            attributeLabels[i][j].setCharacterSize(18);
+            attributeLabels[i][j].setFillColor(sf::Color::Black);
+            sf::FloatRect labelRect = attributeLabels[i][j].getLocalBounds();
+            float labelX = pbPos.x + pbWidth/2.f - labelRect.width/2.f;
+            float labelY = posY - labelRect.height - pbHeight * 0.2f;
+            attributeLabels[i][j].setPosition(labelX, labelY);
+        }
     }
 
-    //pozycja strzalki
+    //pozycjonowanie strzalki
     backArrow.setPosition(sf::Vector2f(arrowOffsetX, arrowOffsetY));
-
-    //pozycja ustawien
+    //pozycjonowanie ustawien
     settingsBtn.setPosition(sf::Vector2f(winWidth - buttonWidth - settingsOffsetX, settingsOffsetY));
 }
+
+
 
 void CarSelection::handleEvents(sf::Event &_event)
 {
@@ -197,6 +196,7 @@ void CarSelection::display()
         for (int j = 0; j < NUM_ATTRS; j++)
         {
             window->draw(*carProgressBars[i][j]);
+            window->draw(attributeLabels[i][j]);
         }
 
         if (i > 0)

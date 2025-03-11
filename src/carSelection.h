@@ -33,6 +33,8 @@ static constexpr int NUM_ATTRS = 3;
 btn::CircleButton CarCircleBtn[NUM_CARS];
 
 int carAttributes[NUM_CARS][NUM_ATTRS];
+sf::Text attributeLabels[NUM_CARS][NUM_ATTRS];
+
 btn::ProgressBar* carProgressBars[NUM_CARS][NUM_ATTRS];
 std::vector<sf::RectangleShape> carInfoRects;
 sf::Text carNames[NUM_CARS];
