@@ -13,6 +13,8 @@ Level3::Level3(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     report.close();
     
     this->loadLevel(mapTxt);
+
+    this->checkPoints.push_back(bdr::CheckPoint{{400.f, 400.f}, {20.f, 100.f}});
 }
 
 /*void Level3::handleEvents(sf::Event &_event)

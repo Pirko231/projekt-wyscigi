@@ -202,10 +202,11 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     //ustawienie checkpointow
 
     //pierwszy checkpoint to start i meta
-    checkPoints[2].first.push_back(bdr::CheckPoint{{521.f,564.f}, {20.f, 90.f}});
-    checkPoints[3].first.push_back(bdr::CheckPoint{{720.f,564.f}, {20.f, 90.f}});
+    checkPoints.push_back(bdr::CheckPoint{{521.f,564.f}, {20.f, 90.f}});
+    
 
-    checkPoints[1].first.push_back(bdr::CheckPoint{{65.f,150.f}, {90.f, 20.f}});
+    checkPoints.push_back(bdr::CheckPoint{{65.f,150.f}, {90.f, 20.f}});
+    checkPoints.push_back(bdr::CheckPoint{{720.f,564.f}, {20.f, 90.f}});
 }
 
 void Level1::resetCurrentLevel()

@@ -87,7 +87,7 @@ protected:
     //klas dziedziczacych od Level.
     //sf::floatRect to podzial na strefy zeby checkpointy tylko z jednej
     //strefy byly sprawdzane
-    std::pair< std::vector<bdr::CheckPoint>, sf::FloatRect> checkPoints[sectionAmount];
+    std::vector<bdr::CheckPoint> checkPoints;
 };
 
 

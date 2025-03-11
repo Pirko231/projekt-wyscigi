@@ -50,10 +50,29 @@ void Car::display()
 void Car::reset()
 {
     this->speed = 0;
+    this->loops = 0;
     pressed.a = false;
     pressed.w = false;
     pressed.s = false;
     pressed.d = false;
+}
+
+void Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end)
+{
+    if (this->getGlobalBounds().intersects(this->currentCheckpoint->getGlobalBounds()))
+    {
+        this->currentCheckpoint->activate();
+        if (this->currentCheckpoint != end)
+            this->currentCheckpoint++;
+        else
+        {
+            this->currentCheckpoint = begin;
+            for (auto& it = begin; it != end; it++)
+                it->reset();
+            
+            loops++;
+        }
+    }
 }
 
 void Car::update(void)

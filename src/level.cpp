@@ -21,8 +21,6 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
     this->sections[2].second = sf::FloatRect{{0.f, static_cast<float>(this->window->getSize().y) / 2.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
     this->sections[3].second = sf::FloatRect{{static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y) / 2.f}, {static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y / 2)}};
 
-    for (std::size_t i = 0; i < sectionAmount; i++)
-        checkPoints[i].second = sections[i].second;
     
     Report report;
     report.open();
@@ -76,13 +74,15 @@ void Level::update()
     this->player->update();
 
     //sprawdzenie checkpointow
-    this->checkCheckpoints();
+    //this->checkCheckpoints();
+
+    this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end());
 
     //sprawdzanie ukonczenia toru
-    bool isInactive{false};
+    /*bool isInactive{false};
     for (std::size_t i = 0; i < this->sectionAmount; i++)
     {
-        for (auto& checkPoint : checkPoints[i].first)
+        for (auto& checkPoint : checkPoints)
         {
             if (!checkPoint.isActive())
             {
@@ -96,11 +96,11 @@ void Level::update()
         {
             this->loops++;
             for (std::size_t i = 0; i < this->sectionAmount; i++)
-                for (auto& checkPoint : checkPoints[i].first)
+                for (auto& checkPoint : checkPoints)
                     checkPoint.reset();
         }
             
-    }
+    }*/
             
 }
 
@@ -146,7 +146,7 @@ void Level::display()
 
     //testy checkpointow
     for (std::size_t i = 0; i < this->sectionAmount; i++)
-        for (auto & obj : this->checkPoints[i].first)
+        for (auto & obj : this->checkPoints)
         {
             if (obj.isActive())
                 shape.setFillColor(sf::Color::Green);
@@ -172,10 +172,12 @@ void Level::reset()
 
     this->player->reset();
 
+    this->player->setCheckPoints(this->checkPoints.begin());
+
     this->loops = 0;
 
     for (std::size_t i = 0; i < this->sectionAmount; i++)
-        for (auto& obj : checkPoints[i].first)
+        for (auto& obj : checkPoints)
             obj.reset();
 }
 

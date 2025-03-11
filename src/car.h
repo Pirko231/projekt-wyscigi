@@ -54,8 +54,12 @@ public:
 
     void setRotation(float angle) {this->rotation = angle;}
 
+    void setCheckPoints(std::vector<bdr::CheckPoint>::iterator first) {this->currentCheckpoint = first;}
+
     //resetuje predkosc oraz zapisane klikniecia klawiszy
     void reset();
+
+    void manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end);
     
     sf::Vector2f getPosition() const {return this->car.getPosition();}
 
@@ -87,8 +91,11 @@ private:
 
     CarStats stats;
     
+    int loops{0};
 
     const std::vector<std::unique_ptr<bdr::Collidable>>* collisions {nullptr};
+
+    std::vector<bdr::CheckPoint>::iterator currentCheckpoint;
 
     protected:
     //w tym miejscu mozna trzymac rzeczy ktore będą tez widoczne dla klas dziedziczacych
