@@ -176,28 +176,9 @@ void Level::reset()
 
     this->player->setCheckPoints(&this->checkPoints);
 
-    this->loops = 0;
-
     for (std::size_t i = 0; i < this->sectionAmount; i++)
         for (auto& obj : checkPoints)
             obj.reset();
-}
-
-void Level::checkCheckpoints()
-{
-    //sprawdzenie checkpointow
-    /*for (std::size_t i = 0; i < this->sectionAmount; i++)
-        if (this->checkPoints[i].second.intersects(this->player->getGlobalBounds()))
-        {
-            for (int j = 0; j < checkPoints[i].first.size(); j++)
-                if (this->player->getGlobalBounds().intersects(checkPoints[i].first[j].getGlobalBounds()))
-                    if (j > 0 && this->checkPoints[i].first[j - 1].isActive())
-                        checkPoints[i].first[j].activate();
-                    else if (j == 0 && i > 0)
-                        checkPoints[i - 1].first[j].activate();
-                    else if (i == 0)
-                        checkPoints[i].first[0].activate();
-        }*/
 }
 
 void Level::loadLevel(const sf::Texture &_mapTexture)
