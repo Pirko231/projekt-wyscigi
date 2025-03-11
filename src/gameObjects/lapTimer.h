@@ -6,29 +6,37 @@
 
 class LapTimer : public sf::Drawable {
 public:
-    // Konstruktor przyjmujący referencję do czcionki, rozmiar czcionki i pozycję
-    LapTimer(const sf::Font& font, unsigned int characterSize = 30, const sf::Vector2f& position = {0.f, 0.f});
+    // Konstruktor przyjmujący referencję do czcionki oraz rozmiar czcionki
+    LapTimer(const sf::Font& font, unsigned int characterSize = 30);
 
-    // Funkcja update – wywoływana 60 razy na sekundę (przy framerate 60)
+    // Aktualizuje wyświetlany czas
     void update();
 
-    // Resetuje licznik do zera
+    // Resetuje licznik (restart zegara)
     void reset();
 
     // Zwraca aktualny czas w formacie MM:SS
     std::string getTime() const;
 
-    // Ustawienia wyglądu
-    void setPosition(const sf::Vector2f& position);
-    void setScale(const sf::Vector2f& scale);
-    void setColor(const sf::Color& color);
+    // Ustawia kolor tekstu (cyfr)
+    void setTextColor(const sf::Color& color);
+
+    // Ustawia rozmiar czcionki
     void setCharacterSize(unsigned int size);
 
+    // Ustawia tło licznika – pozycję i rozmiar prostokąta
+    void setBackground(const sf::Vector2f& position, const sf::Vector2f& size);
+
+    // Getter dla obszaru tła (przydatny przy pozycjonowaniu)
+    sf::FloatRect getBackgroundBounds() const;
+
 private:
-    // Metoda rysująca obiekt – wywoływana przez SFML
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    const sf::Font* font;  // Czcionka (obiekt nie jest własnością klasy)
+    const sf::Font* font;  // Czcionka (nie jest własnością klasy)
     sf::Text timerText;    // Tekst wyświetlający czas
-    int frameCount;        // Liczba klatek (do przeliczania czasu)
+    sf::Clock clock;       // Zegar mierzący upływ czasu
+
+    // Tło licznika – czarny prostokąt
+    sf::RectangleShape backgroundRect;
 };
