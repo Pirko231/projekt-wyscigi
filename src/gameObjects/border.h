@@ -13,7 +13,7 @@ namespace bdr
     public:
         Border() = default;
         Border(T obj) { this->object = obj; }
-        Border(sf::Vector2f _pos, sf::Vector2f _size) {this->object.setPosition(_pos); this->object.setSize(_size);}
+        Border(sf::Vector2f _pos, sf::Vector2f _size, float rotation = 0.f) {this->object.setPosition(_pos); this->object.setSize(_size); this->object.setRotation(rotation);}
         sf::Vector2f getPosition() const override { return object.getPosition(); }
         sf::FloatRect getLocalBounds() const override { return object.getLocalBounds(); }
         sf::FloatRect getGlobalBounds() const override { return object.getGlobalBounds(); }
