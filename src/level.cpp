@@ -12,7 +12,7 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIte
     this->gameView.setSize(this->player->getLocalBounds().width, this->player->getLocalBounds().height);
     //this->gameView.setSize(static_cast<float>(this->window->getSize().x / 3), static_cast<float>(this->window->getSize().y / 3));
     this->gameView.setCenter(this->player->getPosition().x / 2.f, this->player->getPosition().y / 2.f);
-
+    
     //ustawienie obszarow w odpowiednim ulozeniu.
     //ustwiane są tak jak uklad wspolrzednych na matematyce
     //pierwsza cwiartka jest w prawym gornym rogu.
@@ -172,7 +172,7 @@ void Level::reset()
 
     this->player->reset();
 
-    this->player->setCheckPoints(this->checkPoints.begin());
+    this->player->setCheckPoints(&this->checkPoints);
 
     this->loops = 0;
 

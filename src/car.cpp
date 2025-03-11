@@ -59,14 +59,14 @@ void Car::reset()
 
 void Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end)
 {
-    if (this->getGlobalBounds().intersects(this->currentCheckpoint->getGlobalBounds()))
+    if (this->getGlobalBounds().intersects(this->checkpoints->at(currentCheckpoint).getGlobalBounds()))
     {
-        this->currentCheckpoint->activate();
-        if (this->currentCheckpoint != end)
+        this->checkpoints->at(currentCheckpoint).activate();
+        if (this->currentCheckpoint != (int)checkpoints->size() - 1)
             this->currentCheckpoint++;
         else
         {
-            this->currentCheckpoint = begin;
+            this->currentCheckpoint = 0;
             for (auto& it = begin; it != end; it++)
                 it->reset();
             

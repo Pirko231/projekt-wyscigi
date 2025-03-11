@@ -54,7 +54,7 @@ public:
 
     void setRotation(float angle) {this->rotation = angle;}
 
-    void setCheckPoints(std::vector<bdr::CheckPoint>::iterator first) {this->currentCheckpoint = first;}
+    void setCheckPoints(std::vector<bdr::CheckPoint>* _checkpoints) {this->checkpoints = _checkpoints;}
 
     //resetuje predkosc oraz zapisane klikniecia klawiszy
     void reset();
@@ -95,7 +95,9 @@ private:
 
     const std::vector<std::unique_ptr<bdr::Collidable>>* collisions {nullptr};
 
-    std::vector<bdr::CheckPoint>::iterator currentCheckpoint;
+    std::vector<bdr::CheckPoint>* checkpoints;
+
+    int currentCheckpoint{0};
 
     protected:
     //w tym miejscu mozna trzymac rzeczy ktore będą tez widoczne dla klas dziedziczacych
