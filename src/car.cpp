@@ -1,4 +1,6 @@
 #include "car.h"
+#include "SFML/Window/Event.hpp"
+#include "SFML/Window/Keyboard.hpp"
 #include "util.h"
 
 #include <iostream>
@@ -15,24 +17,39 @@ Car::Car() :
 void Car::handleEvents(sf::Event& ev)
 {
     pressed.check(ev);
+
+    if (pressed.a == pressed.d) {
+        controls.steering = Steering::Straight;
+    } else if (pressed.a) {
+        controls.steering = Steering::Left;
+    } else if (pressed.d) {
+        controls.steering = Steering::Right;
+    }
+    if (pressed.w == pressed.s) {
+        controls.throttle = Throttle::None;
+    } else if (pressed.w) {
+        controls.throttle = Throttle::Accelerate;
+    } else if (pressed.s) {
+        controls.throttle = Throttle::Break;
+    }
 }
 
 void Car::actuallyHandleInput()
 {
-    if (pressed.w) {
+    if (controls.throttle == Throttle::Accelerate) {
         direction = 1;
         speed += stats.acceleration;
         speed = std::clamp(speed, 0.f, stats.maxSpeed);
     }
-    if (pressed.s) {
+    if (controls.throttle == Throttle::Break) {
         direction = -1;
         speed += stats.acceleration;
         speed = std::clamp(speed, 0.f, stats.maxSpeed);
     }
-    if (pressed.a) {
+    if (controls.steering == Steering::Left) {
         rotation = util::rem_euclid(rotation - stats.rotationSpeed, 360.f);
     }
-    if (pressed.d) {
+    if (controls.steering == Steering::Right) {
         rotation = util::rem_euclid(rotation + stats.rotationSpeed, 360.f);
     }
 }
@@ -51,6 +68,7 @@ void Car::reset()
 {
     this->speed = 0;
     this->loops = 0;
+    this->currentCheckpoint = 0;
     pressed.a = false;
     pressed.w = false;
     pressed.s = false;
@@ -69,7 +87,7 @@ void Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::v
             this->currentCheckpoint = 0;
             for (auto& it = begin; it != end; it++)
                 it->reset();
-            
+
             loops++;
         }
     }
@@ -81,10 +99,9 @@ void Car::update(void)
 
     // FIXME: obliczyc gdzies deltatime naprawde
     float dt = 1.f / 60.f;
-    float radians = util::toRadians(rotation);
-    float s = dt * speed;
-    position.x += s * direction * sin(radians);
-    position.y -= s * direction * cos(radians);
+    float radians = util::radians(rotation);
+    util::Vector2 forwards = { sinf(radians), -cosf(radians) };
+    position += forwards * direction * speed * dt;
     speed *= stats.friction;
 
     if (speed > 10 && !carMoving) {
