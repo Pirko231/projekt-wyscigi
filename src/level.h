@@ -29,7 +29,7 @@ protected:
     virtual void resetCurrentLevel() = 0;
 
     // Ładuje teksturę mapy
-    void loadLevel(const sf::Texture& _mapTexture);
+    void loadLevel(const sf::Texture& _mapTexture, sf::Vector2f pos = {0.f,0.f});
 
     // Gracz (wskaźnik)
     Player* player;
@@ -40,9 +40,9 @@ protected:
     // Checkpointy
     std::vector<bdr::CheckPoint> checkPoints;
 
-    // ***** Licznik okrążeń (LapTimer) *****
-    LapTimer* lapTimer;
+    //licznik okrazen
     sf::Font lapTimerFont;
+    LapTimer lapTimer{lapTimerFont, 30};
 
 private:
     // Obiekty statyczne (widok gry)

@@ -28,6 +28,7 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
     // Ładowanie tekstury dla gracza
     sf::Texture playerTexture;
     report.addEntry("tekstura auta", playerTexture.loadFromFile("resources/compact_blue.png"));
+    report.addEntry("Czcionka licznik", lapTimerFont.loadFromFile("fonts/alarmClock.ttf"));
 
     if (!Level::staticLoaded)
     {
@@ -38,13 +39,6 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
     report.close();
     this->player->setTexture(playerTexture);
 
-    // ***** Inicjalizacja licznika okrążeń (LapTimer) *****
-    if (!lapTimerFont.loadFromFile("fonts/alarmClock.ttf"))
-    {
-        report.logMessage("Błąd: Nie udało się wczytać czcionki z fonts/alarmClock.ttf");
-    }
-    // Tworzymy obiekt LapTimer – domyślnie tło ustalone na (353,124,244x138) oraz czerwony tekst (ustawione w LapTimer)
-    lapTimer = new LapTimer(lapTimerFont, 30);
 }
 
 void Level::handleEvents(sf::Event &_event)
@@ -72,12 +66,12 @@ void Level::update()
     this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end());
 
     // Aktualizacja licznika
-    lapTimer->update();
+    lapTimer.update();
 }
 
 void Level::display()
 {
-    // Ustawienie widoku gry
+    // widok
     this->gameView.setSize(static_cast<sf::Vector2f>(sf::Vector2i(this->window->getSize().x / 2, this->window->getSize().y / 2)));
     this->gameView.setCenter(this->player->getPosition());
     this->window->setView(this->gameView);
@@ -85,10 +79,9 @@ void Level::display()
     this->window->draw(this->map);
     this->window->draw(*this->player);
 
-    // Rysowanie licznika – pozycja tła (a więc i tekstu) jest określona przez LapTimer
-    this->window->draw(*lapTimer);
+    this->window->draw(lapTimer);
 
-    // --- Elementy testowe (sekcje, hitboxy, checkpointy) ---
+    // testy dla hitboxow checkpointow i sektorow
     sf::RectangleShape shape;
     shape.setOutlineColor(sf::Color::Black);
     shape.setOutlineThickness(3.f);
@@ -123,7 +116,6 @@ void Level::display()
 
 Level::~Level()
 {
-    delete lapTimer;
 }
 
 void Level::reset()
@@ -131,13 +123,14 @@ void Level::reset()
     this->resetCurrentLevel();
     this->player->reset();
     this->player->setCheckPoints(&this->checkPoints);
-    for (std::size_t i = 0; i < this->sectionAmount; i++)
-        for (auto& obj : checkPoints)
-            obj.reset();
+    this->lapTimer.reset();
+    for (auto& obj : checkPoints)
+        obj.reset();
 }
 
-void Level::loadLevel(const sf::Texture &_mapTexture)
+void Level::loadLevel(const sf::Texture &_mapTexture, sf::Vector2f pos)
 {
     this->mapTexture = _mapTexture;
     this->map.setTexture(this->mapTexture);
+    this->map.setPosition(pos);
 }

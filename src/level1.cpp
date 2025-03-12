@@ -205,7 +205,7 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     checkPoints.push_back(bdr::CheckPoint{{521.f,564.f}, {20.f, 90.f}});
     
     // Ustawienie tła licznika na pozycję: lewy górny róg (353,124) i rozmiar 244x138
-    lapTimer->setBackground(sf::Vector2f(405.f, 147.f), sf::Vector2f(143.f, 78.f));
+    lapTimer.setBackground(sf::Vector2f(405.f, 147.f), sf::Vector2f(143.f, 78.f));
 
 
     checkPoints.push_back(bdr::CheckPoint{{65.f,150.f}, {90.f, 20.f}});
@@ -215,5 +215,5 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
 void Level1::resetCurrentLevel()
 {
     this->player->setPosition({676.f, 636.f});
-    this->player->setRotation(270);
+    this->player->setRotation(270.f);
 }

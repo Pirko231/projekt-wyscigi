@@ -137,8 +137,8 @@ void CarSelection::handleEvents(sf::Event &_event)
                     CarCircleBtn[i].setHoverScaleFactor(1.3f);
                     settings->setStartingData()->carNumber = i;
                     
-                    int savedMap = 1; 
-                    functionIterator = (savedMap == 1) ? ManagingFunctionsIterator::level1 :(savedMap == 2) ? ManagingFunctionsIterator::level2 :ManagingFunctionsIterator::level3;
+                    int savedMap = this->settings->getStartingData()->mapNumber; 
+                    functionIterator = (savedMap == 0) ? ManagingFunctionsIterator::level1 :(savedMap == 1) ? ManagingFunctionsIterator::level2 :ManagingFunctionsIterator::level3;
                 }
             }
         }
