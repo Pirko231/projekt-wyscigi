@@ -5,8 +5,9 @@
 
 namespace util {
 
-// zamiana ze stopni na radiany x * (pi / 180)
-float toRadians(float);
+// zamiana ze stopni na radiany x * (pi / 180), x * (180 / pi)
+float radians(float);
+float degrees(float);
 
 // Dzielenie z reszta
 // Oblicza liczbe calkowita `n` tak ze:
@@ -47,6 +48,9 @@ struct Vector2 {
     float distance(const Vector2& other) const;
     float distanceSquared(const Vector2& other) const;
     Vector2 normalize() const;
+    Vector2 perpendicular() const;
+    Vector2 perpendicularClockwise() const;
+    Vector2 lerp(const Vector2 other, float amount);
 
     Vector2 &operator=(Vector2 other);
     Vector2& operator+=(const Vector2& other);
