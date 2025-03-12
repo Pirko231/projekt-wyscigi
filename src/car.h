@@ -95,6 +95,8 @@ public:
     sf::FloatRect getLocalBounds() const {return this->car.getLocalBounds();}
 
     sf::FloatRect getGlobalBounds() const {return this->car.getGlobalBounds();}
+
+    bool collides() const;
 private:
     //co tylko moze byc private zamiast protected powiino sie tutaj znalezc
     //wszystko co jest uniwersalne dla klasy gracz i bot powinno sie znalezc tutaj.

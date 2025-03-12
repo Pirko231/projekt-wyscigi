@@ -34,26 +34,6 @@ void Car::handleEvents(sf::Event& ev)
     }
 }
 
-void Car::actuallyHandleInput()
-{
-    if (controls.throttle == Throttle::Accelerate) {
-        direction = 1;
-        speed += stats.acceleration;
-        speed = std::clamp(speed, 0.f, stats.maxSpeed);
-    }
-    if (controls.throttle == Throttle::Break) {
-        direction = -1;
-        speed += stats.acceleration;
-        speed = std::clamp(speed, 0.f, stats.maxSpeed);
-    }
-    if (controls.steering == Steering::Left) {
-        rotation = util::rem_euclid(rotation - stats.rotationSpeed, 360.f);
-    }
-    if (controls.steering == Steering::Right) {
-        rotation = util::rem_euclid(rotation + stats.rotationSpeed, 360.f);
-    }
-}
-
 void Car::display()
 {
     auto lb = car.getLocalBounds();
@@ -93,15 +73,56 @@ void Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::v
     }
 }
 
+bool Car::collides() const
+{
+    //tylko test potem wywlali sie pomiar czasu
+    sf::Clock clock;
+    for (auto& obj : *collisions) {
+        if (this->car.getGlobalBounds().intersects(obj->getGlobalBounds())) {
+            return true;
+        }
+    }
+    sf::Time time {clock.getElapsedTime()};
+    std::clog << time.asMicroseconds() << '\n' << speed << '\n';
+
+    return false;
+}
+
 void Car::update(void)
 {
-    actuallyHandleInput();
+    if (controls.throttle == Throttle::Accelerate) {
+        direction = 1;
+        speed += stats.acceleration;
+        speed = std::clamp(speed, 0.f, stats.maxSpeed);
+    }
+    if (controls.throttle == Throttle::Break) {
+        direction = -1;
+        speed += stats.acceleration;
+        speed = std::clamp(speed, 0.f, stats.maxSpeed);
+    }
+    if (carMoving) {
+        if (controls.steering == Steering::Left) {
+            rotation = util::rem_euclid(rotation - stats.rotationSpeed, 360.f);
+        }
+        if (controls.steering == Steering::Right) {
+            rotation = util::rem_euclid(rotation + stats.rotationSpeed, 360.f);
+        }
+    }
 
     // FIXME: obliczyc gdzies deltatime naprawde
     float dt = 1.f / 60.f;
     float radians = util::radians(rotation);
     util::Vector2 forwards = { sinf(radians), -cosf(radians) };
-    position += forwards * direction * speed * dt;
+    util::Vector2 velocity = forwards * direction * speed * dt;
+
+    if (this->collides()) {
+        velocity = -velocity * 0.5;
+    }
+
+    position += velocity;
+
+
+
     speed *= stats.friction;
 
     if (speed > 10 && !carMoving) {
@@ -111,15 +132,6 @@ void Car::update(void)
         speed = 0;
         carMoving = false;
     }
-
-    //tylko test potem wywlali sie pomiar czasu
-    sf::Clock clock;
-    for (auto& obj : *collisions)
-        if (this->car.getGlobalBounds().intersects(obj->getGlobalBounds()))
-            std::clog << "collision\n";
-    sf::Time time {clock.getElapsedTime()};
-    std::clog << time.asMicroseconds() << '\n';
-    clock.restart();
 
     display();
 }
