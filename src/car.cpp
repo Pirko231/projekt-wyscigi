@@ -51,13 +51,14 @@ void Car::reset()
 {
     this->speed = 0;
     this->loops = 0;
+    this->currentCheckpoint = 0;
     pressed.a = false;
     pressed.w = false;
     pressed.s = false;
     pressed.d = false;
 }
 
-void Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end)
+bool Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end)
 {
     if (this->getGlobalBounds().intersects(this->checkpoints->at(currentCheckpoint).getGlobalBounds()))
     {
@@ -71,8 +72,10 @@ void Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::v
                 it->reset();
             
             loops++;
+            return true;
         }
     }
+    return false;
 }
 
 void Car::update(void)
