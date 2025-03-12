@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <optional>
+#include <array>
 #include "bodyFunction.h"
 #include "player.h"
 #include "raport.h"
@@ -13,7 +15,8 @@ class Level : public BodyFunction
 {
 public:
     Level() = delete;
-    Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music);
+    //wczytuje plik z danymi o najlepszych czasach
+    Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music, std::string _timesFilename);
 
     // Odbiera wiadomości z klawiatury – używać w Program::handleEvents()
     virtual void handleEvents(sf::Event& _event);
@@ -22,6 +25,7 @@ public:
     // Wyświetla obecne okno – używać w Program::display()
     virtual void display();
     bool useDefaultView() const override { return false; }
+    //zapisuje do pliku dane z czasem
     virtual ~Level();
 
 protected:
@@ -44,6 +48,8 @@ protected:
     sf::Font lapTimerFont;
     LapTimer lapTimer{lapTimerFont, 30};
 
+    int lapAmount{3};
+
 private:
     // Obiekty statyczne (widok gry)
     static bool staticLoaded;
@@ -58,4 +64,11 @@ private:
 
     // Resetuje poziom – uniwersalne czynności
     void reset();
+
+    //wywolac kiedy wyscig sie skonczy
+    void endRace();
+
+    std::vector<sf::Time> bestTimes{5};
+
+    std::string timesFilename;
 };

@@ -3,10 +3,11 @@
 bool Level::staticLoaded = false;
 sf::View Level::gameView{};
 
-Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music)
+Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music, std::string _timesFilename)
     : BodyFunction{ _window, _mouse, _managingFunctionsIterator, _settings, _music }
 {
     this->player = this->settings->getStartingData()->player;
+    this->timesFilename = _timesFilename;
 
     // Ustawienie widoku gry (bazując na pozycjach gracza)
     this->gameView.setSize(this->player->getLocalBounds().width, this->player->getLocalBounds().height);
@@ -63,8 +64,9 @@ void Level::update()
             this->player->setCollisions(&this->sections[i].first);
 
     this->player->update();
-    this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end());
-
+    if (this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end()))
+        if (this->player->getLoops() >= this->lapAmount)
+            this->endRace();
     // Aktualizacja licznika
     lapTimer.update();
 }
@@ -126,6 +128,25 @@ void Level::reset()
     this->lapTimer.reset();
     for (auto& obj : checkPoints)
         obj.reset();
+}
+
+void Level::endRace()
+{
+    sf::Time currentTime {this->lapTimer.getElapsedTime()};
+
+    std::optional<std::vector<sf::Time>::iterator> replace;
+
+    for (std::vector<sf::Time>::iterator it = this->bestTimes.end(); it != this->bestTimes.begin(); it--)
+    {
+        if (currentTime.asSeconds() < it->asSeconds())
+            replace = it;
+    }
+
+    if (replace.has_value())
+        *replace.value() = currentTime;
+
+    this->lapTimer.reset();
+    //this->bestLapsTimer.push_back();
 }
 
 void Level::loadLevel(const sf::Texture &_mapTexture, sf::Vector2f pos)

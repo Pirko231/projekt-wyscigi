@@ -62,7 +62,9 @@ public:
     //resetuje predkosc oraz zapisane klikniecia klawiszy
     void reset();
 
-    void manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end);
+    bool manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end);
+    
+    int getLoops() const {return this->loops;}
     
     sf::Vector2f getPosition() const {return this->car.getPosition();}
 
