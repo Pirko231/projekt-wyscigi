@@ -21,11 +21,11 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Man
     float scaleX = static_cast<float>(_window->getSize().x) / 30.f;
     float scaleY = static_cast<float>(_window->getSize().y) / 22.f;
 
-    std::string mapTitles[MapButtonsAmount] = {"Speedway", "Desert", "Jungle"};
+    std::string mapTitles[MapButtonsAmount] = {"Speedway", "Shattered Sands", "Frostveil Tundra"};
     std::string mapTextureFiles[MapButtonsAmount] = {
         "resources/mapLevel1.jpg",
         "resources/mapLevel2.jpg",
-        "resources/SPEEDWAY2.0..jpg"
+        "resources/mapLevel3.jpg"
     };
 
     

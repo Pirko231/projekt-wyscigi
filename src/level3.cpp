@@ -8,7 +8,7 @@ Level3::Level3(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     report.open();
     report.logMessage("Level3");
 
-    report.addEntry("Mapa", mapTxt.loadFromFile("resources/Speedway.jpeg"));
+    report.addEntry("Mapa", mapTxt.loadFromFile("resources/mapLevel3.jpg"));
 
     report.close();
     
