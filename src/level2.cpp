@@ -12,7 +12,7 @@ Level2::Level2(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
 
     report.close();
     
-    this->loadLevel(mapTxt, {-275, -260});
+    this->loadLevel(mapTxt, {-320, -180});
 
     this->checkPoints.push_back(bdr::CheckPoint{{400.f, 400.f}, {20.f, 100.f}});
 }

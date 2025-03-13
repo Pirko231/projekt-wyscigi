@@ -12,9 +12,15 @@ Level3::Level3(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
 
     report.close();
     
-    this->loadLevel(mapTxt);
+    this->loadLevel(mapTxt, {-320, -180});
 
     this->checkPoints.push_back(bdr::CheckPoint{{400.f, 400.f}, {20.f, 100.f}});
+}
+
+void Level3::resetCurrentLevel()
+{
+    this->player->setPosition({655.f, 682.f});
+    this->player->setRotation(272.f);
 }
 
 /*void Level3::handleEvents(sf::Event &_event)
