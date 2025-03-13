@@ -1,4 +1,4 @@
-#include "LapCounter.h"
+#include "lapCounter.h"
 
 LapCounter::LapCounter(const sf::Font& font, unsigned int characterSize)
     : currentLap(0), maxLaps(0) // 0 oznacza brak limitu
