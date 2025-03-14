@@ -3,13 +3,44 @@
 bool Level::staticLoaded = false;
 sf::View Level::gameView{};
 
-Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music, std::string _timesFilename)
-    : BodyFunction{ _window, _mouse, _managingFunctionsIterator, _settings, _music }
+Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music, std::string _timesFilename) : BodyFunction{ _window, _mouse, _managingFunctionsIterator, _settings, _music }
 {
     this->player = this->settings->getStartingData()->player;
     this->timesFilename = _timesFilename;
 
-    // Ustawienie widoku gry (bazując na pozycjach gracza)
+    //wczytanie danych o czasach z pliku
+    std::fstream file;
+    file.open(this->timesFilename, std::ios::in);
+    if (file.is_open())
+        for (std::size_t i = 0; i < this->bestTimes.size(); i++)
+        {
+            std::string owner;
+            std::getline(file, owner, ' ');
+            std::string bestLap;
+            std::getline(file, bestLap, ' ');
+            std::string allTime;
+            std::getline(file, allTime, '\n');
+            sf::Time allTimet;
+            sf::Time bestLapt;
+            try
+            {
+                allTimet = sf::seconds(std::stof(allTime));
+                bestLapt = sf::seconds(std::stof(bestLap));
+            }
+            catch(const std::invalid_argument& e)
+            {
+                std::cerr << e.what() << '\n';
+                allTimet = sf::seconds(0.f);
+                bestLapt = sf::seconds(0.f);
+            }
+            if (owner.empty())
+                owner = 'x';
+            if (allTimet.asSeconds() == 0)
+                allTimet = sf::seconds(0.f);
+            this->bestTimes[i] = Level::BestTime{owner, allTimet, bestLapt};
+            //this->bestTimes.push_back({owner, time});
+        }
+
     this->gameView.setSize(this->player->getLocalBounds().width, this->player->getLocalBounds().height);
     this->gameView.setCenter(this->player->getPosition().x / 2.f, this->player->getPosition().y / 2.f);
 
@@ -26,7 +57,6 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
     Report report;
     report.open();
 
-    // Ładowanie tekstury dla gracza
     sf::Texture playerTexture;
     report.addEntry("tekstura auta", playerTexture.loadFromFile("resources/compact_blue.png"));
     report.addEntry("Czcionka licznik", lapTimerFont.loadFromFile("fonts/alarmClock.ttf"));
@@ -67,13 +97,12 @@ void Level::update()
     if (this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end()))
         if (this->player->getLoops() >= this->lapAmount)
             this->endRace();
-    // Aktualizacja licznika
+
     lapTimer.update();
 }
 
 void Level::display()
 {
-    // widok
     this->gameView.setSize(static_cast<sf::Vector2f>(sf::Vector2i(this->window->getSize().x / 2, this->window->getSize().y / 2)));
     this->gameView.setCenter(this->player->getPosition());
     this->window->setView(this->gameView);
@@ -118,6 +147,21 @@ void Level::display()
 
 Level::~Level()
 {
+    std::fstream file;
+    file.open(this->timesFilename, std::ios::out);
+    if (file.is_open())
+        for (auto& i : this->bestTimes)
+        {
+            if (!i.owner.empty())
+                file << i.owner;
+            else
+                file << 'x';
+            file << ' ';
+            file << i.bestLap.asSeconds();
+            file << ' ';
+            file << i.overallTime.asSeconds();
+            file << '\n';
+        }
 }
 
 void Level::reset()
@@ -134,16 +178,35 @@ void Level::endRace()
 {
     sf::Time currentTime {this->lapTimer.getElapsedTime()};
 
-    std::optional<std::vector<sf::Time>::iterator> replace;
+    //std::optional<std::vector<Level::BestTime>::iterator> replace;
+    std::optional<std::size_t> replace;
 
-    for (std::vector<sf::Time>::iterator it = this->bestTimes.end(); it != this->bestTimes.begin(); it--)
+    for (std::size_t i = this->bestTimes.size() - 1; i > 0; i--)
     {
-        if (currentTime.asSeconds() < it->asSeconds())
-            replace = it;
+        if (currentTime.asSeconds() < bestTimes[i].overallTime.asSeconds() || bestTimes[i].overallTime.asSeconds() == 0.f)
+            replace.emplace() = i;
     }
+    if (currentTime.asSeconds() < bestTimes[0].overallTime.asSeconds() || bestTimes[0].overallTime.asSeconds() == 0.f)
+        replace.emplace() = 0;
 
     if (replace.has_value())
-        *replace.value() = currentTime;
+    {
+        std::size_t j {replace.value()};
+        bestTimes[j].owner = "val";
+        bestTimes[j].bestLap = sf::seconds(1.f);
+        bestTimes[j].overallTime = currentTime;
+
+        //tutaj trzeba bedzie przerzucic wszystkie elementy o jeden do tylu
+        for (std::size_t i = j + 1; i < this->bestTimes.size(); i++)
+        {
+            if (j + 1 < this->bestTimes.size())
+                std::swap(bestTimes[j], bestTimes[j + 1]);
+        }
+
+        /*replace.value()->owner = "val";
+        replace.value()->bestLap = sf::seconds(1.f);
+        replace.value()->overallTime = currentTime;*/
+    }
 
     this->lapTimer.reset();
     //this->bestLapsTimer.push_back();

@@ -15,6 +15,7 @@ Level2::Level2(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     this->loadLevel(mapTxt, {-275, -260});
 
     this->checkPoints.push_back(bdr::CheckPoint{{400.f, 400.f}, {20.f, 100.f}});
+    this->checkPoints.push_back(bdr::CheckPoint{{500.f, 400.f}, {20.f, 100.f}});
 }
 
 void Level2::resetCurrentLevel()

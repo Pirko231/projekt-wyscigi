@@ -3,6 +3,7 @@
 #include <memory>
 #include <optional>
 #include <array>
+#include <iostream>
 #include "bodyFunction.h"
 #include "player.h"
 #include "raport.h"
@@ -68,7 +69,16 @@ private:
     //wywolac kiedy wyscig sie skonczy
     void endRace();
 
-    std::vector<sf::Time> bestTimes{5};
+    struct BestTime
+    {
+        BestTime() = default;
+        BestTime(std::string _owner, sf::Time _time, sf::Time lapTime) : owner{_owner}, overallTime{_time}, bestLap{lapTime} {}
+        std::string owner;
+        sf::Time overallTime;
+        sf::Time bestLap;
+    };
+
+    std::array<BestTime, 5> bestTimes;
 
     std::string timesFilename;
 };
