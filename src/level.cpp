@@ -70,6 +70,8 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
     report.close();
     this->player->setTexture(playerTexture);
 
+
+    this->lapTimer.setBackground(sf::Vector2f(this->window->getSize().x / 2 - this->lapTimer.getBackgroundBounds().width / 2.f, 0.f), sf::Vector2f(143.f, 78.f));
 }
 
 void Level::handleEvents(sf::Event &_event)
@@ -122,7 +124,7 @@ void Level::display()
     this->window->draw(this->map);
     this->window->draw(*this->player);
 
-    this->window->draw(lapTimer);
+    
 
     // testy dla hitboxow checkpointow i sektorow
     sf::RectangleShape shape;
@@ -156,6 +158,9 @@ void Level::display()
             this->window->draw(shape);
         }
     
+    this->window->setView(sf::View{sf::Vector2f{static_cast<float>(this->window->getSize().x / 2), static_cast<float>(this->window->getSize().y / 2)}, static_cast<sf::Vector2f>(this->window->getSize())});
+    this->window->draw(lapTimer);
+
     if (this->endRace)
     {
         this->window->setView(sf::View{sf::Vector2f{static_cast<float>(this->window->getSize().x / 2), static_cast<float>(this->window->getSize().y / 2)}, static_cast<sf::Vector2f>(this->window->getSize())});

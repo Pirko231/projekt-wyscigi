@@ -199,8 +199,8 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
             sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos, {15.f, 15.f}}));
     }
     
-    // Ustawienie tła licznika na pozycję: lewy górny róg (353,124) i rozmiar 244x138
-    lapTimer.setBackground(sf::Vector2f(405.f, 147.f), sf::Vector2f(143.f, 78.f));
+    //Ustawienie tła licznika na pozycję: lewy górny róg (353,124) i rozmiar 244x138
+    //lapTimer.setBackground(sf::Vector2f(405.f, 147.f), sf::Vector2f(143.f, 78.f));
 
 
     //ustawienie checkpointow
