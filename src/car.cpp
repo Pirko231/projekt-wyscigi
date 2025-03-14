@@ -58,7 +58,7 @@ void Car::reset()
     pressed.d = false;
 }
 
-bool Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end)
+bool Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end, sf::Time currentTime)
 {
     if (this->getGlobalBounds().intersects(this->checkpoints->at(currentCheckpoint).getGlobalBounds()))
     {
@@ -72,6 +72,9 @@ bool Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::v
                 it->reset();
             
             loops++;
+            if (currentTime - previousTimes < this->bestLap)
+                this->bestLap = currentTime - previousTimes;
+            previousTimes = currentTime; 
             return true;
         }
     }

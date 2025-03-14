@@ -62,7 +62,9 @@ public:
     //resetuje predkosc oraz zapisane klikniecia klawiszy
     void reset();
 
-    bool manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end);
+    bool manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end, sf::Time currentTime);
+    
+    sf::Time getBestLap() const {return this->bestLap;}
     
     int getLoops() const {return this->loops;}
     
@@ -103,6 +105,10 @@ private:
     std::vector<bdr::CheckPoint>* checkpoints;
 
     int currentCheckpoint{0};
+
+    sf::Time bestLap;
+
+    sf::Time previousTimes;
 
     protected:
     //w tym miejscu mozna trzymac rzeczy ktore będą tez widoczne dla klas dziedziczacych

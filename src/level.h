@@ -73,6 +73,7 @@ private:
     {
         BestTime() = default;
         BestTime(std::string _owner, sf::Time _time, sf::Time lapTime) : owner{_owner}, overallTime{_time}, bestLap{lapTime} {}
+        void clear() {this->owner = ""; this->overallTime = sf::seconds(0.f), this->bestLap = sf::seconds(0.f);}
         std::string owner;
         sf::Time overallTime;
         sf::Time bestLap;
@@ -104,18 +105,24 @@ private:
         bool isActive{false};
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override
         {   
+            target.draw(this->okButton, states);
             target.draw(this->continueButton, states);
             target.draw(this->continueText, states);
             target.draw(this->userName, states);
             target.draw(this->userNameText, states);
+            
         }
         sf::Font font;
         sf::Font defaultFont;
+
+        Level::BestTime recentData;
 
         btn::RectangleButton continueButton;
         sf::Text continueText;
 
         btn::TextBox userName;
         sf::Text userNameText;
+
+        btn::HoweredSpriteButton okButton;
     }; EndRace endRace;
 };

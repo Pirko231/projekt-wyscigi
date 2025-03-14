@@ -108,7 +108,7 @@ void Level::update()
             this->player->setCollisions(&this->sections[i].first);
 
     this->player->update();
-    if (this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end()))
+    if (this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end(), this->lapTimer.getElapsedTime()))
         if (this->player->getLoops() >= this->lapAmount)
             this->endRace(*this);
 
@@ -175,10 +175,7 @@ Level::~Level()
     if (file.is_open())
         for (auto& i : this->bestTimes)
         {
-            if (!i.owner.empty())
-                file << i.owner;
-            else
-                file << 'x';
+            file << i.owner;
             file << ' ';
             file << i.bestLap.asSeconds();
             file << ' ';
@@ -211,6 +208,10 @@ Level::EndRace::EndRace()
     //report.logMessage("Level::EndRace");
     report.addEntry("Napisy czcionka", this->font.loadFromFile("fonts/BigFont.ttf"));
     report.addEntry("TextBox czcionka", this->defaultFont.loadFromFile("fonts/defaultFont.ttf"));
+    sf::Texture okHovered;
+    sf::Texture okUnHovered;
+    report.addEntry("ok - hovered", okHovered.loadFromFile("resources/checkButtonHovered.png"));
+    report.addEntry("ok - unhovered", okUnHovered.loadFromFile("resources/checkButtonUnhovered.png"));
     report.close();
 
     this->continueButton.setSize({400.f, 90.f});
@@ -235,38 +236,16 @@ Level::EndRace::EndRace()
     this->userNameText.setFont(this->font);
     this->userNameText.setFillColor(sf::Color::Black);
     this->userNameText.setCharacterSize(50);
+
+    this->okButton.setPosition({800.f, 405.f});
+    this->okButton.setScale({0.6f, 0.6f});
+    this->okButton.setTextures(okHovered, okUnHovered);
 }
 
 void Level::EndRace::operator()(Level &level)
 {
-    sf::Time currentTime {level.lapTimer.getElapsedTime()};
-
-    //std::optional<std::vector<Level::BestTime>::iterator> replace;
-    std::optional<std::size_t> replace;
-
-    for (std::size_t i = level.bestTimes.size() - 1; i > 0; i--)
-    {
-        if (currentTime.asSeconds() < level.bestTimes[i].overallTime.asSeconds() || level.bestTimes[i].overallTime.asSeconds() == 0.f)
-            replace.emplace() = i;
-    }
-    if (currentTime.asSeconds() < level.bestTimes[0].overallTime.asSeconds() || level.bestTimes[0].overallTime.asSeconds() == 0.f)
-        replace.emplace() = 0;
-
-    if (replace.has_value())
-    {
-        std::size_t j {replace.value()};
-
-        //tutaj trzeba bedzie przerzucic wszystkie elementy o jeden do tylu
-        for (std::size_t i = level.bestTimes.size() - 1; i > j; i--)
-        {
-            if (i - 1 >= j)
-                level.bestTimes[i] = level.bestTimes[i - 1];
-        }
-
-        level.bestTimes[j].owner = "val";
-        level.bestTimes[j].bestLap = sf::seconds(1.f);
-        level.bestTimes[j].overallTime = currentTime;
-    }
+    this->recentData.overallTime = level.lapTimer.getElapsedTime();
+    this->recentData.bestLap = level.player->getBestLap();
 
     //level.reset();
     this->isActive = true;
@@ -277,15 +256,53 @@ void Level::EndRace::handleEvents(Level &level, sf::Event &ev)
 {
     if (this->continueButton.manageHover(level.mouse->getPosition(*level.window), true) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
+        // std::optional<std::vector<Level::BestTime>::iterator> replace;
+        std::optional<std::size_t> replace;
+
+        for (std::size_t i = level.bestTimes.size() - 1; i > 0; i--)
+        {
+            if (this->recentData.overallTime.asSeconds() < level.bestTimes[i].overallTime.asSeconds() || level.bestTimes[i].overallTime.asSeconds() == 0.f)
+                replace.emplace() = i;
+        }
+        if (this->recentData.overallTime.asSeconds() < level.bestTimes[0].overallTime.asSeconds() || level.bestTimes[0].overallTime.asSeconds() == 0.f)
+            replace.emplace() = 0;
+
+        if (replace.has_value())
+        {
+            std::size_t j{replace.value()};
+
+            // tutaj trzeba bedzie przerzucic wszystkie elementy o jeden do tylu
+            for (std::size_t i = level.bestTimes.size() - 1; i > j; i--)
+            {
+                if (i - 1 >= j)
+                    level.bestTimes[i] = level.bestTimes[i - 1];
+            }
+
+            level.bestTimes[j].owner = this->recentData.owner;
+            level.bestTimes[j].bestLap = this->recentData.bestLap;
+            level.bestTimes[j].overallTime = this->recentData.overallTime;
+        }
+
         level.functionIterator = ManagingFunctionsIterator::levelSelection;
         this->isActive = false;
+        this->recentData.clear();
     }
     this->userName.manageHover(level.mouse->getPosition(*level.window), sf::Mouse::isButtonPressed(sf::Mouse::Left));
-    this->userName.handleEvent(ev);
+    if (this->userName.handleEvent(ev))
+    {
+        //this->recentData.owner = this->userName.getText();
+        //this->userName.reset();
+    }
+    if (this->okButton.manageHover(level.mouse->getPosition(*level.window), true) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        this->recentData.owner = this->userName.getText();
+        this->userName.reset();
+    }
 }
 
 void Level::EndRace::update(Level& level)
 {
     this->continueButton.manageHover(level.mouse->getPosition(*level.window));
     this->userName.manageHover(level.mouse->getPosition(*level.window));
+    this->okButton.manageHover(level.mouse->getPosition(*level.window));
 }
