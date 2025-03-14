@@ -52,6 +52,7 @@ void Car::reset()
     this->speed = 0;
     this->loops = 0;
     this->currentCheckpoint = 0;
+    this->firstLap = true;
     pressed.a = false;
     pressed.w = false;
     pressed.s = false;
@@ -72,9 +73,12 @@ bool Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::v
                 it->reset();
             
             loops++;
-            if (currentTime - previousTimes < this->bestLap)
-                this->bestLap = currentTime - previousTimes;
-            previousTimes = currentTime; 
+            if (currentTime - previousTime < this->bestLap || this->firstLap)
+            {
+                this->bestLap = currentTime - previousTime;
+                this->firstLap = false;
+            }
+            previousTime = currentTime; 
             return true;
         }
     }

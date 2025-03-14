@@ -175,7 +175,10 @@ Level::~Level()
     if (file.is_open())
         for (auto& i : this->bestTimes)
         {
-            file << i.owner;
+            if (i.owner.empty())
+                file << 'x';
+            else
+                file << i.owner;
             file << ' ';
             file << i.bestLap.asSeconds();
             file << ' ';

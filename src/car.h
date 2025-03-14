@@ -106,9 +106,11 @@ private:
 
     int currentCheckpoint{0};
 
+    bool firstLap{true};
+    
     sf::Time bestLap;
 
-    sf::Time previousTimes;
+    sf::Time previousTime;
 
     protected:
     //w tym miejscu mozna trzymac rzeczy ktore będą tez widoczne dla klas dziedziczacych
