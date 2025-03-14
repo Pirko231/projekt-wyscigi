@@ -47,7 +47,7 @@ public:
     virtual void handleEvents(sf::Event& _event);
     virtual void display();
 
-    void setTexture(const sf::Texture& _carTexture) {this->carTexture = _carTexture; this->car.setTexture(this->carTexture);}
+    void setTexture(const sf::Texture& _carTexture, bool rescale = false) {this->carTexture = _carTexture; this->car.setTexture(this->carTexture, rescale);}
 
     void setStats(const CarStats& _stats) {this->stats = _stats;}
 
