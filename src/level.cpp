@@ -192,23 +192,21 @@ void Level::endRace()
     if (replace.has_value())
     {
         std::size_t j {replace.value()};
+
+        //tutaj trzeba bedzie przerzucic wszystkie elementy o jeden do tylu
+        for (std::size_t i = bestTimes.size() - 1; i > j; i--)
+        {
+            if (i - 1 >= j)
+                bestTimes[i] = bestTimes[i - 1];
+        }
+
         bestTimes[j].owner = "val";
         bestTimes[j].bestLap = sf::seconds(1.f);
         bestTimes[j].overallTime = currentTime;
-
-        //tutaj trzeba bedzie przerzucic wszystkie elementy o jeden do tylu
-        for (std::size_t i = j + 1; i < this->bestTimes.size(); i++)
-        {
-            if (j + 1 < this->bestTimes.size())
-                std::swap(bestTimes[j], bestTimes[j + 1]);
-        }
-
-        /*replace.value()->owner = "val";
-        replace.value()->bestLap = sf::seconds(1.f);
-        replace.value()->overallTime = currentTime;*/
     }
 
     this->lapTimer.reset();
+    this->reset();
     //this->bestLapsTimer.push_back();
 }
 
