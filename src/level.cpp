@@ -74,6 +74,12 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
 
 void Level::handleEvents(sf::Event &_event)
 {
+    if (this->endRace)
+    {
+        this->endRace.handleEvents(*this, _event);
+        return;
+    }
+
     this->player->handleEvents(_event);
 }
 
@@ -89,6 +95,12 @@ void Level::update()
         this->settings->getCars()->setPlayerNumber(this->settings->getStartingData()->carNumber);
     }
 
+    if (this->endRace)
+    {
+        this->endRace.update(*this);
+        return;
+    }
+
     for (std::size_t i = 0; i < this->sectionAmount; i++)
         if (this->sections[i].second.intersects(this->player->getGlobalBounds()))
             this->player->setCollisions(&this->sections[i].first);
@@ -96,7 +108,7 @@ void Level::update()
     this->player->update();
     if (this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end()))
         if (this->player->getLoops() >= this->lapAmount)
-            this->endRace();
+            this->endRace(*this);
 
     lapTimer.update();
 }
@@ -143,6 +155,12 @@ void Level::display()
             shape.setSize({obj.getLocalBounds().width, obj.getLocalBounds().height});
             this->window->draw(shape);
         }
+    
+    if (this->endRace)
+    {
+        this->window->setView(sf::View{sf::Vector2f{static_cast<float>(this->window->getSize().x / 2), static_cast<float>(this->window->getSize().y / 2)}, static_cast<sf::Vector2f>(this->window->getSize())});
+        this->window->draw(this->endRace);
+    }
 }
 
 Level::~Level()
@@ -174,19 +192,59 @@ void Level::reset()
         obj.reset();
 }
 
-void Level::endRace()
+void Level::loadLevel(const sf::Texture &_mapTexture, sf::Vector2f pos)
 {
-    sf::Time currentTime {this->lapTimer.getElapsedTime()};
+    this->mapTexture = _mapTexture;
+    this->map.setTexture(this->mapTexture);
+    this->map.setPosition(pos);
+}
+
+Level::EndRace::EndRace()
+{
+    Report report;
+    report.open();
+    //report.logMessage("Level::EndRace");
+    report.addEntry("Napisy czcionka", this->font.loadFromFile("fonts/BigFont.ttf"));
+    report.addEntry("TextBox czcionka", this->defaultFont.loadFromFile("fonts/defaultFont.ttf"));
+    report.close();
+
+    this->continueButton.setSize({400.f, 90.f});
+    this->continueButton.setPosition({450.f, 550.f});
+    this->continueButton.setColor(sf::Color::White);
+    this->continueButton.setHoverColor(sf::Color{80,80,80});
+
+    this->continueText.setString("Kontynuuj");
+    this->continueText.setFont(this->font);
+    this->continueText.setPosition(540.f, 565.f);
+    this->continueText.setCharacterSize(50);
+    this->continueText.setFillColor(sf::Color::Black);
+
+    this->userName.setPosition({450.f, 400.f});
+    this->userName.setSize({340.f, 70.f});
+    this->userName.setCharacterSize(60);
+    this->userName.setLimit(9);
+    this->userName.setFont(this->defaultFont);
+
+    this->userNameText.setString("Wprowadz nick");
+    this->userNameText.setPosition(450.f, 350.f);
+    this->userNameText.setFont(this->font);
+    this->userNameText.setFillColor(sf::Color::Black);
+    this->userNameText.setCharacterSize(50);
+}
+
+void Level::EndRace::operator()(Level &level)
+{
+    sf::Time currentTime {level.lapTimer.getElapsedTime()};
 
     //std::optional<std::vector<Level::BestTime>::iterator> replace;
     std::optional<std::size_t> replace;
 
-    for (std::size_t i = this->bestTimes.size() - 1; i > 0; i--)
+    for (std::size_t i = level.bestTimes.size() - 1; i > 0; i--)
     {
-        if (currentTime.asSeconds() < bestTimes[i].overallTime.asSeconds() || bestTimes[i].overallTime.asSeconds() == 0.f)
+        if (currentTime.asSeconds() < level.bestTimes[i].overallTime.asSeconds() || level.bestTimes[i].overallTime.asSeconds() == 0.f)
             replace.emplace() = i;
     }
-    if (currentTime.asSeconds() < bestTimes[0].overallTime.asSeconds() || bestTimes[0].overallTime.asSeconds() == 0.f)
+    if (currentTime.asSeconds() < level.bestTimes[0].overallTime.asSeconds() || level.bestTimes[0].overallTime.asSeconds() == 0.f)
         replace.emplace() = 0;
 
     if (replace.has_value())
@@ -194,25 +252,35 @@ void Level::endRace()
         std::size_t j {replace.value()};
 
         //tutaj trzeba bedzie przerzucic wszystkie elementy o jeden do tylu
-        for (std::size_t i = bestTimes.size() - 1; i > j; i--)
+        for (std::size_t i = level.bestTimes.size() - 1; i > j; i--)
         {
             if (i - 1 >= j)
-                bestTimes[i] = bestTimes[i - 1];
+                level.bestTimes[i] = level.bestTimes[i - 1];
         }
 
-        bestTimes[j].owner = "val";
-        bestTimes[j].bestLap = sf::seconds(1.f);
-        bestTimes[j].overallTime = currentTime;
+        level.bestTimes[j].owner = "val";
+        level.bestTimes[j].bestLap = sf::seconds(1.f);
+        level.bestTimes[j].overallTime = currentTime;
     }
 
-    this->lapTimer.reset();
-    this->reset();
+    //level.reset();
+    this->isActive = true;
     //this->bestLapsTimer.push_back();
 }
 
-void Level::loadLevel(const sf::Texture &_mapTexture, sf::Vector2f pos)
+void Level::EndRace::handleEvents(Level &level, sf::Event &ev)
 {
-    this->mapTexture = _mapTexture;
-    this->map.setTexture(this->mapTexture);
-    this->map.setPosition(pos);
+    if (this->continueButton.manageHover(level.mouse->getPosition(*level.window), true) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        level.functionIterator = ManagingFunctionsIterator::levelSelection;
+        this->isActive = false;
+    }
+    this->userName.manageHover(level.mouse->getPosition(*level.window), sf::Mouse::isButtonPressed(sf::Mouse::Left));
+    this->userName.handleEvent(ev);
+}
+
+void Level::EndRace::update(Level& level)
+{
+    this->continueButton.manageHover(level.mouse->getPosition(*level.window));
+    this->userName.manageHover(level.mouse->getPosition(*level.window));
 }

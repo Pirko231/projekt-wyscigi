@@ -67,7 +67,7 @@ private:
     void reset();
 
     //wywolac kiedy wyscig sie skonczy
-    void endRace();
+    //void endRace();
 
     struct BestTime
     {
@@ -81,4 +81,41 @@ private:
     std::array<BestTime, 5> bestTimes;
 
     std::string timesFilename;
+
+    class EndRace : public sf::Drawable
+    {
+    public:
+        EndRace();
+        //prawda jezeli ekran jest aktywny, falsz kiedy nie jest
+        operator bool() {return this->isActive;}
+
+        //aktywuje ekran koncowy
+        void activate() {this->isActive = true;}
+
+        //wywolac kiedy wyscig sie skonczy
+        //zajmie sie ustawieniem wszystkiego na sam koniec.
+        //zdobedzie czas i go ustawi
+        void operator()(Level& level);
+
+        void handleEvents(Level& level, sf::Event& ev);
+
+        void update(Level& level);
+    private:
+        bool isActive{false};
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+        {   
+            target.draw(this->continueButton, states);
+            target.draw(this->continueText, states);
+            target.draw(this->userName, states);
+            target.draw(this->userNameText, states);
+        }
+        sf::Font font;
+        sf::Font defaultFont;
+
+        btn::RectangleButton continueButton;
+        sf::Text continueText;
+
+        btn::TextBox userName;
+        sf::Text userNameText;
+    }; EndRace endRace;
 };
