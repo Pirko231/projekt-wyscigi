@@ -3,6 +3,7 @@
 #include "SFML/Window/Keyboard.hpp"
 #include "util.h"
 
+#include <algorithm>
 #include <iostream>
 
 //includuj pliki w naglowkowym klasy a tutaj tylko plik klasy.h

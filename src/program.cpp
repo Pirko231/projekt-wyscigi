@@ -1,8 +1,14 @@
+#include <cstdlib>
+#include <imgui.h>
+#include <imgui-SFML.h>
+
 #include "program.h"
+#include "SFML/Window/Keyboard.hpp"
+#include "settingsData.h"
+#include "util.h"
 
 Program::Program()
 {
-    
     this->window = new sf::RenderWindow;
     this->window->create({1280, 720}, "Wyscigi", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
     this->window->setFramerateLimit(60);
@@ -44,6 +50,15 @@ Program::Program()
     /*this->managingFunctions[3] = new Level1{this->window, this->mouse, this->currentFunction, this->settings};
     this->managingFunctions[4] = new Level2{this->window, this->mouse, this->currentFunction, this->settings};
     this->managingFunctions[5] = new Level3{this->window, this->mouse, this->currentFunction, this->settings};*/
+
+    if (!ImGui::SFML::Init(*window))
+        exit(1);
+    auto &io = ImGui::GetIO();
+    // nie zapisuj 'imgui.ini', mozna zmienic pozniej
+    io.IniFilename = nullptr;
+    io.LogFilename = nullptr;
+
+    util::updateDeltaTime();
 }
 
 void Program::handleEvents()
@@ -53,15 +68,20 @@ void Program::handleEvents()
     sf::Event event;
     while (this->window->pollEvent(event))
     {
+        if (util::imguiEnabled)
+            ImGui::SFML::ProcessEvent(*window, event);
+
         //to musi byc uniwersalne, a tablice wskaznikow funkcji beda
         //tez tutaj uzyte
         if (event.type == sf::Event::Closed)
             this->window->close();
 
-
         //jest tylko roboczo aby zmieniac wyswietlane funkcje. Potem usunac
         if (event.type == sf::Event::KeyPressed)
         {
+            if (event.key.code == sf::Keyboard::F3)
+                util::imguiEnabled = !util::imguiEnabled;
+
             if (event.key.code == sf::Keyboard::Right)
             {
                 if (this->currentFunction < this->managingFunctionsAmount - 1)
@@ -94,6 +114,18 @@ void Program::handleEvents()
 
 void Program::update()
 {
+    util::updateDeltaTime();
+
+    if (util::imguiEnabled) {
+        ImGui::SFML::Update(*window, util::deltaTime);
+
+        //ImGui::ShowDemoWindow();
+
+        ImGui::Begin("THIS IM JUST GUID!!!!");
+        ImGui::Text("deltatime: %g", util::dt);
+        ImGui::End();
+    }
+
     this->playMusic();
     if (*this->settings)
     {
@@ -134,12 +166,15 @@ void Program::display()
         this->settings->display();
     }
 
+    if (util::imguiEnabled)
+        ImGui::SFML::Render(*window);
     //ta funkcja wyswietla na ekran narysowane rzeczy
     window->display();
 }
 
 Program::~Program()
 {
+    ImGui::SFML::Shutdown();
     //usuwamy okno
     delete this->window;
 

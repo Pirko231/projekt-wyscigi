@@ -16,10 +16,12 @@ set(SFML_INCLUDE_DIR "${SFML_ROOT}/include")
 set(SFML_LIBRARY_DIR "${SFML_ROOT}/lib")
 
 include_directories(${SFML_INCLUDE_DIR})
+include_directories("src/imgui")
 link_directories(${SFML_LIBRARY_DIR})
 
 # Znalezienie SFML
 find_package(SFML 2.6.1 COMPONENTS system window graphics audio network REQUIRED)
+find_package(OpenGL REQUIRED)
 
 # Jeśli kompilujemy w trybie Debug, użyjemy wersji "-d"
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -81,6 +83,13 @@ add_executable(main
     src/gameObjects/collidable.cpp
 	
 	src/util.cpp
+
+    src/imgui/imgui.cpp
+    src/imgui/imgui_demo.cpp
+    src/imgui/imgui_draw.cpp
+    src/imgui/imgui_tables.cpp
+    src/imgui/imgui_widgets.cpp
+    src/imgui/imgui-SFML.cpp
 )
 
 if(NOT MSVC)
@@ -91,4 +100,4 @@ endif()
 target_compile_features(main PRIVATE cxx_std_17)
 
 # Linkowanie SFML
-target_link_libraries(main PRIVATE ${SFML_LIBS})
+target_link_libraries(main PRIVATE ${SFML_LIBS} OpenGL::GL)
