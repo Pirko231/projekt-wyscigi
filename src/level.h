@@ -53,9 +53,6 @@ private:
     sf::Sprite map;
     sf::Texture mapTexture;
 
-    // Flaga resetu poziomu
-    bool shouldReset{ true };
-
     // Resetuje poziom – uniwersalne czynności
     void reset();
 };
