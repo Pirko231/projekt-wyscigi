@@ -116,15 +116,7 @@ void Program::update()
 {
     util::updateDeltaTime();
 
-    if (util::imguiEnabled) {
-        ImGui::SFML::Update(*window, util::deltaTime);
-
-        //ImGui::ShowDemoWindow();
-
-        ImGui::Begin("THIS IM JUST GUID!!!!");
-        ImGui::Text("deltatime: %g", util::dt);
-        ImGui::End();
-    }
+    ImGui::SFML::Update(*window, util::deltaTime);
 
     this->playMusic();
     if (*this->settings)
@@ -168,6 +160,8 @@ void Program::display()
 
     if (util::imguiEnabled)
         ImGui::SFML::Render(*window);
+    else
+        ImGui::EndFrame();
     //ta funkcja wyswietla na ekran narysowane rzeczy
     window->display();
 }
