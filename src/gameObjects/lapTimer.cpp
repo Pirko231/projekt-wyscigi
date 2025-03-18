@@ -31,6 +31,10 @@ void LapTimer::reset() {
     timerText.setString("00:00");
 }
 
+sf::Time LapTimer::getElapsedTime() const {
+    return clock.getElapsedTime();
+}
+
 std::string LapTimer::getTime() const {
     sf::Time elapsed = clock.getElapsedTime();
     int totalSeconds = static_cast<int>(elapsed.asSeconds());

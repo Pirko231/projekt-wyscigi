@@ -71,7 +71,7 @@ public:
     virtual void handleEvents(sf::Event& _event);
     virtual void display();
 
-    void setTexture(const sf::Texture& _carTexture) {this->carTexture = _carTexture; this->car.setTexture(this->carTexture);}
+    void setTexture(const sf::Texture& _carTexture, bool rescale = false) {this->carTexture = _carTexture; this->car.setTexture(this->carTexture, rescale);}
 
     void setStats(const CarStats& _stats) {this->stats = _stats;}
 
@@ -86,8 +86,12 @@ public:
     //resetuje predkosc oraz zapisane klikniecia klawiszy
     void reset();
 
-    void manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end);
-
+    bool manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::vector<bdr::CheckPoint>::iterator end, sf::Time currentTime);
+    
+    sf::Time getBestLap() const {return this->bestLap;}
+    
+    int getLoops() const {return this->loops;}
+    
     sf::Vector2f getPosition() const {return this->car.getPosition();}
 
     float getRotation() const {return this->rotation;}
@@ -128,6 +132,12 @@ private:
     std::vector<bdr::CheckPoint>* checkpoints;
 
     int currentCheckpoint{0};
+
+    bool firstLap{true};
+    
+    sf::Time bestLap;
+
+    sf::Time previousTime;
 
     protected:
     //w tym miejscu mozna trzymac rzeczy ktore będą tez widoczne dla klas dziedziczacych

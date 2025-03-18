@@ -17,7 +17,8 @@ public:
 
     // Zwraca aktualny czas w formacie MM:SS
     std::string getTime() const;
-
+    
+    sf::Time getElapsedTime() const;
     // Ustawia kolor tekstu (cyfr)
     void setTextColor(const sf::Color& color);
 

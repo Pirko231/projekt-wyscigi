@@ -1,6 +1,6 @@
 #include "level1.h"
 
-Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIterator &_managingFunctionsIterator, Settings *_settings, sf::Music* _music) : Level{_window, _mouse, _managingFunctionsIterator, _settings, _music}
+Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIterator &_managingFunctionsIterator, Settings *_settings, sf::Music* _music) : Level{_window, _mouse, _managingFunctionsIterator, _settings, _music, "times1.txt"}
 {
     sf::Texture mapTxt;
 
@@ -198,18 +198,21 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
         for (int i = 0; i < 9; i++, pos.x += 5.f, pos.y -= 7.5f)
             sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{pos, {15.f, 15.f}}));
     }
+    
+    //Ustawienie tła licznika na pozycję: lewy górny róg (353,124) i rozmiar 244x138
+    //lapTimer.setBackground(sf::Vector2f(405.f, 147.f), sf::Vector2f(143.f, 78.f));
+
 
     //ustawienie checkpointow
-
-    //pierwszy checkpoint to start i meta
-    checkPoints.push_back(bdr::CheckPoint{{521.f,564.f}, {20.f, 90.f}});
-    
-    // Ustawienie tła licznika na pozycję: lewy górny róg (353,124) i rozmiar 244x138
-    lapTimer.setBackground(sf::Vector2f(405.f, 147.f), sf::Vector2f(143.f, 78.f));
-
-
+    checkPoints.push_back(bdr::CheckPoint{{215.f,565.f}, {20.f, 90.f}});
     checkPoints.push_back(bdr::CheckPoint{{65.f,150.f}, {90.f, 20.f}});
+    checkPoints.push_back(bdr::CheckPoint{{400.f,261.f}, {20.f, 90.f}});
+    checkPoints.push_back(bdr::CheckPoint{{1000.f,63.f}, {20.f, 90.f}});
+    checkPoints.push_back(bdr::CheckPoint{{1076.f,400.f}, {90.f, 20.f}});
     checkPoints.push_back(bdr::CheckPoint{{720.f,564.f}, {20.f, 90.f}});
+
+    //ostatni checkpoint to meta, nalezy go dac tam gdzie jest przerywana linia mety na mapie
+    checkPoints.push_back(bdr::CheckPoint{{521.f,564.f}, {20.f, 90.f}});
 }
 
 void Level1::resetCurrentLevel()

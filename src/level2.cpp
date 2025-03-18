@@ -1,6 +1,6 @@
 #include "level2.h"
 
-Level2::Level2(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIterator &_managingFunctionsIterator, Settings *_settings, sf::Music *_music) : Level{_window, _mouse, _managingFunctionsIterator, _settings, _music}
+Level2::Level2(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIterator &_managingFunctionsIterator, Settings *_settings, sf::Music *_music) : Level{_window, _mouse, _managingFunctionsIterator, _settings, _music, "times2.txt"}
 {
     sf::Texture mapTxt;
 
@@ -15,6 +15,7 @@ Level2::Level2(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     this->loadLevel(mapTxt, {-320, -180});
 
     this->checkPoints.push_back(bdr::CheckPoint{{400.f, 400.f}, {20.f, 100.f}});
+    this->checkPoints.push_back(bdr::CheckPoint{{500.f, 400.f}, {20.f, 100.f}});
 }
 
 void Level2::resetCurrentLevel()
