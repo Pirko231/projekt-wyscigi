@@ -88,12 +88,8 @@ void Level::handleEvents(sf::Event &_event)
 void Level::update()
 {
     if (this->settings->hasFunctionChanged())
-        this->shouldReset = true;
-
-    if (this->shouldReset)
     {
         this->reset();
-        this->shouldReset = false;
         this->settings->getCars()->setPlayerNumber(this->settings->getStartingData()->carNumber);
     }
 
