@@ -90,32 +90,34 @@ bool Car::collides() const
 
 void Car::update(void)
 {
+    
     if (controls.throttle == Throttle::Accelerate) {
-        direction = 1;
         speed += stats.acceleration;
-        speed = std::clamp(speed, 0.f, stats.maxSpeed);
+        if (speed > stats.maxSpeed)
+            speed = stats.maxSpeed;
     }
     if (controls.throttle == Throttle::Break) {
-        direction = -1;
-        speed += stats.acceleration;
-        speed = std::clamp(speed, 0.f, stats.maxSpeed);
+        speed -= stats.acceleration;
+        if (speed < -stats.maxSpeed)
+            speed = -stats.maxSpeed;
     }
     if (carMoving) {
-        if (controls.steering == Steering::Left) {
-            rotation = util::rem_euclid(rotation - stats.rotationSpeed, 360.f);
-        }
-        if (controls.steering == Steering::Right) {
-            rotation = util::rem_euclid(rotation + stats.rotationSpeed, 360.f);
-        }
+        float rspeed = std::clamp(std::abs(speed / 100.f), 0.f, 1.f);
+         if (controls.steering == Steering::Left) {
+            rotation = util::rem_euclid(rotation - stats.rotationSpeed * rspeed, 360.f);
+         }
+         if (controls.steering == Steering::Right) {
+            rotation = util::rem_euclid(rotation + stats.rotationSpeed * rspeed, 360.f);
+         }
     }
 
     float radians = util::radians(rotation);
     util::Vector2 forwards = { sinf(radians), -cosf(radians) };
-    util::Vector2 velocity = forwards * direction * speed * util::dt;
+    util::Vector2 velocity = forwards * speed * util::dt;
 
-    if (this->collides()) {
-        velocity = -velocity * 0.5;
-    }
+    // if (this->collides()) {
+    //     velocity = -velocity * 0.5;
+    // }
 
     position += velocity;
 
