@@ -5,17 +5,21 @@
 // tylko na potrzeby algorytmu
 struct Projection {
     float min = 0, max = 0;
-    bool init = false;
 
-    Projection() : min(0), max(0), init(false) {}
-    Projection(float min, float max) : min(min), max(max), init(true) {}
+    Projection() : min(0), max(0) {}
+    Projection(float lhs, float rhs)
+    {
+        if (lhs <= rhs) {
+            min = lhs;
+            max = rhs;
+        } else {
+            min = rhs;
+            max = lhs;
+        }
+    }
 
     void add(float x) {
-        if (!init) {
-            min = x;
-            max = x;
-            init = true;
-        } else if (x < min) {
+        if (x < min) {
             min = x;
         } else if (x > max) {
             max = x;
@@ -46,10 +50,12 @@ float rotateX(util::Vector2 v, float theta)
 
 bool projectOver(std::array<util::Vector2, 4> corners, util::Vector2 origin, float theta, float w)
 {
-    Projection projected;
-    for (int i = 0; i < 4; i++) {
-        projected.add(rotateX(corners[i] - origin, theta));
-    }
+    Projection projected(
+        rotateX(corners[0] - origin, theta),
+        rotateX(corners[1] - origin, theta)
+    );
+    projected.add(rotateX(corners[2] - origin, theta));
+    projected.add(rotateX(corners[3] - origin, theta));
 
     return projected.overlaps(Projection(0, w));
 }
