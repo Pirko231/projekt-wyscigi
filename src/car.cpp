@@ -109,11 +109,9 @@ void Car::update(void)
         }
     }
 
-    // FIXME: obliczyc gdzies deltatime naprawde
-    float dt = 1.f / 60.f;
     float radians = util::radians(rotation);
     util::Vector2 forwards = { sinf(radians), -cosf(radians) };
-    util::Vector2 velocity = forwards * direction * speed * dt;
+    util::Vector2 velocity = forwards * direction * speed * util::dt;
 
     if (this->collides()) {
         velocity = -velocity * 0.5;
