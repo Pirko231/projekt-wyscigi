@@ -3,6 +3,7 @@
 bool Level::staticLoaded = false;
 sf::View Level::gameView{};
 LapTimer Level::lapTimer{};
+Level::EndRace Level::endRace{};
 
 Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music, std::string _timesFilename) : BodyFunction{ _window, _mouse, _managingFunctionsIterator, _settings, _music }
 {
@@ -58,10 +59,6 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
     Report report;
     report.open();
 
-    sf::Texture playerTexture;
-    report.addEntry("tekstura auta", playerTexture.loadFromFile("resources/compact_blue.png"));
-    
-
     if (!Level::staticLoaded)
     {
         report.logMessage("Level static space");
@@ -77,11 +74,12 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
         this->lapTimer.setPosition({this->window->getSize().x / 2.f - this->lapTimer.getBackgroundBounds().width / 5.5f, 0.f}, {0.35f,0.35f});
         //this->lapTimer.setPosition({0.f,0.f});
         
+        Level::endRace.loadFromFile(report);
+        
         Level::staticLoaded = true;
     }
 
     report.close();
-    this->player->setTexture(playerTexture);    
 }
 
 void Level::handleEvents(sf::Event &_event)
@@ -217,16 +215,7 @@ void Level::loadLevel(const sf::Texture &_mapTexture, sf::Vector2f pos)
 
 Level::EndRace::EndRace()
 {
-    Report report;
-    report.open();
-    //report.logMessage("Level::EndRace");
-    report.addEntry("Napisy czcionka", this->font.loadFromFile("fonts/BigFont.ttf"));
-    report.addEntry("TextBox czcionka", this->defaultFont.loadFromFile("fonts/defaultFont.ttf"));
-    sf::Texture okHovered;
-    sf::Texture okUnHovered;
-    report.addEntry("ok - hovered", okHovered.loadFromFile("resources/checkButtonHovered.png"));
-    report.addEntry("ok - unhovered", okUnHovered.loadFromFile("resources/checkButtonUnhovered.png"));
-    report.close();
+    
 
     this->continueButton.setSize({400.f, 90.f});
     this->continueButton.setPosition({450.f, 550.f});
@@ -253,6 +242,21 @@ Level::EndRace::EndRace()
 
     this->okButton.setPosition({800.f, 405.f});
     this->okButton.setScale({0.6f, 0.6f});
+    
+}
+
+void Level::EndRace::loadFromFile(Report& report)
+{
+    //Report report;
+    //report.open();
+    //report.logMessage("Level::EndRace");
+    report.addEntry("Napisy czcionka", this->font.loadFromFile("fonts/BigFont.ttf"));
+    report.addEntry("TextBox czcionka", this->defaultFont.loadFromFile("fonts/defaultFont.ttf"));
+    sf::Texture okHovered;
+    sf::Texture okUnHovered;
+    report.addEntry("ok - hovered", okHovered.loadFromFile("resources/checkButtonHovered.png"));
+    report.addEntry("ok - unhovered", okUnHovered.loadFromFile("resources/checkButtonUnhovered.png"));
+    //report.close();
     this->okButton.setTextures(okHovered, okUnHovered);
 }
 
@@ -280,6 +284,8 @@ void Level::EndRace::handleEvents(Level &level, sf::Event &ev)
         }
         if (this->recentData.overallTime.asSeconds() < level.bestTimes[0].overallTime.asSeconds() || level.bestTimes[0].overallTime.asSeconds() == 0.f)
             replace.emplace() = 0;
+        if (this->recentData.owner == "x")
+            replace = false;
 
         if (replace.has_value())
         {
@@ -304,8 +310,8 @@ void Level::EndRace::handleEvents(Level &level, sf::Event &ev)
     this->userName.manageHover(level.mouse->getPosition(*level.window), sf::Mouse::isButtonPressed(sf::Mouse::Left));
     if (this->userName.handleEvent(ev))
     {
-        //this->recentData.owner = this->userName.getText();
-        //this->userName.reset();
+        this->recentData.owner = this->userName.getText();
+        this->userName.reset();
     }
     if (this->okButton.manageHover(level.mouse->getPosition(*level.window), true) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {

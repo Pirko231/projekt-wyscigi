@@ -49,25 +49,6 @@ protected:
     int lapAmount{3};
 
 private:
-    // Obiekty statyczne (widok gry)
-    static bool staticLoaded;
-    static sf::View gameView;
-    //licznik okrazen
-    static LapTimer lapTimer;
-
-    // Mapa i tekstura mapy
-    sf::Sprite map;
-    sf::Texture mapTexture;
-
-    // Flaga resetu poziomu
-    bool shouldReset{ true };
-
-    // Resetuje poziom – uniwersalne czynności
-    void reset();
-
-    //wywolac kiedy wyscig sie skonczy
-    //void endRace();
-
     struct BestTime
     {
         BestTime() = default;
@@ -78,14 +59,12 @@ private:
         sf::Time bestLap;
     };
 
-    std::array<BestTime, 5> bestTimes;
-
-    std::string timesFilename;
-
     class EndRace : public sf::Drawable
     {
     public:
         EndRace();
+        void loadFromFile(Report& report);
+
         //prawda jezeli ekran jest aktywny, falsz kiedy nie jest
         operator bool() {return this->isActive;}
 
@@ -123,5 +102,28 @@ private:
         sf::Text userNameText;
 
         btn::HoweredSpriteButton okButton;
-    }; EndRace endRace;
+    }; 
+
+    // Obiekty statyczne (widok gry)
+    static bool staticLoaded;
+    static sf::View gameView;
+    //licznik okrazen
+    static LapTimer lapTimer;
+    static EndRace endRace;
+
+    // Mapa i tekstura mapy
+    sf::Sprite map;
+    sf::Texture mapTexture;
+
+    // Flaga resetu poziomu
+    bool shouldReset{ true };
+
+    // Resetuje poziom – uniwersalne czynności
+    void reset();
+
+    std::array<BestTime, 5> bestTimes;
+
+    std::string timesFilename;
+
+    
 };
