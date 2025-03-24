@@ -45,9 +45,6 @@ protected:
     // Checkpointy
     std::vector<bdr::CheckPoint> checkPoints;
 
-    //licznik okrazen
-    sf::Font lapTimerFont;
-    LapTimer lapTimer{lapTimerFont, 30};
 
     int lapAmount{3};
 
@@ -55,6 +52,8 @@ private:
     // Obiekty statyczne (widok gry)
     static bool staticLoaded;
     static sf::View gameView;
+    //licznik okrazen
+    static LapTimer lapTimer;
 
     // Mapa i tekstura mapy
     sf::Sprite map;

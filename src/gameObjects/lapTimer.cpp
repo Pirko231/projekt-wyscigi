@@ -1,17 +1,19 @@
 #include "lapTimer.h"
 
-LapTimer::LapTimer(const sf::Font& font, unsigned int characterSize)
-    : font(&font)
+LapTimer::LapTimer(unsigned int characterSize)
 {
-    timerText.setFont(font);
+    //timerText.setFont(font);
     timerText.setCharacterSize(characterSize);
     timerText.setFillColor(sf::Color::Red);  // Czerwony kolor cyfr
     timerText.setString("00:00");
 
+    //backgroundTxt = txt;
+
     // Ustawienie domyślnego tła – lewy górny róg (353,124), rozmiar 244x138, kolor czarny
-    backgroundRect.setPosition(sf::Vector2f(353.f, 124.f));
-    backgroundRect.setSize(sf::Vector2f(244.f, 138.f));
-    backgroundRect.setFillColor(sf::Color::Black);
+    //background.setPosition(sf::Vector2f(353.f, 124.f));
+    //background.setTexture(backgroundTxt);
+    //background.setScale(0.3f,0.3f);
+    //background.setFillColor(sf::Color::Black);
 }
 
 void LapTimer::update() {
@@ -55,21 +57,22 @@ void LapTimer::setCharacterSize(unsigned int size) {
     timerText.setCharacterSize(size);
 }
 
-void LapTimer::setBackground(const sf::Vector2f& position, const sf::Vector2f& size) {
-    backgroundRect.setPosition(position);
-    backgroundRect.setSize(size);
+void LapTimer::setPosition(const sf::Vector2f& position, const sf::Vector2f& scale) {
+    background.setPosition(position);
+    background.setScale(scale);
+    timerText.setPosition(position.x + 80.f, position.y);
 }
 
 sf::FloatRect LapTimer::getBackgroundBounds() const {
-    return backgroundRect.getGlobalBounds();
+    return background.getGlobalBounds();
 }
 
 void LapTimer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     // Najpierw rysujemy tło
-    target.draw(backgroundRect, states);
+    target.draw(background, states);
 
     // Aby wyśrodkować tekst w obrębie tła, obliczamy środek backgroundRect
-    sf::Vector2f rectCenter = backgroundRect.getPosition() + backgroundRect.getSize() / 2.f;
+    sf::Vector2f rectCenter {background.getPosition().x + background.getGlobalBounds().width / 1.45f, background.getPosition().y + background.getGlobalBounds().height / 2.f};
     sf::FloatRect textBounds = timerText.getLocalBounds();
     // Ustawiamy origin tekstu na środek (konwersja przez const_cast – bezpieczna przy rysowaniu)
     const_cast<sf::Text&>(timerText).setOrigin(textBounds.left + textBounds.width / 2.f,

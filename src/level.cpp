@@ -2,6 +2,7 @@
 
 bool Level::staticLoaded = false;
 sf::View Level::gameView{};
+LapTimer Level::lapTimer{};
 
 Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music, std::string _timesFilename) : BodyFunction{ _window, _mouse, _managingFunctionsIterator, _settings, _music }
 {
@@ -59,19 +60,28 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
 
     sf::Texture playerTexture;
     report.addEntry("tekstura auta", playerTexture.loadFromFile("resources/compact_blue.png"));
-    report.addEntry("Czcionka licznik", lapTimerFont.loadFromFile("fonts/alarmClock.ttf"));
+    
 
     if (!Level::staticLoaded)
     {
         report.logMessage("Level static space");
+
+
+        sf::Texture lapTimerTxt;
+        report.addEntry("Tekstura licznik", lapTimerTxt.loadFromFile("resources/baner_timer.png"));
+        Level::lapTimer.setTexture(std::move(lapTimerTxt));
+        sf::Font lapTimerFont;
+        report.addEntry("Czcionka licznik", lapTimerFont.loadFromFile("fonts/alarmClock.ttf"));
+        Level::lapTimer.setFont(std::move(lapTimerFont));
+        
+        this->lapTimer.setPosition({this->window->getSize().x / 2.f - this->lapTimer.getBackgroundBounds().width / 5.5f, 0.f}, {0.35f,0.35f});
+        //this->lapTimer.setPosition({0.f,0.f});
+        
         Level::staticLoaded = true;
     }
 
     report.close();
-    this->player->setTexture(playerTexture);
-
-
-    this->lapTimer.setBackground(sf::Vector2f(this->window->getSize().x / 2 - this->lapTimer.getBackgroundBounds().width / 2.f, 0.f), sf::Vector2f(143.f, 78.f));
+    this->player->setTexture(playerTexture);    
 }
 
 void Level::handleEvents(sf::Event &_event)
@@ -112,7 +122,7 @@ void Level::update()
         if (this->player->getLoops() >= this->lapAmount)
             this->endRace(*this);
 
-    lapTimer.update();
+    Level::lapTimer.update();
 }
 
 void Level::display()
@@ -158,8 +168,9 @@ void Level::display()
             this->window->draw(shape);
         }
     
-    this->window->setView(sf::View{sf::Vector2f{static_cast<float>(this->window->getSize().x / 2), static_cast<float>(this->window->getSize().y / 2)}, static_cast<sf::Vector2f>(this->window->getSize())});
-    this->window->draw(lapTimer);
+    //this->window->setView(sf::View{sf::Vector2f{static_cast<float>(this->window->getSize().x / 2), static_cast<float>(this->window->getSize().y / 2)}, static_cast<sf::Vector2f>(this->window->getSize())});
+    this->window->setView(this->window->getDefaultView());
+    this->window->draw(Level::lapTimer);
 
     if (this->endRace)
     {
