@@ -133,7 +133,7 @@ void Level::display()
     this->window->draw(*this->player);
 
     
-
+#if HITBOXTEST
     // testy dla hitboxow checkpointow i sektorow
     sf::RectangleShape shape;
     shape.setOutlineColor(sf::Color::Black);
@@ -165,7 +165,7 @@ void Level::display()
             shape.setSize({obj.getLocalBounds().width, obj.getLocalBounds().height});
             this->window->draw(shape);
         }
-    
+#endif
     //this->window->setView(sf::View{sf::Vector2f{static_cast<float>(this->window->getSize().x / 2), static_cast<float>(this->window->getSize().y / 2)}, static_cast<sf::Vector2f>(this->window->getSize())});
     this->window->setView(this->window->getDefaultView());
     this->window->draw(Level::lapTimer);
@@ -284,8 +284,8 @@ void Level::EndRace::handleEvents(Level &level, sf::Event &ev)
         }
         if (this->recentData.overallTime.asSeconds() < level.bestTimes[0].overallTime.asSeconds() || level.bestTimes[0].overallTime.asSeconds() == 0.f)
             replace.emplace() = 0;
-        if (this->recentData.owner == "x")
-            replace = false;
+        if (this->recentData.owner.empty())
+            replace.reset();
 
         if (replace.has_value())
         {
@@ -303,7 +303,7 @@ void Level::EndRace::handleEvents(Level &level, sf::Event &ev)
             level.bestTimes[j].overallTime = this->recentData.overallTime;
         }
 
-        level.functionIterator = ManagingFunctionsIterator::levelSelection;
+        level.functionIterator = ManagingFunctionsIterator::mainMenu;
         this->isActive = false;
         this->recentData.clear();
     }

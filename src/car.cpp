@@ -105,15 +105,9 @@ void Car::update(void)
         carMoving = false;
     }
 
-    //tylko test potem wywlali sie pomiar czasu
-    sf::Clock clock;
     for (auto& obj : *collisions)
         if (this->car.getGlobalBounds().intersects(obj->getGlobalBounds()))
             std::clog << "collision\n";
-    sf::Time time {clock.getElapsedTime()};
-    std::clog << time.asMicroseconds() << '\n';
-    clock.restart();
 
     display();
 }
-

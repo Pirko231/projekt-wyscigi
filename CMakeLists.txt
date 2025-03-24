@@ -82,6 +82,8 @@ add_executable(main
 	src/util.cpp
 )
 
+add_compile_definitions(HITBOXTEST)
+
 if(NOT MSVC)
 	target_compile_options(main PRIVATE -Wall -Wextra -pedantic)
 endif()
