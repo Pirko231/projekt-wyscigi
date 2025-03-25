@@ -117,10 +117,12 @@ void Level::update()
 
     this->player->update();
     if (this->player->manageCheckpoints(this->checkPoints.begin(), this->checkPoints.end(), this->lapTimer.getElapsedTime()))
-        if (this->player->getLoops() >= this->lapAmount)
+        if (this->player->getLaps() >= this->lapAmount)
             this->endRace(*this);
 
+    Level::lapTimer.setLaps(this->player->getLaps());
     Level::lapTimer.update();
+    
 }
 
 void Level::display()
@@ -202,6 +204,7 @@ void Level::reset()
     this->player->reset();
     this->player->setCheckPoints(&this->checkPoints);
     this->lapTimer.reset();
+    this->lapTimer.setLaps(0,3); //jakby ktos chcial mozna to przeniesc do klas dziedzicacych
     for (auto& obj : checkPoints)
         obj.reset();
 }

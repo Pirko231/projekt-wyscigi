@@ -7,6 +7,9 @@ LapTimer::LapTimer(unsigned int characterSize)
     timerText.setFillColor(sf::Color::Red);  // Czerwony kolor cyfr
     timerText.setString("00:00");
 
+    this->lapText.setCharacterSize(characterSize - 2U);
+    this->lapText.setFillColor(sf::Color::Red);
+
     //backgroundTxt = txt;
 
     // Ustawienie domyślnego tła – lewy górny róg (353,124), rozmiar 244x138, kolor czarny
@@ -21,6 +24,8 @@ void LapTimer::update() {
     int totalSeconds = static_cast<int>(elapsed.asSeconds());
     int minutes = totalSeconds / 60;
     int seconds = totalSeconds % 60;
+
+    this->lapText.setString(std::to_string(this->currentLap) + "/" + std::to_string(this->maxLap));
     
     std::ostringstream oss;
     oss << std::setw(2) << std::setfill('0') << minutes << ":"
@@ -79,5 +84,9 @@ void LapTimer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
                                                 textBounds.top + textBounds.height / 2.f);
     const_cast<sf::Text&>(timerText).setPosition(rectCenter);
 
+    const_cast<sf::Text&>(this->lapText).setOrigin(textBounds.left + textBounds.width * 1.8f, textBounds.top + textBounds.height / 2.f);
+    const_cast<sf::Text&>(this->lapText).setPosition(rectCenter);
+
     target.draw(timerText, states);
+    target.draw(this->lapText, states);
 }

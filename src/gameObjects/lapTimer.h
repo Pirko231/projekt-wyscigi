@@ -17,7 +17,15 @@ public:
 
     void setTexture(sf::Texture _txt) {this->backgroundTxt = _txt; this->background.setTexture(this->backgroundTxt);}
 
-    void setFont(sf::Font _font) {this->font = _font; this->timerText.setFont(this->font);}
+    void setFont(sf::Font _font) {this->font = _font; this->timerText.setFont(this->font); this->lapText.setFont(this->font);}
+
+    void setLaps(int _currentLap) {this->currentLap = _currentLap;}
+    
+    void setLaps(int _currentLap, int _maxLap)
+    {
+        this->maxLap = _maxLap;
+        this->setLaps(_currentLap);
+    }
 
     // Zwraca aktualny czas w formacie MM:SS
     std::string getTime() const;
@@ -40,7 +48,11 @@ private:
 
     sf::Font font;  // Czcionka (ma własną kopię)
     sf::Text timerText;    // Tekst wyświetlający czas
+    sf::Text lapText;
     sf::Clock clock;       // Zegar mierzący upływ czasu
+
+    int currentLap{0};
+    int maxLap{0};
 
     // Tło licznika – czarny prostokąt
     sf::Sprite background;

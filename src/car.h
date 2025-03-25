@@ -66,7 +66,7 @@ public:
     
     sf::Time getBestLap() const {return this->bestLap;}
     
-    int getLoops() const {return this->loops;}
+    int getLaps() const {return this->laps;}
     
     sf::Vector2f getPosition() const {return this->car.getPosition();}
 
@@ -98,7 +98,7 @@ private:
 
     CarStats stats;
     
-    int loops{0};
+    int laps{0};
 
     const std::vector<std::unique_ptr<bdr::Collidable>>* collisions {nullptr};
 
