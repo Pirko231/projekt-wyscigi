@@ -221,29 +221,29 @@ Level::EndRace::EndRace()
     
 
     this->continueButton.setSize({400.f, 90.f});
-    this->continueButton.setPosition({450.f, 550.f});
+    this->continueButton.setPosition({450.f, 620.f});
     this->continueButton.setColor(sf::Color::White);
     this->continueButton.setHoverColor(sf::Color{80,80,80});
 
     this->continueText.setString("Kontynuuj");
     this->continueText.setFont(this->font);
-    this->continueText.setPosition(540.f, 565.f);
+    this->continueText.setPosition(540.f, 635.f);
     this->continueText.setCharacterSize(50);
     this->continueText.setFillColor(sf::Color::Black);
 
-    this->userName.setPosition({450.f, 400.f});
+    this->userName.setPosition({450.f, 540.f});
     this->userName.setSize({340.f, 70.f});
     this->userName.setCharacterSize(60);
     this->userName.setLimit(9);
     this->userName.setFont(this->defaultFont);
 
     this->userNameText.setString("Wprowadz nick");
-    this->userNameText.setPosition(450.f, 350.f);
+    this->userNameText.setPosition(450.f, 490.f);
     this->userNameText.setFont(this->font);
     this->userNameText.setFillColor(sf::Color::Black);
     this->userNameText.setCharacterSize(50);
 
-    this->okButton.setPosition({800.f, 405.f});
+    this->okButton.setPosition({800.f, 540.f});
     this->okButton.setScale({0.6f, 0.6f});
     
 }
