@@ -65,10 +65,10 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
 
 
         sf::Texture lapTimerTxt;
-        report.addEntry("Tekstura licznik", lapTimerTxt.loadFromFile("resources/baner_timer.png"));
+        report.addEntry("Tekstura licznik", lapTimerTxt.loadFromFile("resources/textures/baner_timer.png"));
         Level::lapTimer.setTexture(std::move(lapTimerTxt));
         sf::Font lapTimerFont;
-        report.addEntry("Czcionka licznik", lapTimerFont.loadFromFile("fonts/alarmClock.ttf"));
+        report.addEntry("Czcionka licznik", lapTimerFont.loadFromFile("resources/fonts/alarmClock.ttf"));
         Level::lapTimer.setFont(std::move(lapTimerFont));
         
         this->lapTimer.setPosition({this->window->getSize().x / 2.f - this->lapTimer.getGlobalBounds().width / 5.5f, 0.f}, {0.35f,0.35f});
@@ -288,12 +288,12 @@ void Level::EndRace::loadFromFile(Report& report)
     //Report report;
     //report.open();
     //report.logMessage("Level::EndRace");
-    report.addEntry("Napisy czcionka", this->font.loadFromFile("fonts/BigFont.ttf"));
-    report.addEntry("TextBox czcionka", this->defaultFont.loadFromFile("fonts/defaultFont.ttf"));
+    report.addEntry("Napisy czcionka", this->font.loadFromFile("resources/fonts/BigFont.ttf"));
+    report.addEntry("TextBox czcionka", this->defaultFont.loadFromFile("resources/fonts/defaultFont.ttf"));
     sf::Texture okHovered;
     sf::Texture okUnHovered;
-    report.addEntry("ok - hovered", okHovered.loadFromFile("resources/checkButtonHovered.png"));
-    report.addEntry("ok - unhovered", okUnHovered.loadFromFile("resources/checkButtonUnhovered.png"));
+    report.addEntry("ok - hovered", okHovered.loadFromFile("resources/textures/checkButtonHovered.png"));
+    report.addEntry("ok - unhovered", okUnHovered.loadFromFile("resources/textures/checkButtonUnhovered.png"));
     //report.close();
     this->okButton.setTextures(okHovered, okUnHovered);
 }

@@ -9,9 +9,9 @@ MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFuncti
     Raport raport;
     raport.open();
     raport.logMessage("MainMenu");
-    raport.addEntry("Wczytywanie czcionki ekran tytulowy" , this->font.loadFromFile("fonts/BigFont.ttf"));
-    raport.addEntry("Wczytywanie tła ekran tytulowy", backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg"));
-    raport.addEntry("Wczytywanie muzyki na ekran tytulowy", music->openFromFile("sounds/MainMenuMusic.wav"));
+    raport.addEntry("Wczytywanie czcionki ekran tytulowy" , this->font.loadFromFile("resources/fonts/BigFont.ttf"));
+    raport.addEntry("Wczytywanie tła ekran tytulowy", backgroundTexture.loadFromFile("resources/textures/mainMenuBackground.jpg"));
+    raport.addEntry("Wczytywanie muzyki na ekran tytulowy", music->openFromFile("resources/sounds/MainMenuMusic.wav"));
     raport.close();
 
     std::string buttonNames[buttonAmount] = {"graj", "opcje", "wyjscie"};

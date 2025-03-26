@@ -7,13 +7,13 @@ btn::Templates::Templates()
 
     raport.logMessage("Template textures");
     
-    raport.addEntry("Settings icon", this->settingTemplatetxt.loadFromFile("resources/settingsIcon.png"));
+    raport.addEntry("Settings icon", this->settingTemplatetxt.loadFromFile("resources/textures/settingsIcon.png"));
 
-    raport.addEntry("Arrow icon", this->arrowTemplatetxt.loadFromFile("resources/arrow.png"));
+    raport.addEntry("Arrow icon", this->arrowTemplatetxt.loadFromFile("resources/textures/arrow.png"));
 
-    raport.addEntry("X icon unhovered", this->xTemplateUnHoweredtxt.loadFromFile("resources/xButton.png"));
+    raport.addEntry("X icon unhovered", this->xTemplateUnHoweredtxt.loadFromFile("resources/textures/xButton.png"));
     
-    raport.addEntry("X icon hovered", this->xTemplateHoweredtxt.loadFromFile("resources/xButtonHowered.png"));
+    raport.addEntry("X icon hovered", this->xTemplateHoweredtxt.loadFromFile("resources/textures/xButtonHowered.png"));
     
     raport.close();
 

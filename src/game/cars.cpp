@@ -8,7 +8,7 @@ Cars::Cars()
     report.open();
     report.logMessage("Cars");
     
-    std::string fileNames[3] {"resources/compact_blue.png", "resources/sport_red.png", "resources/sedan_green.png"};
+    std::string fileNames[3] {"resources/textures/compact_blue.png", "resources/textures/sport_red.png", "resources/textures/sedan_green.png"};
     for (int i = 0; i < 3; i++)
     {
         report.addEntry("Player " + std::to_string(i), this->playerTextures[i].loadFromFile(fileNames[i]));

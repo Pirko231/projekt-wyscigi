@@ -14,8 +14,8 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars, Ma
     report.open();
     report.logMessage("Settings");
 
-    report.addEntry("Wczytywanie czcionki", this->font.loadFromFile("fonts/BigFont.ttf"));
-    report.addEntry("Wczytywanie czcionki do textBox", this->textBoxFont.loadFromFile("fonts/defaultFont.ttf"));
+    report.addEntry("Wczytywanie czcionki", this->font.loadFromFile("resources/fonts/BigFont.ttf"));
+    report.addEntry("Wczytywanie czcionki do textBox", this->textBoxFont.loadFromFile("resources/fonts/defaultFont.ttf"));
     
     report.close();
 

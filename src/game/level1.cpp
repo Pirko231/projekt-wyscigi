@@ -8,7 +8,7 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     report.open();
     report.logMessage("Level1");
 
-    report.addEntry("Mapa", mapTxt.loadFromFile("resources/mapLevel1.jpg"));
+    report.addEntry("Mapa", mapTxt.loadFromFile("resources/textures/mapLevel1.jpg"));
 
     report.close();
     

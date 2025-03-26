@@ -6,9 +6,9 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Man
     Raport raport;
     raport.open();
     raport.logMessage("LevelSelection");
-    raport.addEntry("Wczytywanie tekstury czcionki", lockTexture.loadFromFile("resources/Lock.png"));
-    raport.addEntry("Wczytywanie czcionki", font.loadFromFile("fonts/BigFont.ttf"));
-    raport.addEntry("Wczytywanie tla ekranu", backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg"));
+    raport.addEntry("Wczytywanie tekstury czcionki", lockTexture.loadFromFile("resources/textures/Lock.png"));
+    raport.addEntry("Wczytywanie czcionki", font.loadFromFile("resources/fonts/BigFont.ttf"));
+    raport.addEntry("Wczytywanie tla ekranu", backgroundTexture.loadFromFile("resources/textures/mainMenuBackground.jpg"));
     raport.close();
     //screen background
     
