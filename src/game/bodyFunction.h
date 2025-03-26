@@ -21,6 +21,9 @@ public:
     //jezeli jakas klasa nie uzywa to nalezy zdefiniowac
     //funkcje o tej samej nazwie ktora zwraca false.
     virtual bool useDefaultView() const {return true;}
+
+    static void initBackground();
+
     virtual ~BodyFunction();
 private:
     //podstawowy widok aplikacji
@@ -42,4 +45,8 @@ protected:
     //zmienienie tego zmieni obecnie dzialajaca funkcje z tablicy.
     //jest to referencja do obiektu 'Program::currentFunction'.
     ManagingFunctionsIterator& functionIterator;
+
+    static sf::Sprite backgroundSprite;
+
+    static sf::Texture backgroundTexture;
 };

@@ -35,6 +35,8 @@ Program::Program()
 
     this->settings = new Settings{this->window, this->mouse, this->cars, this->currentFunction};
 
+    BodyFunction::initBackground();
+
     //kazdy z tych obiektow bedzie mial swoj wlasny obiekt typu Raport
     this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction, this->settings, this->music};
     this->managingFunctions[1] = new LevelSelection{this->window, this->mouse, this->currentFunction, this->settings, this->music};

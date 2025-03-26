@@ -13,12 +13,8 @@ public:
     void display();
     ~LevelSelection();
 private:
-    //sekcja private jest calkowicie dla osoby ktora pracuje na funkcja
+    //sekcja private jest calkowicie dla osoby ktora pracuje nad klasą
 
-
-    //screenbackground
-    sf::Texture backgroundTexture;
-    sf::Sprite backgroundSprite;
     sf::RectangleShape overlay;
 
    // przyciski map (RectBtn)
