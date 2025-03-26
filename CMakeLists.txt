@@ -66,6 +66,7 @@ add_executable(main
     src/gameObjects/trap.cpp
     src/gameObjects/checkpoint.cpp
     src/gameObjects/score.cpp
+    src/gameObjects/lapCounter.cpp
 
     src/buttons.cpp
     src/buttons/button.cpp

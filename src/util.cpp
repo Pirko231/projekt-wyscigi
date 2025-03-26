@@ -11,11 +11,18 @@
 namespace util {
 
 #define PI_OVER_180 0.01745329251994329576
-float toRadians(float x)
+#define _180_OVER_PI 57.2957795130823208768
+float radians(float x)
 {
     return x * PI_OVER_180;
 }
+
+float degrees(float x)
+{
+    return x * _180_OVER_PI;
+}
 #undef PI_OVER_180
+#undef _180_OVER_PI
 
 float div_euclid(float lhs, float rhs)
 {
@@ -83,6 +90,23 @@ Vector2 Vector2::normalize() const
     return ret;
 }
 
+Vector2 Vector2::perpendicular() const
+{
+    return Vector2(-y, x);
+}
+
+Vector2 Vector2::perpendicularClockwise() const
+{
+    return Vector2(y, -x);
+}
+
+Vector2 Vector2::lerp(const Vector2 other, float amount)
+{
+    float retx = x + amount * (other.x - x);
+    float rety = y + amount * (other.y - y);
+    return Vector2(retx, rety);
+}
+
 Vector2& Vector2::operator=(Vector2 other)
 {
     swap(*this, other);
@@ -100,6 +124,10 @@ Vector2& Vector2::operator+=(const float scalar)
     x += scalar;
     y += scalar;
     return *this;
+}
+Vector2 Vector2::operator-() const
+{
+    return Vector2(-x, -y);
 }
 Vector2& Vector2::operator-=(const Vector2& other)
 {

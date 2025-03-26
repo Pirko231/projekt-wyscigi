@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SFML/Window/Event.hpp"
 #include "util.h"
 #include "gameObjects.h"
 #include <SFML/Graphics.hpp>
@@ -16,6 +17,9 @@ struct CarStats
         this->acceleration = _acceleration;
         this->rotationSpeed = _rotationSpeed;
     }
+
+    void setFriction(float _friction) {this->friction = _friction;}
+
     //maksymalna predkosc samochodu. Wczesniej makro CAR_MAX_SPEED
     float maxSpeed{300};
 
@@ -29,17 +33,37 @@ struct CarStats
     float friction{0.98f};
 };
 
+enum class Throttle {
+    Break = -1,
+    None = 0,
+    Accelerate = 1,
+};
+
+enum class Steering {
+    Left = -1,
+    Straight = 0,
+    Right = 1,
+};
+
+struct CarControls {
+    CarControls() : throttle(Throttle::None), steering(Steering::Straight) {}
+    CarControls(Throttle a, Steering b) : throttle(a), steering(b) {}
+
+    Throttle throttle = Throttle::None;
+    Steering steering = Steering::Straight;
+};
+
 class Car : public sf::Drawable
 {
     friend class Cars;
 public:
     //na public juz nic nie wrzucaj tylko na private lub protected
     //chyba ze chcesz dodac jakis konstruktor lub funkcje ktora wczytuje dane
-    
+
     Car();
 
     Car(CarStats& _stats) : stats{_stats} {}
-    
+
     Car(const sf::Texture& _carTexture, CarStats& _stats) : Car{_stats} {this->carTexture = _carTexture; this->car.setTexture(this->carTexture);}
     //wywolac w funkcji update
     virtual void update();
@@ -52,7 +76,7 @@ public:
     void setStats(const CarStats& _stats) {this->stats = _stats;}
 
     void setCollisions(const std::vector<std::unique_ptr<bdr::Collidable>>* _collisions) {this->collisions = _collisions;}
-    
+
     void setPosition(sf::Vector2f pos) { this->position.x = pos.x; this->position.y = pos.y;}
 
     void setRotation(float angle) {this->rotation = angle;}
@@ -75,6 +99,8 @@ public:
     sf::FloatRect getLocalBounds() const {return this->car.getLocalBounds();}
 
     sf::FloatRect getGlobalBounds() const {return this->car.getGlobalBounds();}
+
+    bool collides() const;
 private:
     //co tylko moze byc private zamiast protected powiino sie tutaj znalezc
     //wszystko co jest uniwersalne dla klasy gracz i bot powinno sie znalezc tutaj.
@@ -86,6 +112,7 @@ private:
     void actuallyHandleInput();
 
     util::Pressed pressed;
+    CarControls controls;
 
     sf::Sprite car;
     sf::Texture carTexture;
