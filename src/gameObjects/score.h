@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 
 class Score : public sf::Drawable
@@ -5,8 +7,12 @@ class Score : public sf::Drawable
 public:
     Score();
 
-    Score(sf::Font _font) : Score{}
+    Score(sf::Font _font) : Score()
     {this->font = _font;}
+
+    sf::FloatRect getLocalBounds() const {return this->backround.getLocalBounds();}
+
+    sf::FloatRect getGlobalBounds() const {return this->backround.getGlobalBounds();}
     
     void setPosition(sf::Vector2f pos)
     {

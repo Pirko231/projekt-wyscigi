@@ -71,7 +71,7 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
         report.addEntry("Czcionka licznik", lapTimerFont.loadFromFile("fonts/alarmClock.ttf"));
         Level::lapTimer.setFont(std::move(lapTimerFont));
         
-        this->lapTimer.setPosition({this->window->getSize().x / 2.f - this->lapTimer.getBackgroundBounds().width / 5.5f, 0.f}, {0.35f,0.35f});
+        this->lapTimer.setPosition({this->window->getSize().x / 2.f - this->lapTimer.getGlobalBounds().width / 5.5f, 0.f}, {0.35f,0.35f});
         //this->lapTimer.setPosition({0.f,0.f});
         
         Level::endRace.loadFromFile(report);
@@ -204,6 +204,7 @@ void Level::reset()
     this->player->reset();
     this->player->setCheckPoints(&this->checkPoints);
     this->lapTimer.reset();
+    this->lapTimer.setPosition({this->window->getSize().x / 2.f - this->lapTimer.getGlobalBounds().width / 2.f, 0.f});
     this->lapTimer.setLaps(0,3); //jakby ktos chcial mozna to przeniesc do klas dziedzicacych
     for (auto& obj : checkPoints)
         obj.reset();
@@ -246,6 +247,22 @@ Level::EndRace::EndRace()
     this->okButton.setPosition({800.f, 540.f});
     this->okButton.setScale({0.6f, 0.6f});
     
+    
+    sf::Vector2f pos{335.f, 120.f};
+
+    this->resultTableTitle.setString("Tabela wynikow");
+    this->resultTableTitle.setPosition(pos.x + 60.f, pos.y - 90.f);
+    this->resultTableTitle.setFillColor(sf::Color::Black);
+    this->resultTableTitle.setCharacterSize(75);
+    this->resultTableTitle.setFont(this->font);
+
+    for (auto& i : resultTable)
+    {
+        i.setFont(this->font);
+        i.setPosition(pos);
+        pos.y += 70.f;
+    }
+    
 }
 
 void Level::EndRace::loadFromFile(Report& report)
@@ -271,6 +288,8 @@ void Level::EndRace::operator()(Level &level)
     //level.reset();
     this->isActive = true;
     //this->bestLapsTimer.push_back();
+
+    level.lapTimer.setPosition({0.f,0.f}, {0.35f,0.35f});
 }
 
 void Level::EndRace::handleEvents(Level &level, sf::Event &ev)

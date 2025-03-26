@@ -6,3 +6,4 @@
 #include "gameObjects/circle.h"
 #include "gameObjects/trap.h"
 #include "gameObjects/checkpoint.h"
+#include "gameObjects/score.h"

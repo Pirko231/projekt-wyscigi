@@ -29,25 +29,6 @@ public:
     //zapisuje do pliku dane z czasem
     virtual ~Level();
 
-protected:
-    // Funkcja resetująca poziom – implementacja w klasach dziedziczących
-    virtual void resetCurrentLevel() = 0;
-
-    // Ładuje teksturę mapy
-    void loadLevel(const sf::Texture& _mapTexture, sf::Vector2f pos = {0.f,0.f});
-
-    // Gracz (wskaźnik)
-    Player* player;
-    // Ilość sekcji na ekran
-    static constexpr int sectionAmount {4};
-    // Sekcje ekranu: pierwszy element pary – obiekty kolizji, drugi – obszar (sf::FloatRect)
-    std::pair<std::vector<std::unique_ptr<bdr::Collidable>>, sf::FloatRect> sections[sectionAmount];
-    // Checkpointy
-    std::vector<bdr::CheckPoint> checkPoints;
-
-
-    int lapAmount{3};
-
 private:
     struct BestTime
     {
@@ -88,7 +69,9 @@ private:
             target.draw(this->continueText, states);
             target.draw(this->userName, states);
             target.draw(this->userNameText, states);
-            
+            target.draw(this->resultTableTitle, states);
+            for (auto& i : this->resultTable)
+                target.draw(i, states);
         }
         sf::Font font;
         sf::Font defaultFont;
@@ -102,6 +85,10 @@ private:
         sf::Text userNameText;
 
         btn::HoweredSpriteButton okButton;
+    
+        sf::Text resultTableTitle;
+        
+        std::array<Score, 5> resultTable;
     }; 
 
     // Obiekty statyczne (widok gry)
@@ -125,5 +112,23 @@ private:
 
     std::string timesFilename;
 
+protected:
+    // Funkcja resetująca poziom – implementacja w klasach dziedziczących
+    virtual void resetCurrentLevel() = 0;
+
+    // Ładuje teksturę mapy
+    void loadLevel(const sf::Texture& _mapTexture, sf::Vector2f pos = {0.f,0.f});
+
+    // Gracz (wskaźnik)
+    Player* player;
+    // Ilość sekcji na ekran
+    static constexpr int sectionAmount {4};
+    // Sekcje ekranu: pierwszy element pary – obiekty kolizji, drugi – obszar (sf::FloatRect)
+    std::pair<std::vector<std::unique_ptr<bdr::Collidable>>, sf::FloatRect> sections[sectionAmount];
+    // Checkpointy
+    std::vector<bdr::CheckPoint> checkPoints;
+
+
+    int lapAmount{3};
     
 };

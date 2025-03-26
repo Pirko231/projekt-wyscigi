@@ -63,12 +63,19 @@ void LapTimer::setCharacterSize(unsigned int size) {
 }
 
 void LapTimer::setPosition(const sf::Vector2f& position, const sf::Vector2f& scale) {
-    background.setPosition(position);
     background.setScale(scale);
+    this->setPosition(position);
+    
+    
+}
+
+void LapTimer::setPosition(const sf::Vector2f &position)
+{
+    background.setPosition(position);
     timerText.setPosition(position.x + 80.f, position.y);
 }
 
-sf::FloatRect LapTimer::getBackgroundBounds() const {
+sf::FloatRect LapTimer::getGlobalBounds() const {
     return background.getGlobalBounds();
 }
 

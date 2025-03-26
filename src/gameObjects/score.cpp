@@ -6,6 +6,6 @@ Score::Score()
     this->bestLap.setFont(this->font);
     this->overallTime.setFont(this->font);
 
-    this->backround.setSize({200.f, 50.f});
-    this->backround.setFillColor(sf::Color::Yellow);
+    this->setSize({600.f, 60.f});
+    this->backround.setFillColor(sf::Color{255,128,0});
 }

@@ -38,10 +38,12 @@ public:
     void setCharacterSize(unsigned int size);
 
     // Ustawia tło licznika – pozycję i rozmiar prostokąta
-    void setPosition(const sf::Vector2f& position, const sf::Vector2f& scale = {1.f,1.f});
+    void setPosition(const sf::Vector2f& position, const sf::Vector2f& scale);
+
+    void setPosition(const sf::Vector2f& position);
 
     // Getter dla obszaru tła (przydatny przy pozycjonowaniu)
-    sf::FloatRect getBackgroundBounds() const;
+    sf::FloatRect getGlobalBounds() const;
 
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
