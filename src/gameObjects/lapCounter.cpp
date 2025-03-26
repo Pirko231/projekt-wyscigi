@@ -1,4 +1,4 @@
-#include "lapCounter.h"
+/*#include "lapCounter.h"
 
 LapCounter::LapCounter(const sf::Font& font, unsigned int characterSize)
     : currentLap(0), maxLaps(0) // 0 oznacza brak limitu
@@ -51,4 +51,4 @@ void LapCounter::updateText() {
 
 void LapCounter::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(lapText, states);
-}
+}*/

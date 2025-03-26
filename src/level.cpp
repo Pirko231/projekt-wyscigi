@@ -301,7 +301,8 @@ void Level::EndRace::handleEvents(Level &level, sf::Event &ev)
 {
     if (this->continueButton.manageHover(level.mouse->getPosition(*level.window), true) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        this->recentData.owner = this->userName.getText();
+        if (!this->userName.getText().empty())
+            this->recentData.owner = this->userName.getText();
         this->userName.reset();
 
         // std::optional<std::vector<Level::BestTime>::iterator> replace;

@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <sstream>
@@ -39,4 +39,4 @@ private:
 
     // Metoda rysująca – wywoływana automatycznie przez SFML
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-};
+};*/
