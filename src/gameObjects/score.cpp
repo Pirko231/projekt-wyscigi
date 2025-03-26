@@ -17,9 +17,18 @@ Score::Score()
 
 void Score::setContents(sf::String _nickName, sf::Time _bestLap, sf::Time _overallTime)
 {
-    this->nickname.setString(_nickName);
-    this->bestLap.setString(std::to_string(_bestLap.asMilliseconds()));
-    this->overallTime.setString(std::to_string(_overallTime.asMilliseconds()));
+    if (_overallTime == sf::seconds(0.f))
+    {
+        this->nickname.setString("----");
+        this->bestLap.setString("----");
+        this->overallTime.setString("----");
+    }
+    else
+    {
+        this->nickname.setString(_nickName);
+        this->bestLap.setString(std::to_string(_bestLap.asMilliseconds()));
+        this->overallTime.setString(std::to_string(_overallTime.asMilliseconds()));
+    }
 }
 
 void Score::setPosition(sf::Vector2f pos)
