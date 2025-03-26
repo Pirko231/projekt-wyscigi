@@ -38,7 +38,7 @@ file(COPY "${RESOURCES_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 
 include_directories(${CMAKE_SOURCE_DIR}/src/perf)
-
+include_directories(${CMAKE_SOURCE_DIR}/src/utils)
 
 # Tworzenie pliku wykonywalnego
 add_executable(main 
@@ -46,6 +46,8 @@ add_executable(main
     src/program.cpp 
 
     src/perf/raport.cpp
+
+    src/utils/util.cpp
 
     src/game/bodyFunction.cpp 
     src/game/levelSelection.cpp 
@@ -84,9 +86,6 @@ add_executable(main
     src/game/buttons/progressbar.cpp
     src/game/buttons/textBox.cpp
     src/game/buttons/circleButton.cpp
-
-    
-	src/game/util.cpp
 )
 
 add_compile_definitions(HITBOXTEST)

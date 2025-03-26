@@ -23,9 +23,9 @@ LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Man
 
     std::string mapTitles[MapButtonsAmount] = {"Speedway", "Shattered Sands", "Frostveil Tundra"};
     std::string mapTextureFiles[MapButtonsAmount] = {
-        "resources/mapLevel1.jpg",
-        "resources/mapLevel2.jpg",
-        "resources/mapLevel3.jpg"
+        "resources/textures/mapLevel1.jpg",
+        "resources/textures/mapLevel2.jpg",
+        "resources/textures/mapLevel3.jpg"
     };
 
     
