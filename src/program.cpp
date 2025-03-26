@@ -1,5 +1,7 @@
 #include "program.h"
 
+#include "util.h"
+
 Program::Program()
 {
     
@@ -44,6 +46,8 @@ Program::Program()
     /*this->managingFunctions[3] = new Level1{this->window, this->mouse, this->currentFunction, this->settings};
     this->managingFunctions[4] = new Level2{this->window, this->mouse, this->currentFunction, this->settings};
     this->managingFunctions[5] = new Level3{this->window, this->mouse, this->currentFunction, this->settings};*/
+
+    util::updateDeltaTime();
 }
 
 void Program::handleEvents()
@@ -94,6 +98,8 @@ void Program::handleEvents()
 
 void Program::update()
 {
+    util::updateDeltaTime();
+
     this->playMusic();
     if (*this->settings)
     {

@@ -1,11 +1,13 @@
 #pragma once
 
+#include "SFML/Graphics/Rect.hpp"
 #include "SFML/Window/Event.hpp"
 #include "util.h"
 #include "gameObjects.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <memory>
+#include <optional>
 
 //przechowuje dane o statysktychach auta. Definiowana w car.h
 struct CarStats
@@ -100,7 +102,7 @@ public:
 
     sf::FloatRect getGlobalBounds() const {return this->car.getGlobalBounds();}
 
-    bool collides() const;
+    std::optional<sf::FloatRect> collides() const;
 private:
     //co tylko moze byc private zamiast protected powiino sie tutaj znalezc
     //wszystko co jest uniwersalne dla klasy gracz i bot powinno sie znalezc tutaj.
