@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cstdlib>
 
+#include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <utility>
@@ -9,6 +10,16 @@
 #include "util.h"
 
 namespace util {
+
+sf::Clock deltaClock = sf::Clock();
+sf::Time deltaTime = sf::Time::Zero;
+float dt = 0;
+
+void updateDeltaTime()
+{
+    deltaTime = deltaClock.restart();
+    dt = deltaTime.asSeconds();
+}
 
 #define PI_OVER_180 0.01745329251994329576
 #define _180_OVER_PI 57.2957795130823208768

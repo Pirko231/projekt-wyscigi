@@ -1,9 +1,16 @@
 #pragma once
 
+#include <SFML/System/Clock.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
 
 namespace util {
+
+extern sf::Clock deltaClock;
+extern sf::Time deltaTime;
+extern float dt;
+
+void updateDeltaTime();
 
 // zamiana ze stopni na radiany x * (pi / 180), x * (180 / pi)
 float radians(float);
