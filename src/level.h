@@ -72,6 +72,9 @@ private:
             target.draw(this->resultTableTitle, states);
             for (auto& i : this->resultTable)
                 target.draw(i, states);
+            target.draw(this->nickame, states);
+            target.draw(this->bestLap, states);
+            target.draw(this->overallTime, states);
         }
         sf::Font font;
         sf::Font defaultFont;
@@ -87,6 +90,12 @@ private:
         btn::HoweredSpriteButton okButton;
     
         sf::Text resultTableTitle;
+
+        sf::Text nickame;
+
+        sf::Text bestLap;
+
+        sf::Text overallTime;
         
         std::array<Score, 5> resultTable;
     }; 

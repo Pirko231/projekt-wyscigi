@@ -26,8 +26,8 @@ void Score::setContents(sf::String _nickName, sf::Time _bestLap, sf::Time _overa
     else
     {
         this->nickname.setString(_nickName);
-        this->bestLap.setString(std::to_string(_bestLap.asMilliseconds()));
-        this->overallTime.setString(std::to_string(_overallTime.asMilliseconds()));
+        this->bestLap.setString(std::to_string(_bestLap.asMilliseconds()) + "ms");
+        this->overallTime.setString(std::to_string(_overallTime.asMilliseconds()) + "ms");
     }
 }
 
@@ -35,6 +35,6 @@ void Score::setPosition(sf::Vector2f pos)
 {
     backround.setPosition(pos);
     this->nickname.setPosition(pos.x + 10.f, pos.y);
-    this->bestLap.setPosition(pos.x + this->backround.getLocalBounds().width / 3.f * 2.f + 10.f, pos.y);
-    this->overallTime.setPosition(pos.x + this->backround.getLocalBounds().width / 3.f + 10.f, pos.y);
+    this->overallTime.setPosition(pos.x + this->backround.getLocalBounds().width / 3.f * 2.f + 10.f, pos.y);
+    this->bestLap.setPosition(pos.x + this->backround.getLocalBounds().width / 3.f + 10.f, pos.y);
 }

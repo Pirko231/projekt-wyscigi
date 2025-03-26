@@ -251,10 +251,28 @@ Level::EndRace::EndRace()
     sf::Vector2f pos{335.f, 120.f};
 
     this->resultTableTitle.setString("Tabela wynikow");
-    this->resultTableTitle.setPosition(pos.x + 60.f, pos.y - 90.f);
+    this->resultTableTitle.setPosition(pos.x + 60.f, pos.y - 120.f);
     this->resultTableTitle.setFillColor(sf::Color::Black);
     this->resultTableTitle.setCharacterSize(75);
     this->resultTableTitle.setFont(this->font);
+
+    this->nickame.setString("nick");
+    this->nickame.setPosition(pos.x + 10.f, pos.y - 40.f);
+    this->nickame.setFillColor(sf::Color::Black);
+    this->nickame.setCharacterSize(40);
+    this->nickame.setFont(this->font);
+
+    this->bestLap.setString("best lap");
+    this->bestLap.setPosition(pos.x + 210.f, pos.y - 40.f);
+    this->bestLap.setFillColor(sf::Color::Black);
+    this->bestLap.setCharacterSize(40);
+    this->bestLap.setFont(this->font);
+
+    this->overallTime.setString("calosc");
+    this->overallTime.setPosition(pos.x + 410.f, pos.y - 40.f);
+    this->overallTime.setFillColor(sf::Color::Black);
+    this->overallTime.setCharacterSize(40);
+    this->overallTime.setFont(this->font);
 
     for (auto& i : resultTable)
     {
