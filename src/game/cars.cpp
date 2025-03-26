@@ -4,7 +4,7 @@
 
 Cars::Cars()
 {
-    Report report;
+    perf::Report report;
     report.open();
     report.logMessage("Cars");
     

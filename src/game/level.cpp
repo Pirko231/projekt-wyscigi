@@ -56,7 +56,7 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
     this->sections[3].second = sf::FloatRect({ static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y) / 2.f },
                                              { static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y) / 2 });
 
-    Report report;
+    perf::Report report;
     report.open();
 
     if (!Level::staticLoaded)
@@ -279,7 +279,7 @@ Level::EndRace::EndRace()
     
 }
 
-void Level::EndRace::loadFromFile(Report& report)
+void Level::EndRace::loadFromFile(perf::Report& report)
 {
     //Report report;
     //report.open();

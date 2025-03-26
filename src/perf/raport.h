@@ -4,7 +4,8 @@
 #include <string>
 
 
-
+namespace perf
+{
 //tworzymy obiekt typu raport aby logowac wczytywanie z plikow
 class Report
 {
@@ -55,4 +56,6 @@ struct FileCouldNotOpen
     const std::string what() const {return this->fileName;}
     
     std::string fileName;
+};
+
 };

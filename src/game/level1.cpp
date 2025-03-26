@@ -4,7 +4,7 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
 {
     sf::Texture mapTxt;
 
-    Report report;
+    perf::Report report;
     report.open();
     report.logMessage("Level1");
 

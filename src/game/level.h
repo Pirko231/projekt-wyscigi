@@ -44,7 +44,7 @@ private:
     {
     public:
         EndRace();
-        void loadFromFile(Report& report);
+        void loadFromFile(perf::Report& report);
 
         //prawda jezeli ekran jest aktywny, falsz kiedy nie jest
         operator bool() {return this->isActive;}

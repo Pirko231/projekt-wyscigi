@@ -3,16 +3,16 @@
 LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music)
     : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
-    Raport raport;
+    perf::Raport raport;
     raport.open();
     raport.logMessage("LevelSelection");
     raport.addEntry("Wczytywanie tekstury czcionki", lockTexture.loadFromFile("resources/textures/Lock.png"));
     raport.addEntry("Wczytywanie czcionki", font.loadFromFile("resources/fonts/BigFont.ttf"));
-    raport.addEntry("Wczytywanie tla ekranu", backgroundTexture.loadFromFile("resources/textures/mainMenuBackground.jpg"));
+    //raport.addEntry("Wczytywanie tla ekranu", backgroundTexture.loadFromFile("resources/textures/mainMenuBackground.jpg"));
     raport.close();
     //screen background
     
-    backgroundSprite.setTexture(backgroundTexture);
+    //backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setScale(
         static_cast<float>(_window->getSize().x) / backgroundTexture.getSize().x,
         static_cast<float>(_window->getSize().y) / backgroundTexture.getSize().y

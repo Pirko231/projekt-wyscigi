@@ -6,11 +6,10 @@
 
 MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
-    Raport raport;
+    perf::Raport raport;
     raport.open();
     raport.logMessage("MainMenu");
     raport.addEntry("Wczytywanie czcionki ekran tytulowy" , this->font.loadFromFile("resources/fonts/BigFont.ttf"));
-    raport.addEntry("Wczytywanie tła ekran tytulowy", backgroundTexture.loadFromFile("resources/textures/mainMenuBackground.jpg"));
     raport.addEntry("Wczytywanie muzyki na ekran tytulowy", music->openFromFile("resources/sounds/MainMenuMusic.wav"));
     raport.close();
 

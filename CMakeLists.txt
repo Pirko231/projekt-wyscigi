@@ -46,6 +46,7 @@ add_executable(main
     src/program.cpp 
 
     src/perf/raport.cpp
+    src/perf/speedTest.cpp
 
     src/utils/util.cpp
 
@@ -89,6 +90,7 @@ add_executable(main
 )
 
 add_compile_definitions(HITBOXTEST)
+add_compile_definitions(SPEEDTEST)
 
 if(NOT MSVC)
 	target_compile_options(main PRIVATE -Wall -Wextra -pedantic)

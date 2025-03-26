@@ -20,9 +20,6 @@ private:
     sf::RectangleShape shape{{50.f, 50.f}};
     sf::Font font;
 
-    //screen background
-    sf::Texture backgroundTexture;
-    sf::Sprite backgroundSprite; 
     sf::RectangleShape overlay;
 
     //buttons on the screen

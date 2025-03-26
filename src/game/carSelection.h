@@ -14,9 +14,6 @@ public:
 
 private:
 
-// Tło ekranu
-sf::Texture backgroundTexture;
-sf::Sprite backgroundSprite;
 sf::RectangleShape overlay;
 
 //strzalka

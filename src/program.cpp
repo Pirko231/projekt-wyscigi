@@ -24,7 +24,7 @@ Program::Program()
 
     this->previousFunction = ManagingFunctionsIterator::carSelection;
 
-    Raport raport;
+    perf::Raport raport;
     //miejsce na wczytanie rzeczy z plikow w tej funkcji
     //-------------------------------------------
     raport.open();
@@ -34,6 +34,8 @@ Program::Program()
     //-------------------------------------------
 
     this->settings = new Settings{this->window, this->mouse, this->cars, this->currentFunction};
+
+    BodyFunction::initBackground();
 
     //kazdy z tych obiektow bedzie mial swoj wlasny obiekt typu Raport
     this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction, this->settings, this->music};

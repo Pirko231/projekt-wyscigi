@@ -2,7 +2,7 @@
 
 btn::Templates::Templates()
 {
-    Raport raport;
+    perf::Raport raport;
     raport.open();
 
     raport.logMessage("Template textures");
