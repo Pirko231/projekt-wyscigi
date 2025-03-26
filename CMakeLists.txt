@@ -37,51 +37,56 @@ file(COPY "${FONTS_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 file(COPY "${SOUNDS_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 
+include_directories(${CMAKE_SOURCE_DIR}/src/perf)
+
+
 # Tworzenie pliku wykonywalnego
 add_executable(main 
     src/main.cpp 
     src/program.cpp 
-    src/bodyFunction.cpp 
-    src/levelSelection.cpp 
-    src/carSelection.cpp 
-    src/mainMenu.cpp 
-    src/level.cpp 
-    src/level1.cpp 
-    src/level2.cpp 
-    src/level3.cpp 
-    src/raport.cpp
-    src/settings.cpp
-    src/settingsData.cpp
 
-    src/car.cpp
-    src/cars.cpp
-    src/bot.cpp
-    src/player.cpp 
+    src/perf/raport.cpp
 
-    src/gameObjects/collidable.cpp
-    src/gameObjects/border.cpp
-    src/gameObjects/circle.cpp
-    src/gameObjects/rectangle.cpp
-    src/gameObjects/lapTimer.cpp
-    src/gameObjects/trap.cpp
-    src/gameObjects/checkpoint.cpp
-    src/gameObjects/score.cpp
-    src/gameObjects/lapCounter.cpp
+    src/game/bodyFunction.cpp 
+    src/game/levelSelection.cpp 
+    src/game/carSelection.cpp 
+    src/game/mainMenu.cpp 
+    src/game/level.cpp 
+    src/game/level1.cpp 
+    src/game/level2.cpp 
+    src/game/level3.cpp 
+    src/game/settings.cpp
+    src/game/settingsData.cpp
 
-    src/buttons.cpp
-    src/buttons/button.cpp
-    src/buttons/textButton.cpp
-    src/buttons/spriteButton.cpp
-    src/buttons/howeredSpriteButton.cpp
-    src/buttons/RectangleButton.cpp
-    src/buttons/slider.cpp
-    src/buttons/progressbar.cpp
-    src/buttons/textBox.cpp
-    src/buttons/circleButton.cpp
+    src/game/car.cpp
+    src/game/cars.cpp
+    src/game/bot.cpp
+    src/game/player.cpp 
 
-    src/gameObjects/collidable.cpp
-	
-	src/util.cpp
+    src/game/gameObjects/collidable.cpp
+    src/game/gameObjects/border.cpp
+    src/game/gameObjects/circle.cpp
+    src/game/gameObjects/rectangle.cpp
+    src/game/gameObjects/lapTimer.cpp
+    src/game/gameObjects/trap.cpp
+    src/game/gameObjects/checkpoint.cpp
+    src/game/gameObjects/score.cpp
+    src/game/gameObjects/lapCounter.cpp
+    src/game/gameObjects/collidable.cpp
+
+    src/game/buttons.cpp
+    src/game/buttons/button.cpp
+    src/game/buttons/textButton.cpp
+    src/game/buttons/spriteButton.cpp
+    src/game/buttons/howeredSpriteButton.cpp
+    src/game/buttons/RectangleButton.cpp
+    src/game/buttons/slider.cpp
+    src/game/buttons/progressbar.cpp
+    src/game/buttons/textBox.cpp
+    src/game/buttons/circleButton.cpp
+
+    
+	src/game/util.cpp
 )
 
 add_compile_definitions(HITBOXTEST)

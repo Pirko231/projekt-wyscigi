@@ -1,12 +1,12 @@
 #pragma once
 
-#include "mainMenu.h"
-#include "levelSelection.h"
-#include "carSelection.h"
+#include "game/mainMenu.h"
+#include "game/levelSelection.h"
+#include "game/carSelection.h"
 
-#include "level1.h"
-#include "level2.h"
-#include "level3.h"
+#include "game/level1.h"
+#include "game/level2.h"
+#include "game/level3.h"
 
 #include "raport.h"
 
