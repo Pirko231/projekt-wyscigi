@@ -70,7 +70,7 @@ public:
     //wywolac w funkcji update
     virtual void update();
     //wywolac w funkcji handleEvents
-    virtual void handleEvents(sf::Event& _event);
+    virtual void handleEvents(sf::Event& _event) = 0;
     virtual void display();
 
     void setTexture(const sf::Texture& _carTexture, bool rescale = false) {this->carTexture = _carTexture; this->car.setTexture(this->carTexture, rescale);}
@@ -111,10 +111,7 @@ private:
     {
         target.draw(this->car, states);
     }
-    void actuallyHandleInput();
-
-    util::Pressed pressed;
-    CarControls controls;
+    
 
     sf::Sprite car;
     sf::Texture carTexture;
@@ -143,5 +140,7 @@ private:
 
     protected:
     //w tym miejscu mozna trzymac rzeczy ktore będą tez widoczne dla klas dziedziczacych
+    util::Pressed pressed;
+    CarControls controls;
 };
 
