@@ -24,7 +24,7 @@ Program::Program()
 
     this->previousFunction = ManagingFunctionsIterator::carSelection;
 
-    Raport raport;
+    perf::Raport raport;
     //miejsce na wczytanie rzeczy z plikow w tej funkcji
     //-------------------------------------------
     raport.open();

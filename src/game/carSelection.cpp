@@ -4,7 +4,7 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
     : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
     //raporcik dla szefa
-    Raport raport;
+    perf::Raport raport;
     raport.open();
     raport.logMessage("CarSelection");
     raport.addEntry("Wczytywanie tekstury czcionki", lockTexture.loadFromFile("resources/textures/Lock.png"));

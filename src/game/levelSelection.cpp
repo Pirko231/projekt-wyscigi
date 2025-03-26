@@ -3,7 +3,7 @@
 LevelSelection::LevelSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music)
     : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
 {
-    Raport raport;
+    perf::Raport raport;
     raport.open();
     raport.logMessage("LevelSelection");
     raport.addEntry("Wczytywanie tekstury czcionki", lockTexture.loadFromFile("resources/textures/Lock.png"));

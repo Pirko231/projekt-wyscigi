@@ -10,7 +10,7 @@ Settings::Settings(sf::RenderWindow* _window, sf::Mouse* _mouse, Cars* _cars, Ma
     this->defaultView.setSize(this->window->getSize().x, this->window->getSize().y);
     this->defaultView.setCenter(this->window->getSize().x / 2, this->window->getSize().y / 2);
     
-    Report report;
+    perf::Report report;
     report.open();
     report.logMessage("Settings");
 
