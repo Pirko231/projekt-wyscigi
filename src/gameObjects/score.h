@@ -7,17 +7,16 @@ class Score : public sf::Drawable
 public:
     Score();
 
-    Score(sf::Font _font) : Score()
-    {this->font = _font;}
+    Score(sf::Font& _font) : Score()
+    {this->setFont(_font);}
 
     sf::FloatRect getLocalBounds() const {return this->backround.getLocalBounds();}
 
     sf::FloatRect getGlobalBounds() const {return this->backround.getGlobalBounds();}
     
-    void setPosition(sf::Vector2f pos)
-    {
-        backround.setPosition(pos);
-    }
+    void setContents(sf::String _nickName, sf::Time _bestLap, sf::Time _overallTime);
+    
+    void setPosition(sf::Vector2f pos);
 
     void setSize(sf::Vector2f size)
     {
@@ -27,7 +26,9 @@ public:
     void setFont(sf::Font& _font)
     {
         this->font = _font;
-        //do tekstow font jest przypiete w konstruktorze
+        this->nickname.setFont(_font);
+        this->bestLap.setFont(_font);
+        this->overallTime.setFont(_font);
     }
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override

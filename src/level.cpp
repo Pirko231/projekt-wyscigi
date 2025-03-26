@@ -290,6 +290,11 @@ void Level::EndRace::operator()(Level &level)
     //this->bestLapsTimer.push_back();
 
     level.lapTimer.setPosition({0.f,0.f}, {0.35f,0.35f});
+
+    for (std::size_t i = 0; i < this->resultTable.size(); i++)
+    {
+        this->resultTable[i].setContents(level.bestTimes[i].owner, level.bestTimes[i].bestLap, level.bestTimes[i].overallTime);
+    }
 }
 
 void Level::EndRace::handleEvents(Level &level, sf::Event &ev)
