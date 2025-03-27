@@ -1,5 +1,7 @@
 #include "memTracker.h"
 
+#ifdef MEMTRACKER
+
 static constexpr std::string_view FILENAME {"memTracker.txt"};
 
 static constexpr float MEGABYTE {1048576.f};
@@ -120,3 +122,5 @@ void perf::MemTracker::addMessage(const std::string &message)
 
     stream.close();
 }
+
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef MEMTRACKER
+
 #include <iostream>
 #include <fstream>
 
@@ -43,3 +45,5 @@ private:
 
     extern MemTracker memTracker;
 };
+
+#endif
