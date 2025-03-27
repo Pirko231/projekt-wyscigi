@@ -47,6 +47,7 @@ add_executable(main
 
     src/perf/raport.cpp
     src/perf/speedTest.cpp
+    src/perf/memTracker.cpp
 
     src/utils/util.cpp
 
@@ -91,6 +92,7 @@ add_executable(main
 
 add_compile_definitions(HITBOXTEST)
 add_compile_definitions(SPEEDTEST)
+add_compile_definitions(MEMTRACKER)
 
 if(NOT MSVC)
 	target_compile_options(main PRIVATE -Wall -Wextra -pedantic)

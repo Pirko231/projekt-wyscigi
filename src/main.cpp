@@ -4,6 +4,10 @@
 #include "speedTest.h"
 #endif
 
+#ifdef MEMTRACKER
+#include "memTracker.h"
+#endif
+
 int main()
 {
     Program program;
@@ -40,6 +44,10 @@ int main()
         if (perf::SpeedTracker::get().working())
             perf::SpeedTracker::get().frameTime = perf::SpeedTracker::get().frameClock.getElapsedTime();
         perf::SpeedTracker::get().update();
+#endif
+
+#if MEMTRACKER
+        perf::memTracker.snapshot();
 #endif
     }
 }
