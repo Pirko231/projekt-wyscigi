@@ -13,8 +13,10 @@ public:
     Cars();
     mutable Player player;
     void setPlayerNumber(int _number) const;
+    const sf::Texture& getTexture(int _number) const {return playerTextures[_number];}
+    const CarStats& getStats(int _number) const {return playerStats[_number];}
 private:
-    CarStats playerStats[3] {{300.f,10.f,5.f}, {350.f, 20.f, 5.f}, {370.f, 55.f, 10.f}};
+    CarStats playerStats[3] {{300.f,7.f,5.f}, {325.f, 10.f, 5.5f}, {350.f, 11.f, 5.7f}};
     sf::Texture playerTextures[3];
 };
 

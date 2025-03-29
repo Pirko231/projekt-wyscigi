@@ -58,9 +58,9 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
         carNames[i].setFillColor(sf::Color::Black);
 
         //przykladowe atrybuty
-        carAttributes[i][0] = 100; // szybkosc
-        carAttributes[i][1] = 75;  // Turbo
-        carAttributes[i][2] = 50;  // zwrotnosc
+        carAttributes[i][0] = (settings->getCars()->getStats(i).maxSpeed - 270.f) * 1.2f; // szybkosc
+        carAttributes[i][1] = (settings->getCars()->getStats(i).acceleration - 4.f) * 12.f;  // Turbo
+        carAttributes[i][2] = (settings->getCars()->getStats(i).rotationSpeed - 4.6f) * 60.f;  // zwrotnosc
 
         //pozycjonowanie locka
         lockSprite.setPosition(btnPos.x - lockSprite.getGlobalBounds().width/2.f, btnPos.y - lockSprite.getGlobalBounds().height/2.f);
@@ -117,7 +117,7 @@ void CarSelection::handleEvents(sf::Event &_event)
 {
     if (_event.type == sf::Event::MouseButtonPressed && _event.mouseButton.button == sf::Mouse::Left)
     {
-        sf::Vector2f mousePos = static_cast<sf::Vector2f>(mouse->getPosition(*window));
+        //sf::Vector2f mousePos = static_cast<sf::Vector2f>(mouse->getPosition(*window));
 
         for (int i = 0; i < NUM_CARS; i++)
         {
