@@ -296,6 +296,8 @@ void Level::EndRace::operator()(Level &level)
     this->recentData.overallTime = level.lapTimer.getElapsedTime();
     this->recentData.bestLap = level.player->getBestLap();
 
+    level.checkForUnclocks(recentData);
+
     //level.reset();
     this->isActive = true;
     //this->bestLapsTimer.push_back();

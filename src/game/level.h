@@ -29,7 +29,7 @@ public:
     //zapisuje do pliku dane z czasem
     virtual ~Level();
 
-private:
+protected:
     struct BestTime
     {
         BestTime() = default;
@@ -39,7 +39,7 @@ private:
         sf::Time overallTime;
         sf::Time bestLap;
     };
-
+private:
     class EndRace : public sf::Drawable
     {
     public:
@@ -120,6 +120,8 @@ private:
     std::array<BestTime, 5> bestTimes;
 
     std::string timesFilename;
+
+    virtual void checkForUnclocks(const Level::BestTime&) = 0;
 
 protected:
     // Funkcja resetująca poziom – implementacja w klasach dziedziczących
