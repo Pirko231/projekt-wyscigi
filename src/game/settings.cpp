@@ -189,8 +189,6 @@ void Settings::display()
     
     for (int i = 0; i < this->textsAmount; i++)
         this->window->draw(this->texts[i].first);
-    /*this->window->draw(this->x);
-    this->window->draw(this->mainVolume);*/
 }
 
 void Settings::operator=(bool _isOn)
@@ -209,10 +207,6 @@ void Settings::operator=(bool _isOn)
         this->lastTurnedOn = true;
     else
         this->lastTurnedOn = !this->lastTurnedOn;
-        /*if (!this->animation)
-            this->lastTurnedOn = false;
-        else
-            this->lastTurnedOn = true;*/
 
     if (this->lastTurnedOn) //_isOn
     {
@@ -226,26 +220,14 @@ void Settings::operator=(bool _isOn)
             this->startPos = this->background.getPosition();
         
         this->background.setPosition(this->startPos);
-        for (int i = 0; i < this->buttonAmount; i++)
-        {
-            //this->buttons[i].second = {this->startPos.x + this->background.getLocalBounds().width - this->buttons[i].first->getLocalBounds().width / 5, this->startPos.y - this->buttons[i].first->getLocalBounds().height / 5};
-        }
     }
     else
     {
         this->quitting = true;
         this->startPos = this->background.getPosition();
-        //this->startPos = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 2)};
         this->destination = {static_cast<float>(this->window->getSize().x / 2) - this->background.getLocalBounds().width / 2.f, static_cast<float>(this->window->getSize().y / 1)};
-
-
-        for (int i = 0; i < this->buttonAmount; i++)
-        {
-            //this->buttons[i].second.y = this->buttons[i].first->getPosition().y;
-        }
     }
     
-    //this->isTurnedOn = _isOn;
     this->animation.startAnimation(this->startPos, this->destination);
 }
 
@@ -284,24 +266,17 @@ void Settings::AnimationUp::operator()(Settings& _settings)
     if (!_settings.quitting)
     {
         if (_settings.background.getPosition().y <= this->destination.y)
-        {
-            //this->animationStarted = false;
             this->animation = this->maxAnimation;
-        }
+        
     }
     else
     {
         if (this->moveBy.y < 0)
-        {
             _settings.quitting = false;
-            //this->moveBy = {this->moveBy.x * - 1, this->moveBy.y * - 1};
-            //_settings.lastTurnedOn = !_settings.lastTurnedOn;
-        }
+        
         else if (_settings.background.getPosition().y >= this->destination.y)
-        {
-            //this->animationStarted = false;
             this->animation = this->maxAnimation;
-        }
+        
     }
 
     for (int i = 0; i < _settings.textsAmount; i++)
@@ -314,11 +289,7 @@ void Settings::AnimationUp::operator()(Settings& _settings)
     _settings.background.move(this->moveBy);
 
     if (_settings.quitting && this->animation <= 0)
-    {
-        //_settings.isTurnedOn = false;
         this->animation = this->maxAnimation;
-        
-    }
 }
 
 void Settings::AnimationUp::reset()

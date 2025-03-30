@@ -68,6 +68,8 @@ private:
     //do uzycia uzywac update, display, handlEevents
     //mozna modyfikowac czy jest wlaczany za pomoca operatora =
     Settings* settings {nullptr};
+
+    void arrowScreenChange(const sf::Event& event);
 };
 
 //sluzy tylko do czyszczenia danych z pliku. zdefiniowana w 'program.h'

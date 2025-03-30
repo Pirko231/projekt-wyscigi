@@ -45,14 +45,8 @@ void Level3::resetCurrentLevel()
     this->player->setRotation(272.f);
 }
 
-/*void Level3::handleEvents(sf::Event &_event)
+void Level3::checkForUnclocks(const Level::BestTime& stats)
 {
+    if (stats.bestLap <= sf::seconds(16.f))
+        const_cast<SettingsData*>(this->settings->getData())->car3 = true;
 }
-
-void Level3::update()
-{
-}
-
-void Level3::display()
-{
-}*/

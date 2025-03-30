@@ -11,6 +11,9 @@ class BodyFunction
 public:
     BodyFunction() = delete;
     BodyFunction(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music);
+    
+    BodyFunction(const BodyFunction&) = delete;
+    BodyFunction& operator=(const BodyFunction&) = delete;
     //odbiera wiadomosci z klawiatury. Uzywac w funkcji Program::handleEvents()
     virtual void handleEvents(sf::Event& _event) = 0;
     //aktualizuje zmienne dla obecnego okna. Uzywac w funkcji Program::update()
@@ -26,9 +29,6 @@ public:
 
     virtual ~BodyFunction();
 private:
-    //podstawowy widok aplikacji
-    //static sf::View defaultView;
-    //static bool viewLoaded;
 protected:
     //wskaznik do okna, przypisany za pomoca konstruktora
     sf::RenderWindow* window;

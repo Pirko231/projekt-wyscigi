@@ -18,4 +18,5 @@ private:
 //calkowicie dla osoby ktora pracuje nad klasa.
     void resetCurrentLevel() override;
 
+    void checkForUnclocks(const Level::BestTime& stats);
 };

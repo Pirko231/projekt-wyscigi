@@ -220,3 +220,13 @@ void Level1::resetCurrentLevel()
     this->player->setPosition({676.f, 636.f});
     this->player->setRotation(270.f);
 }
+
+void Level1::checkForUnclocks(const Level::BestTime& stats)
+{
+    //daloby sie uniknac const_cast ale trzeba byloby dodawac nowe publiczne funkcje
+    //ktorych ktos moglby uzyc wiec mysle ze bezpieczniej bedzie tak zrobic
+    if (stats.overallTime <= sf::seconds(40.f))
+        const_cast<SettingsData*>(this->settings->getData())->level2 = true;
+
+    //auta sie tutaj nie odblokowuje
+}
