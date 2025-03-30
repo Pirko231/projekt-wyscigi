@@ -34,7 +34,7 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
     float settingsOffsetY = winHeight * 0.02f;
 
     //etykiedy dla kazdego auta
-    std::string names[NUM_CARS] = {"Auto 1", "Auto 2", "Auto 3"};
+    std::string names[NUM_CARS] = {"Subaru WRX", "Mercedes AMG GT", "Lamborghini Huracan"};
     std::string labelTexts[NUM_ATTRS] = {"Szybkosc", "Zwrotnosc", "TURBO"};
 
     //klodka

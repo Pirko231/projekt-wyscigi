@@ -1,12 +1,13 @@
 car sounds, credits to:
-- ana_sofia_ (Freesound)
-- FreeSoundsxx
-- freesound_community
+    - marcusvh
+    - ana_sofia_ (Freesound)
+    - FreeSoundsxx
+    - freesound_community
 
 soundtrack, credits to:
-- Kulakovka
-- SPmusic
-- Emmraan
+    - Kulakovka
+    - SPmusic
+    - Emmraan
 
 graphics/icons credits to:
--pngwing.com
+    -pngwing.com
