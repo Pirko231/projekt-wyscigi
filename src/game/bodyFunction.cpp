@@ -1,8 +1,5 @@
 #include "bodyFunction.h"
 
-//sf::View BodyFunction::defaultView;
-//bool BodyFuncion::viewLoaded{false};
-
 sf::Sprite BodyFunction::backgroundSprite{};
 sf::Texture BodyFunction::backgroundTexture{};
 

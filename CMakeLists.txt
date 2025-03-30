@@ -9,7 +9,7 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-# 🟢 Ustawienie ścieżek do SFML (zmień na swoją lokalizację SFML)
+#ustawienie sciezki (nie dotykac)
 set(SFML_ROOT "C:/SFML/SFML-2.6.1")
 set(CMAKE_PREFIX_PATH "${SFML_ROOT}")
 set(SFML_INCLUDE_DIR "${SFML_ROOT}/include")
@@ -29,12 +29,8 @@ else()
 endif()
 
 set(RESOURCES_DIR "${CMAKE_SOURCE_DIR}/resources")
-set(FONTS_DIR "${CMAKE_SOURCE_DIR}/fonts")
-set(SOUNDS_DIR "${CMAKE_SOURCE_DIR}/sounds")
 
 file(COPY "${RESOURCES_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-#file(COPY "${FONTS_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-#file(COPY "${SOUNDS_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 
 include_directories(${CMAKE_SOURCE_DIR}/src/perf)

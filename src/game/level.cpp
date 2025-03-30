@@ -40,7 +40,6 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
             if (allTimet.asSeconds() == 0)
                 allTimet = sf::seconds(0.f);
             this->bestTimes[i] = Level::BestTime{owner, allTimet, bestLapt};
-            //this->bestTimes.push_back({owner, time});
         }
 
     this->gameView.setSize(this->player->getLocalBounds().width, this->player->getLocalBounds().height);
@@ -72,7 +71,6 @@ Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIter
         Level::lapTimer.setFont(std::move(lapTimerFont));
         
         this->lapTimer.setPosition({this->window->getSize().x / 2.f - this->lapTimer.getGlobalBounds().width / 5.5f, 0.f}, {0.35f,0.35f});
-        //this->lapTimer.setPosition({0.f,0.f});
         
         Level::endRace.loadFromFile(report);
         
@@ -164,7 +162,6 @@ void Level::display()
             this->window->draw(shape);
         }
 #endif
-    //this->window->setView(sf::View{sf::Vector2f{static_cast<float>(this->window->getSize().x / 2), static_cast<float>(this->window->getSize().y / 2)}, static_cast<sf::Vector2f>(this->window->getSize())});
     this->window->setView(this->window->getDefaultView());
     this->window->draw(Level::lapTimer);
 
