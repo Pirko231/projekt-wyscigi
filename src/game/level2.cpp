@@ -42,6 +42,7 @@ void Level2::resetCurrentLevel()
 {
     this->player->setPosition({735.f, 670.f});
     this->player->setRotation(272.f);
+    this->player->setFriction(40.f);
 }
 
 void Level2::checkForUnclocks(const Level::BestTime& stats)

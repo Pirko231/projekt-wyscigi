@@ -83,6 +83,8 @@ public:
 
     void setRotation(float angle) {this->rotation = angle;}
 
+    void setFriction(float _friction) {this->stats.friction = _friction;}
+
     void setCheckPoints(std::vector<bdr::CheckPoint>* _checkpoints) {this->checkpoints = _checkpoints;}
 
     //resetuje predkosc oraz zapisane klikniecia klawiszy

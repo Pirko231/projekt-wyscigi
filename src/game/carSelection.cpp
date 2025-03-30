@@ -57,6 +57,9 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
         carNames[i].setCharacterSize(24);
         carNames[i].setFillColor(sf::Color::Black);
 
+        carIcons[i].setTexture(settings->getCars()->getTexture(i));
+        carIcons[i].setScale(2.f,2.f);
+
         //przykladowe atrybuty
         carAttributes[i][0] = (settings->getCars()->getStats(i).maxSpeed - 270.f) * 1.2f; // szybkosc
         carAttributes[i][1] = (settings->getCars()->getStats(i).acceleration - 4.f) * 12.f;  // Turbo
@@ -85,6 +88,8 @@ CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, Managin
         sf::FloatRect nameRect = carNames[i].getLocalBounds();
         carNames[i].setOrigin(nameRect.left + nameRect.width/2.f, nameRect.top + nameRect.height/2.f);
         carNames[i].setPosition(rect.getPosition().x + rect.getSize().x/2.f, rect.getPosition().y + rect.getSize().y + margin + nameRect.height/2.f);
+
+        carIcons[i].setPosition(CarCircleBtn[i].getPosition().x - carIcons[i].getGlobalBounds().width / 2.f, CarCircleBtn[i].getPosition().y - carIcons[i].getGlobalBounds().height / 2.f);
 
         float startY = rect.getPosition().y + margin;
         for (int j = 0; j < NUM_ATTRS; j++)
@@ -190,6 +195,7 @@ void CarSelection::display()
         window->draw(carInfoRects[i]);
         window->draw(CarCircleBtn[i]);
         window->draw(carNames[i]);
+        window->draw(carIcons[i]);
         for (int j = 0; j < NUM_ATTRS; j++)
         {
             window->draw(*carProgressBars[i][j]);

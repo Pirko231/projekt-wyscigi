@@ -67,15 +67,11 @@ bool Car::manageCheckpoints(std::vector<bdr::CheckPoint>::iterator begin, std::v
 
 std::optional<sf::FloatRect> Car::collides() const
 {
-    //tylko test potem wywlali sie pomiar czasu
-    sf::Clock clock;
     for (auto& obj : *collisions) {
         if (this->car.getGlobalBounds().intersects(obj->getGlobalBounds())) {
             return obj->getGlobalBounds();
         }
     }
-    sf::Time time {clock.getElapsedTime()};
-    std::clog << time.asMicroseconds() << '\n' << speed << '\n';
 
     return {};
 }
@@ -128,9 +124,10 @@ void Car::update(void)
 
     float radians = util::radians(rotation);
     util::Vector2 forwards = { sinf(radians), -cosf(radians) };
+    speed *= stats.friction;
     util::Vector2 velocity = forwards * speed * util::dt;
     position += velocity;
-    speed *= stats.friction;
+    
 
     std::optional<sf::FloatRect> maybe = collides();
     if (maybe.has_value()) {
