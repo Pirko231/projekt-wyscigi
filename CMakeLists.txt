@@ -46,6 +46,7 @@ add_executable(main
     src/perf/memTracker.cpp
 
     src/utils/util.cpp
+    src/utils/musicPlayer.cpp
 
     src/game/bodyFunction.cpp 
     src/game/levelSelection.cpp 
