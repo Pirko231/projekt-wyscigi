@@ -5,7 +5,7 @@ sf::View Level::gameView{};
 LapTimer Level::lapTimer{};
 Level::EndRace Level::endRace{};
 
-Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music, std::string _timesFilename) : BodyFunction{ _window, _mouse, _managingFunctionsIterator, _settings, _music }
+Level::Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, std::string _timesFilename) : BodyFunction{ _window, _mouse, _managingFunctionsIterator, _settings}
 {
     this->player = this->settings->getStartingData()->player;
     this->timesFilename = _timesFilename;
@@ -278,9 +278,6 @@ Level::EndRace::EndRace()
 
 void Level::EndRace::loadFromFile(perf::Report& report)
 {
-    //Report report;
-    //report.open();
-    //report.logMessage("Level::EndRace");
     report.addEntry("Napisy czcionka", this->font.loadFromFile("resources/fonts/BigFont.ttf"));
     report.addEntry("TextBox czcionka", this->defaultFont.loadFromFile("resources/fonts/defaultFont.ttf"));
     sf::Texture okHovered;

@@ -31,10 +31,6 @@ private:
     //nalezy uzyc .getPosition(this->window) (zeby pozycja byla relatywna do okna)
     sf::Mouse* mouse;
 
-    //tutaj bedzie grala muzyka.
-    //ladowana jest w klasach ktore maja do niej dostep
-    sf::Music* music;
-
     //przechowywane auta
     Cars* cars;
 

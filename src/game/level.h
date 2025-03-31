@@ -17,7 +17,7 @@ class Level : public BodyFunction
 public:
     Level() = delete;
     //wczytuje plik z danymi o najlepszych czasach
-    Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music, std::string _timesFilename);
+    Level(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, std::string _timesFilename);
 
     // Odbiera wiadomości z klawiatury – używać w Program::handleEvents()
     virtual void handleEvents(sf::Event& _event);

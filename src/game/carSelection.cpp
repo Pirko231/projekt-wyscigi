@@ -1,7 +1,7 @@
 #include "carSelection.h"
 
-CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music)
-    : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
+CarSelection::CarSelection(sf::RenderWindow* _window, sf::Mouse* _mouse, ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings)
+    : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings}
 {
     //raporcik dla szefa
     perf::Raport raport;

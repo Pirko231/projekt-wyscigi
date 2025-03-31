@@ -1,6 +1,6 @@
 #include "level3.h"
 
-Level3::Level3(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIterator &_managingFunctionsIterator, Settings *_settings, sf::Music *_music) : Level{_window, _mouse, _managingFunctionsIterator, _settings, _music, "times3.txt"}
+Level3::Level3(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIterator &_managingFunctionsIterator, Settings *_settings) : Level{_window, _mouse, _managingFunctionsIterator, _settings, "times3.txt"}
 {
     sf::Texture mapTxt;
 

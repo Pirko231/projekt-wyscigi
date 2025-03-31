@@ -1,6 +1,6 @@
 #include "level1.h"
 
-Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIterator &_managingFunctionsIterator, Settings *_settings, sf::Music* _music) : Level{_window, _mouse, _managingFunctionsIterator, _settings, _music, "times1.txt"}
+Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIterator &_managingFunctionsIterator, Settings *_settings) : Level{_window, _mouse, _managingFunctionsIterator, _settings, "times1.txt"}
 {
     sf::Texture mapTxt;
 

@@ -4,13 +4,12 @@
 
 
 
-MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings, _music}
+MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings) : BodyFunction{_window, _mouse, _managingFunctionsIterator, _settings}
 {
     perf::Raport raport;
     raport.open();
     raport.logMessage("MainMenu");
     raport.addEntry("Wczytywanie czcionki ekran tytulowy" , this->font.loadFromFile("resources/fonts/BigFont.ttf"));
-    raport.addEntry("Wczytywanie muzyki na ekran tytulowy", music->openFromFile("resources/sounds/MainMenuMusic.wav"));
     raport.close();
 
     std::string buttonNames[buttonAmount] = {"graj", "opcje", "wyjscie"};
@@ -46,20 +45,6 @@ MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFuncti
     startY  
     );
     overlay.setFillColor(sf::Color(255, 255, 255, 150));
-
-    //Soundtrack loading
-    //menuMusic.openFromFile("sounds/MainMenuMusic.wav");
-    //menuMusic.setVolume(settings->getData().mainVolume * settings->getData().musicVolume());
-    
-    music->setLoop(true);
-    
-}
-
-//Soundtrack
-void MainMenu::playMenuMusic() {
-    if (music->getStatus() != sf::Music::Playing) {
-        music->play();
-    }
 }
 
 void MainMenu::handleEvents(sf::Event& _event)

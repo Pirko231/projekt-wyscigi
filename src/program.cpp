@@ -11,8 +11,6 @@ Program::Program()
 
     this->mouse = new sf::Mouse;
 
-    this->music = new sf::Music;
-
     this->cars = new Cars;
 
     this->settings = new Settings{this->window, this->mouse, this->cars, this->currentFunction};
@@ -31,12 +29,12 @@ Program::Program()
     BodyFunction::initBackground();
 
     // kazdy z tych obiektow bedzie mial swoj wlasny obiekt typu Raport
-    this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction, this->settings, this->music};
-    this->managingFunctions[1] = new LevelSelection{this->window, this->mouse, this->currentFunction, this->settings, this->music};
-    this->managingFunctions[2] = new CarSelection{this->window, this->mouse, this->currentFunction, this->settings, this->music};
-    this->managingFunctions[3] = new Level1{this->window, this->mouse, this->currentFunction, this->settings, this->music};
-    this->managingFunctions[4] = new Level2{this->window, this->mouse, this->currentFunction, this->settings, this->music};
-    this->managingFunctions[5] = new Level3{this->window, this->mouse, this->currentFunction, this->settings, this->music};
+    this->managingFunctions[0] = new MainMenu{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[1] = new LevelSelection{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[2] = new CarSelection{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[3] = new Level1{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[4] = new Level2{this->window, this->mouse, this->currentFunction, this->settings};
+    this->managingFunctions[5] = new Level3{this->window, this->mouse, this->currentFunction, this->settings};
 
     util::updateDeltaTime();
 }
@@ -80,7 +78,6 @@ void Program::update()
     util::MusicPlayer::get().play();
     if (*this->settings)
     {
-
         this->settings->update();
         return;
     }
@@ -119,22 +116,11 @@ Program::~Program()
     // usuwamy ustawienia
     delete this->settings;
 
-    delete this->music;
-
     delete this->cars;
 
     // usuwamy funkcje do wyswietlania
     for (size_t i = 0; i < Program::managingFunctionsAmount; i++)
         delete this->managingFunctions[i];
-}
-
-void Program::playMusic()
-{
-    this->music->setVolume((this->settings->getData()->mainVolume / 100.f) * (this->settings->getData()->musicVolume / 100.f) * 100.f);
-    if (music->getStatus() != sf::Music::Playing)
-    {
-        music->play();
-    }
 }
 
 void Program::arrowScreenChange(const sf::Event &event)

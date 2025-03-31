@@ -10,7 +10,7 @@ class BodyFunction
 {
 public:
     BodyFunction() = delete;
-    BodyFunction(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings, sf::Music* _music);
+    BodyFunction(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFunctionsIterator& _managingFunctionsIterator, Settings* _settings);
     
     BodyFunction(const BodyFunction&) = delete;
     BodyFunction& operator=(const BodyFunction&) = delete;
@@ -38,9 +38,6 @@ protected:
 
     //wskaznik do ustawien. Mozna ustawiac ze jest wyswietalny za pomcoa operatora =
     Settings* settings;
-
-    //wskaznik do muzyki. Muzyke mozna tutaj zmieniac i jest wspolna dla wszystkich klas.
-    sf::Music* music;
 
     //zmienienie tego zmieni obecnie dzialajaca funkcje z tablicy.
     //jest to referencja do obiektu 'Program::currentFunction'.
