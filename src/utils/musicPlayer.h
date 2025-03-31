@@ -10,6 +10,9 @@ namespace util
 class MusicPlayer
 {
 public:
+    MusicPlayer(MusicPlayer&) = delete;
+    MusicPlayer& operator=(MusicPlayer&) = delete;
+
     static void init(Settings* _settings) {settings = _settings;}
     static MusicPlayer& get()
     {

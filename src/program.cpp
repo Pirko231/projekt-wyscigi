@@ -15,6 +15,10 @@ Program::Program()
 
     this->cars = new Cars;
 
+    this->settings = new Settings{this->window, this->mouse, this->cars, this->currentFunction};
+
+    util::MusicPlayer::init(settings);
+
     this->defaultView.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
     this->defaultView.setCenter(this->window->getSize().x / 2, this->window->getSize().y / 2);
     this->window->setView(this->defaultView);
@@ -23,8 +27,6 @@ Program::Program()
     this->currentFunction = ManagingFunctionsIterator::mainMenu;
 
     this->previousFunction = ManagingFunctionsIterator::carSelection;
-
-    this->settings = new Settings{this->window, this->mouse, this->cars, this->currentFunction};
 
     BodyFunction::initBackground();
 
@@ -75,7 +77,7 @@ void Program::update()
 {
     util::updateDeltaTime();
 
-    this->playMusic();
+    util::MusicPlayer::get().play();
     if (*this->settings)
     {
 

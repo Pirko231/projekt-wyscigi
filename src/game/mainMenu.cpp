@@ -32,8 +32,8 @@ MainMenu::MainMenu(sf::RenderWindow* _window, sf::Mouse* _mouse , ManagingFuncti
     }
     
     //screen background
-    backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg");
-    backgroundSprite.setTexture(backgroundTexture);
+    //backgroundTexture.loadFromFile("resources/mainMenuBackground.jpg");
+    //backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setScale(
         static_cast<float>(_window->getSize().x) / backgroundTexture.getSize().x,
         static_cast<float>(_window->getSize().y) / backgroundTexture.getSize().y
@@ -79,8 +79,8 @@ void MainMenu::update()
     float mainVol = settings->getData()->mainVolume;
     float musicVol = settings->getData()->musicVolume;
     float volume = (mainVol / 100.f) * (musicVol / 100.f) * 100.f;  //przejscie do zakresu 0-100
-    music->setVolume(volume);
-    playMenuMusic();
+    //music->setVolume(volume);
+    //playMenuMusic();
 
     for (int i = 0; i < buttonAmount; i++) 
         buttons[i].manageHover(mouse->getPosition(*window));

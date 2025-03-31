@@ -21,5 +21,8 @@ void util::MusicPlayer::play()
     }
     
     music.setVolume((settings->getData()->mainVolume / 100.f) * (settings->getData()->musicVolume / 100.f) * 100.f);
-    music.play();
+    if (music.getStatus() != sf::Music::Playing)
+    {
+        music.play();
+    }
 }
