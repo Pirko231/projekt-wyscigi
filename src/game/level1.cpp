@@ -179,8 +179,6 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
 
     }
     {
-        //sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1023.f,548.f}, {15.f, 15.f}}));
-        //sections[3].first.push_back(std::make_unique<bdr::Rectangle>(bdr::Rectangle{{1028.f,543.f}, {15.f, 15.f}}));
         sf::Vector2f pos{1023.f, 548.f};
         for (int i = 0; i < 6; i++, pos.x += 6.f, pos.y -= 4.f)
         {
@@ -200,8 +198,6 @@ Level1::Level1(sf::RenderWindow *_window, sf::Mouse *_mouse, ManagingFunctionsIt
     }
     
     //Ustawienie tła licznika na pozycję: lewy górny róg (353,124) i rozmiar 244x138
-    //lapTimer.setBackground(sf::Vector2f(405.f, 147.f), sf::Vector2f(143.f, 78.f));
-
 
     //ustawienie checkpointow
     checkPoints.push_back(bdr::CheckPoint{{215.f,565.f}, {20.f, 90.f}});
@@ -226,7 +222,7 @@ void Level1::checkForUnclocks(const Level::BestTime& stats)
 {
     //daloby sie uniknac const_cast ale trzeba byloby dodawac nowe publiczne funkcje
     //ktorych ktos moglby uzyc wiec mysle ze bezpieczniej bedzie tak zrobic
-    if (stats.overallTime <= sf::seconds(40.f))
+    if (stats.overallTime <= sf::seconds(32.f))
         const_cast<SettingsData*>(this->settings->getData())->level2 = true;
 
     //auta sie tutaj nie odblokowuje

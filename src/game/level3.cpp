@@ -48,6 +48,6 @@ void Level3::resetCurrentLevel()
 
 void Level3::checkForUnclocks(const Level::BestTime& stats)
 {
-    if (stats.bestLap <= sf::seconds(16.f))
+    if (stats.bestLap <= sf::seconds(11.f))
         const_cast<SettingsData*>(this->settings->getData())->car3 = true;
 }

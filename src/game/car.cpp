@@ -33,6 +33,8 @@ void Car::reset()
     this->laps = 0;
     this->currentCheckpoint = 0;
     this->firstLap = true;
+    this->previousTime = sf::seconds(0.f);
+    this->bestLap = sf::seconds(0.f);
     pressed.a = false;
     pressed.w = false;
     pressed.s = false;

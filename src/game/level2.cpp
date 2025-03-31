@@ -49,8 +49,8 @@ void Level2::checkForUnclocks(const Level::BestTime& stats)
 {
     //daloby sie uniknac const_cast ale trzeba byloby dodawac nowe publiczne funkcje
     //ktorych ktos moglby uzyc wiec mysle ze bezpieczniej bedzie tak zrobic
-    if (stats.overallTime <= sf::seconds(36.f))
+    if (stats.overallTime <= sf::seconds(40.f))
         const_cast<SettingsData*>(this->settings->getData())->level3 = true;
-    if (stats.bestLap <= sf::seconds(13.f))
+    if (stats.bestLap <= sf::seconds(15.f))
         const_cast<SettingsData*>(this->settings->getData())->car2 = true;
 }
