@@ -4,10 +4,10 @@ project(CMakeSFMLProject LANGUAGES CXX)
 # Ustawienie katalogu dla plików wykonywalnych
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# Określenie wersji builda (Debug domyślnie)
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
-endif()
+#po odkomentowaniu przejdzie sie na debug
+#if(NOT CMAKE_BUILD_TYPE)
+    #set(CMAKE_BUILD_TYPE Debug)
+#endif()
 
 #ustawienie sciezki (nie dotykac)
 set(SFML_ROOT "C:/SFML/SFML-2.6.1")
@@ -87,9 +87,9 @@ add_executable(main
     src/game/buttons/circleButton.cpp
 )
 
-add_compile_definitions(HITBOXTEST)
-add_compile_definitions(SPEEDTEST)
-add_compile_definitions(MEMTRACKER)
+#add_compile_definitions(HITBOXTEST)
+#add_compile_definitions(SPEEDTEST)
+#add_compile_definitions(MEMTRACKER)
 
 if(NOT MSVC)
 	target_compile_options(main PRIVATE -Wall -Wextra -pedantic)
