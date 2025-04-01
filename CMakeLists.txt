@@ -16,7 +16,10 @@ find_package(SFML 2.6.1 COMPONENTS system window graphics audio network REQUIRED
 
 # 📌 Kopiowanie plików DLL do katalogu bin
 file(GLOB SFML_DLLS "${SFML_ROOT}/bin/*.dll")
-file(COPY ${SFML_DLLS} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
+file(COPY ${SFML_DLLS} DESTINATION ${PROGRAM_DIR})
+
+set(RESOURCES_DIR "${CMAKE_SOURCE_DIR}/resources")
+file(COPY ${RESOURCES_DIR} DESTINATION ${PROGRAM_DIR})
 
 include_directories(${CMAKE_SOURCE_DIR}/src/perf)
 include_directories(${CMAKE_SOURCE_DIR}/src/utils)
