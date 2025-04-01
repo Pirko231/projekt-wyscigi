@@ -54,7 +54,7 @@ void Program::handleEvents()
         // jest tylko roboczo aby zmieniac wyswietlane funkcje. Potem usunac
         if (event.type == sf::Event::KeyPressed)
         {
-            this->arrowScreenChange(event);
+            //this->arrowScreenChange(event); //wylaczone bo tylko dla developera
             if (event.key.code == sf::Keyboard::Escape)
             {
                 if (*this->settings)
