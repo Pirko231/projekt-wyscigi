@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.27)
 project(CMakeSFMLProject LANGUAGES CXX)
 
 # Ustawienie katalogu dla plików wykonywalnych
@@ -10,7 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 #endif()
 
 #ustawienie sciezki (nie dotykac)
-set(SFML_ROOT "SFML/SFML-2.6.1")
+set(SFML_ROOT "src/SFML/SFML-2.6.1")
 set(CMAKE_PREFIX_PATH "${SFML_ROOT}")
 set(SFML_INCLUDE_DIR "${SFML_ROOT}/include")
 set(SFML_LIBRARY_DIR "${SFML_ROOT}/lib")
