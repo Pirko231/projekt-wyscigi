@@ -6,7 +6,7 @@ Program::Program()
 {
 
     this->window = new sf::RenderWindow;
-    this->window->create({1280, 720}, "Wyscigi", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
+    this->window->create({1280, 720}, "Rizzy Roads", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
     this->window->setFramerateLimit(60);
 
     this->mouse = new sf::Mouse;

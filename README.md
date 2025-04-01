@@ -1,7 +1,8 @@
-# Wymagania:
-CMake 2.27 lub wyzej
+# Kompilacja:
 
-Konfiguracja (Windows, MSVC)
+## Konfiguracja (Windows, MSVC)
+CMake 3.27 lub wyzej
+Kompilator MSVC (MinGW nie wspierany)
 
 wejdz w terminalu do folderu gry
 
@@ -90,4 +91,11 @@ Jeżeli chodzi o boty to niestety nie myslelismy o nich duzo. Na ten moment to b
 
 # Od autorów:
 
+Mimo że nie udało się oddać pełnego projektu, kosztowało nas to duzo pracy.
+Nikt z nas nie robil jeszcze tak duzego projektu oraz nikt wczesniej nie pracowal w grupie.
+Okazało się to ciezkim zadaniem - zwlaszcza praca w grupie.
 
+Niestety, jeżeli chodzi o pracę w grupie to rozwój projektu zatrzymały wewnętrzne konflikty spowodowane róznicami poglądów na temat architektury projektu oraz stylu programowania. Przeszkadzała też nieregularna praca i brak kontaktu.
+Oprócz tego trafilismy na kompletnie inne problemy niz gdybysmy pracowali w pojedynke. Nieokreslismy szablonu powstawania pewnych klas, jakie są obowiązki danch funkcji przez co zrobiło to miejscowo niezłą mieszankę... Kiedy chcialem poprawic kod napisany przez inną osobę pierwszy raz to zobaczylem i zorientowalem sie ze kazdy z nas ma inne podejsice do tych samych tematow. Jest to naturalne, ale sie tego nie spodziewalismy. Roznica była ogromna, naprawa trwała o wiele dluzej niz normalnie.
+
+Na koniec projektu wyciągneliśmy wiele wnioskow. Teraz mamy o wiele więcej doświadczenia do pracy w grupie. Spróbujemy przygotować lepszy projekt na kolejną edycję za rok.
