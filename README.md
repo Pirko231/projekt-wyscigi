@@ -50,6 +50,7 @@ Teraz:
 ## Plan projektu
 
 Tutaj chce trochę opowiedziec o planie na projekt - gdzie moim zdaniem najlepiej zaczac patrzec:
+   ```
    -Main.cpp, Program.h i Program.cpp - main sluzy glownie do pomiarow i w nim jest game loop. Program przygotowuje funkcje do gameLoop. Wlasciwie wszystko dzieje sie wlasnie w Program.
    -BodyFunction.h - jest tam szkielet każdej klasy do wyswietlania ekranu
    -MainMenu.h, LevelSelection.h, CarSelection.h - piersze trzy ekrany
@@ -65,7 +66,7 @@ Tutaj chce trochę opowiedziec o planie na projekt - gdzie moim zdaniem najlepie
       -Settings.h - interfejs ktory porozumiewa uzytkownikiem z programem
       -SettingsData.h - przechowywane są dane o odblokowaniach czy glosnosci dzwieku
       -Cars.h - przechowuje gracza (i boty gdyby były zrobione) oraz jego tekstury i statystyki
-
+```
 ## Mniejsza zaalokowana pamiec:
 
 Dzieki temu ze ekrany byly alokowane na heapie, mozna je bylo dynamicznie zwalniac (niestety nie udalo nam sie tego wprowadzic). Oznaczalo to by, ze gdyby ekran np. ekran glowny zostal przelaczony na inny ekran, to ekran glowny bylby usuwany (delete) a ekran na ktory sie przelaczamy bylby alokowany (new). Pozwalaoby to na o wiele mniejsze zuzycie pamieci przez program.
