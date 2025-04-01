@@ -99,7 +99,7 @@ add_library(sfml-graphics STATIC IMPORTED)
 set_target_properties(sfml-graphics PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
-  INTERFACE_LINK_LIBRARIES "sfml-window;\$<LINK_ONLY:Freetype>"
+  INTERFACE_LINK_LIBRARIES "sfml-window;\$<LINK_ONLY:legacy_stdio_definitions.lib>;\$<LINK_ONLY:Freetype>"
 )
 
 # Create imported target Freetype

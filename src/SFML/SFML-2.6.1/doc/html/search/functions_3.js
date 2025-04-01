@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['decode_0',['decode',['../classsf_1_1Utf_3_0116_01_4.html#a17be6fc08e51182e7ac8bf9269dfae37',1,'sf::Utf&lt; 16 &gt;::decode()'],['../classsf_1_1Utf_3_0132_01_4.html#ad754ce8476f7b80563890dec12cefd46',1,'sf::Utf&lt; 32 &gt;::decode()'],['../classsf_1_1Utf_3_018_01_4.html#a59d4e8d5832961e62b263d308b72bf4b',1,'sf::Utf&lt; 8 &gt;::decode()']]],
+  ['decode_0',['decode',['../classsf_1_1Utf_3_018_01_4.html#a59d4e8d5832961e62b263d308b72bf4b',1,'sf::Utf&lt; 8 &gt;::decode()'],['../classsf_1_1Utf_3_0116_01_4.html#a17be6fc08e51182e7ac8bf9269dfae37',1,'sf::Utf&lt; 16 &gt;::decode()'],['../classsf_1_1Utf_3_0132_01_4.html#ad754ce8476f7b80563890dec12cefd46',1,'sf::Utf&lt; 32 &gt;::decode(In begin, In end, Uint32 &amp;output, Uint32 replacement=0)']]],
   ['decodeansi_1',['decodeAnsi',['../classsf_1_1Utf_3_0132_01_4.html#a68346ea833f88267a7c739d4d96fb86f',1,'sf::Utf&lt; 32 &gt;']]],
   ['decodewide_2',['decodeWide',['../classsf_1_1Utf_3_0132_01_4.html#a043fe25f5f4dbc205e78e6f1d99840dc',1,'sf::Utf&lt; 32 &gt;']]],
   ['deletedirectory_3',['deleteDirectory',['../classsf_1_1Ftp.html#a2a8a7ef9144204b5b319c9a4be8806c2',1,'sf::Ftp']]],

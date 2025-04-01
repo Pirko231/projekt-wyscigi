@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['samplecount_0',['sampleCount',['../structsf_1_1SoundFileReader_1_1Info.html#a74b40b4693d7000571484736d1367167',1,'sf::SoundFileReader::Info::sampleCount'],['../structsf_1_1SoundStream_1_1Chunk.html#af47f5d94012acf8b11f056ba77aff97a',1,'sf::SoundStream::Chunk::sampleCount']]],
+  ['samplecount_0',['sampleCount',['../structsf_1_1SoundFileReader_1_1Info.html#a74b40b4693d7000571484736d1367167',1,'sf::SoundFileReader::Info::sampleCount()'],['../structsf_1_1SoundStream_1_1Chunk.html#af47f5d94012acf8b11f056ba77aff97a',1,'sf::SoundStream::Chunk::sampleCount()']]],
   ['samplerate_1',['sampleRate',['../structsf_1_1SoundFileReader_1_1Info.html#a06ef71c19e7de190b294ae02c361f752',1,'sf::SoundFileReader::Info']]],
   ['samples_2',['samples',['../structsf_1_1SoundStream_1_1Chunk.html#aa3b84d69adbe663a17a7671626076df4',1,'sf::SoundStream::Chunk']]],
   ['scancode_3',['scancode',['../structsf_1_1Event_1_1KeyEvent.html#a182706c1c75e73c8fb85b796d1095ae1',1,'sf::Event::KeyEvent']]],

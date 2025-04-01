@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['t_0',['T',['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a19f59109111fc5271d3581bcd0c43187',1,'sf::Keyboard::T'],['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a55bee4759c12cb033659e8d8de796ae9',1,'sf::Keyboard::Scan::T']]],
-  ['tab_1',['Tab',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875aa724a5e6b812f12b06957717fd78d4a3',1,'sf::Keyboard::Scan::Tab'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a20c552c39c8356b1078f1cfff7936b4a',1,'sf::Keyboard::Tab']]],
+  ['t_0',['T',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a55bee4759c12cb033659e8d8de796ae9',1,'sf::Keyboard::Scan::T()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a19f59109111fc5271d3581bcd0c43187',1,'sf::Keyboard::T()']]],
+  ['tab_1',['Tab',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875aa724a5e6b812f12b06957717fd78d4a3',1,'sf::Keyboard::Scan::Tab()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a20c552c39c8356b1078f1cfff7936b4a',1,'sf::Keyboard::Tab()']]],
   ['tcp_2',['Tcp',['../classsf_1_1Socket.html#a5d3ff44e56e68f02816bb0fabc34adf8acc02e97e90234b957eaad4dff7f22214',1,'sf::Socket']]],
   ['text_3',['Text',['../classsf_1_1Cursor.html#ab9ab152aec1f8a4955e34ccae08f930aa1a9979392de58ff11d5b4ab330e6393d',1,'sf::Cursor']]],
   ['textentered_4',['TextEntered',['../classsf_1_1Event.html#af41fa9ed45c02449030699f671331d4aa7e09871dc984080ff528e4f7e073e874',1,'sf::Event']]],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['k_0',['K',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a1e65a1d66582b430961cfc4e7cc76816',1,'sf::Keyboard::Scan::K'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a25beb62393ff666a4bec18ea2a66f3f2',1,'sf::Keyboard::K']]],
+  ['k_0',['K',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a1e65a1d66582b430961cfc4e7cc76816',1,'sf::Keyboard::Scan::K()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a25beb62393ff666a4bec18ea2a66f3f2',1,'sf::Keyboard::K()']]],
   ['keepalive_1',['keepAlive',['../classsf_1_1Ftp.html#aa1127d442b4acb2105aa8060a39d04fc',1,'sf::Ftp']]],
   ['key_2',['key',['../classsf_1_1Event.html#a45b92fc6757ca7c193f06b302e424ab0',1,'sf::Event']]],
   ['key_3',['Key',['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142',1,'sf::Keyboard']]],

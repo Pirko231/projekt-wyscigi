@@ -3,51 +3,33 @@ project(CMakeSFMLProject LANGUAGES CXX)
 
 # Ustawienie katalogu dla plików wykonywalnych
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(PROGRAM_DIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug)
+#set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING "Limited configurations" FORCE)
 
-#po odkomentowaniu przejdzie sie na debug
-#if(NOT CMAKE_BUILD_TYPE)
-    #set(CMAKE_BUILD_TYPE Debug)
-#endif()
-
-#ustawienie sciezki (nie dotykac)
-set(SFML_ROOT "src/SFML/SFML-2.6.1")
-set(CMAKE_PREFIX_PATH "${SFML_ROOT}")
+# 📌 Ustawienie ścieżek do SFML
+set(SFML_ROOT "${CMAKE_SOURCE_DIR}/src/SFML/SFML-2.6.1")
+set(SFML_DIR "${SFML_ROOT}/lib/cmake/SFML")  # 📌 Wskazujemy SFML_DIR dla find_package
 set(SFML_INCLUDE_DIR "${SFML_ROOT}/include")
-set(SFML_LIBRARY_DIR "${SFML_ROOT}/lib")
 
-include_directories(${SFML_INCLUDE_DIR})
-link_directories(${SFML_LIBRARY_DIR})
-
-# Znalezienie SFML
+# 📌 Znalezienie SFML (dynamiczne biblioteki)
 find_package(SFML 2.6.1 COMPONENTS system window graphics audio network REQUIRED)
 
-# Jeśli kompilujemy w trybie Debug, użyjemy wersji "-d"
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(SFML_LIBS sfml-graphics-d sfml-window-d sfml-system-d sfml-audio-d sfml-network-d)
-else()
-    set(SFML_LIBS sfml-graphics sfml-window sfml-system sfml-audio sfml-network)
-endif()
-
-set(RESOURCES_DIR "${CMAKE_SOURCE_DIR}/resources")
-
-file(COPY "${RESOURCES_DIR}" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-
+# 📌 Kopiowanie plików DLL do katalogu bin
+file(GLOB SFML_DLLS "${SFML_ROOT}/bin/*.dll")
+file(COPY ${SFML_DLLS} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
 
 include_directories(${CMAKE_SOURCE_DIR}/src/perf)
 include_directories(${CMAKE_SOURCE_DIR}/src/utils)
 
-# Tworzenie pliku wykonywalnego
+# 📌 Tworzenie pliku wykonywalnego
 add_executable(main 
     src/main.cpp 
     src/program.cpp 
-
     src/perf/raport.cpp
     src/perf/speedTest.cpp
     src/perf/memTracker.cpp
-
     src/utils/util.cpp
     src/utils/musicPlayer.cpp
-
     src/game/bodyFunction.cpp 
     src/game/levelSelection.cpp 
     src/game/carSelection.cpp 
@@ -58,12 +40,10 @@ add_executable(main
     src/game/level3.cpp 
     src/game/settings.cpp
     src/game/settingsData.cpp
-
     src/game/car.cpp
     src/game/cars.cpp
     src/game/bot.cpp
     src/game/player.cpp 
-
     src/game/gameObjects/collidable.cpp
     src/game/gameObjects/border.cpp
     src/game/gameObjects/circle.cpp
@@ -74,7 +54,6 @@ add_executable(main
     src/game/gameObjects/score.cpp
     src/game/gameObjects/lapCounter.cpp
     src/game/gameObjects/collidable.cpp
-
     src/game/buttons.cpp
     src/game/buttons/button.cpp
     src/game/buttons/textButton.cpp
@@ -87,16 +66,19 @@ add_executable(main
     src/game/buttons/circleButton.cpp
 )
 
-#add_compile_definitions(HITBOXTEST)
-#add_compile_definitions(SPEEDTEST)
-#add_compile_definitions(MEMTRACKER)
+# 📌 🚀 Linkowanie z SFML (dynamiczne)
+target_link_libraries(main PRIVATE 
+    sfml-graphics 
+    sfml-window 
+    sfml-system 
+    sfml-audio 
+    sfml-network
+)
 
+# 📌 Opcje kompilatora
 if(NOT MSVC)
-	target_compile_options(main PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(main PRIVATE -Wall -Wextra -pedantic)
 endif()
 
-# Ustawienie wersji standardu C++
+# 📌 Ustawienie wersji standardu C++
 target_compile_features(main PRIVATE cxx_std_17)
-
-# Linkowanie SFML
-target_link_libraries(main PRIVATE ${SFML_LIBS})

@@ -8,5 +8,5 @@ var searchData=
   ['touch_5',['touch',['../classsf_1_1Event.html#a5f6ed8e499a4c3d171ff1baab469b2ee',1,'sf::Event']]],
   ['transform_6',['transform',['../classsf_1_1RenderStates.html#a1f737981a0f2f0d4bb8dac866a8d1149',1,'sf::RenderStates']]],
   ['transparent_7',['Transparent',['../classsf_1_1Color.html#a569b45471737f770656f50ae7bbac292',1,'sf::Color']]],
-  ['type_8',['type',['../structsf_1_1Event_1_1SensorEvent.html#abee7d67bf0947fd1138e4466011e2436',1,'sf::Event::SensorEvent::type'],['../classsf_1_1Event.html#adf2f8044f713fd9d6019077b0d1ffe0a',1,'sf::Event::type']]]
+  ['type_8',['type',['../structsf_1_1Event_1_1SensorEvent.html#abee7d67bf0947fd1138e4466011e2436',1,'sf::Event::SensorEvent::type()'],['../classsf_1_1Event.html#adf2f8044f713fd9d6019077b0d1ffe0a',1,'sf::Event::type()']]]
 ];

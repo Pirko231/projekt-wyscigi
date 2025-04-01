@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<tagfile doxygen_version="1.9.7">
+<tagfile doxygen_version="1.9.6">
   <compound kind="file">
     <name>GpuPreference.hpp</name>
     <path>include/SFML/</path>
@@ -17479,6 +17479,13 @@
       <anchor>gab8c0d1f966b4e5110fd370b662d8c11b</anchor>
       <arglist>(Time duration)</arglist>
     </member>
+    <member kind="function">
+      <type>std::ostream &amp;</type>
+      <name>sf::err</name>
+      <anchorfile>group__system.html</anchorfile>
+      <anchor>ga7fe7f475639e26334606b5142c29551f</anchor>
+      <arglist>()</arglist>
+    </member>
   </compound>
   <compound kind="group">
     <name>window</name>
@@ -17499,6 +17506,13 @@
     <class kind="class">sf::Vulkan</class>
     <class kind="class">sf::Window</class>
     <class kind="class">sf::WindowBase</class>
+    <member kind="typedef">
+      <type>platform specific</type>
+      <name>sf::WindowHandle</name>
+      <anchorfile>group__window.html</anchorfile>
+      <anchor>gaed947028b0698a812cad2f97bfe9caa3</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="enumvalue">
       <name>sf::Style::None</name>
       <anchorfile>group__window.html</anchorfile>

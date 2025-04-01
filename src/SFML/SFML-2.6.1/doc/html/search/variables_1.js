@@ -7,5 +7,5 @@ var searchData=
   ['blue_4',['Blue',['../classsf_1_1Color.html#ab03770d4817426b2614cfc33cf0e245c',1,'sf::Color']]],
   ['bounds_5',['bounds',['../classsf_1_1Glyph.html#a6f3c892093167914adc31e52e5923f4b',1,'sf::Glyph']]],
   ['broadcast_6',['Broadcast',['../classsf_1_1IpAddress.html#aa93d1d57b65d243f2baf804b6035465c',1,'sf::IpAddress']]],
-  ['button_7',['button',['../structsf_1_1Event_1_1MouseButtonEvent.html#a5f53725aa7b647705486eeb95f723024',1,'sf::Event::MouseButtonEvent::button'],['../structsf_1_1Event_1_1JoystickButtonEvent.html#a6412e698a2f7904c5aa875a0d1b34da4',1,'sf::Event::JoystickButtonEvent::button']]]
+  ['button_7',['button',['../structsf_1_1Event_1_1MouseButtonEvent.html#a5f53725aa7b647705486eeb95f723024',1,'sf::Event::MouseButtonEvent::button()'],['../structsf_1_1Event_1_1JoystickButtonEvent.html#a6412e698a2f7904c5aa875a0d1b34da4',1,'sf::Event::JoystickButtonEvent::button()']]]
 ];

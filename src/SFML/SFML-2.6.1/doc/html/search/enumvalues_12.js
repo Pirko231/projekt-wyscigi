@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['s_0',['S',['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142aca13014bf9ed5887d347060a0334ea5a',1,'sf::Keyboard::S'],['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a3c650be640718237a3241e8da1602dae',1,'sf::Keyboard::Scan::S']]],
+  ['s_0',['S',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a3c650be640718237a3241e8da1602dae',1,'sf::Keyboard::Scan::S()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142aca13014bf9ed5887d347060a0334ea5a',1,'sf::Keyboard::S()']]],
   ['scancodecount_1',['ScancodeCount',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a28c5ad8524e1e653b43440e660d441d0',1,'sf::Keyboard::Scan']]],
   ['scrolllock_2',['ScrollLock',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875abbf3aeeb831834f97684647c1495d333',1,'sf::Keyboard::Scan']]],
   ['search_3',['Search',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a1b0d59ec95a4d6b585cdc7f0756ff6f0',1,'sf::Keyboard::Scan']]],
   ['select_4',['Select',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a30a8160d16b2ee9cc2d56a1a3394efa1',1,'sf::Keyboard::Scan']]],
-  ['semicolon_5',['Semicolon',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a60e05ed7eb42bf7d283d7ea4aafeef90',1,'sf::Keyboard::Scan::Semicolon'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142ab50635b9c913837d1bd4453eec7cb506',1,'sf::Keyboard::Semicolon']]],
-  ['semicolon_6',['SemiColon',['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a460ab09a36f9ed230504b89b9815de88',1,'sf::Keyboard']]],
+  ['semicolon_5',['SemiColon',['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a460ab09a36f9ed230504b89b9815de88',1,'sf::Keyboard']]],
+  ['semicolon_6',['Semicolon',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a60e05ed7eb42bf7d283d7ea4aafeef90',1,'sf::Keyboard::Scan::Semicolon()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142ab50635b9c913837d1bd4453eec7cb506',1,'sf::Keyboard::Semicolon()']]],
   ['sensorchanged_7',['SensorChanged',['../classsf_1_1Event.html#af41fa9ed45c02449030699f671331d4aaadf9a44c788eb9467a83c074fbf12613',1,'sf::Event']]],
   ['servicenotavailable_8',['ServiceNotAvailable',['../classsf_1_1Http_1_1Response.html#a663e071978e30fbbeb20ed045be874d8ac4fffba9d5ad4c14171a1bbe4f6adf87',1,'sf::Http::Response']]],
   ['serviceready_9',['ServiceReady',['../classsf_1_1Ftp_1_1Response.html#af81738f06b6f571761696291276acb3baea2ee2007d7843c21108bb686ef03757',1,'sf::Ftp::Response']]],
@@ -25,8 +25,8 @@ var searchData=
   ['sizetopleftbottomright_22',['SizeTopLeftBottomRight',['../classsf_1_1Cursor.html#ab9ab152aec1f8a4955e34ccae08f930aa934ddc380262a94358ccb5a4ab7bbe1c',1,'sf::Cursor']]],
   ['sizetopright_23',['SizeTopRight',['../classsf_1_1Cursor.html#ab9ab152aec1f8a4955e34ccae08f930aa84d9478fdeef2f727f06f3fe5bdb1be6',1,'sf::Cursor']]],
   ['sizevertical_24',['SizeVertical',['../classsf_1_1Cursor.html#ab9ab152aec1f8a4955e34ccae08f930aab3cefa56d3a0fe9fe64680c7ec11eab5',1,'sf::Cursor']]],
-  ['slash_25',['Slash',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a5c37f9adf66e083d85950db1597c45f5',1,'sf::Keyboard::Scan::Slash'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a7424bf901434a587a6c202c423e6786c',1,'sf::Keyboard::Slash']]],
-  ['space_26',['Space',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a37fceb15fd79c29859aeb30e4b34237d',1,'sf::Keyboard::Scan::Space'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a6fdaa93b6b8d1a2b73bc239e9ada94ef',1,'sf::Keyboard::Space']]],
+  ['slash_25',['Slash',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a5c37f9adf66e083d85950db1597c45f5',1,'sf::Keyboard::Scan::Slash()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a7424bf901434a587a6c202c423e6786c',1,'sf::Keyboard::Slash()']]],
+  ['space_26',['Space',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a37fceb15fd79c29859aeb30e4b34237d',1,'sf::Keyboard::Scan::Space()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a6fdaa93b6b8d1a2b73bc239e9ada94ef',1,'sf::Keyboard::Space()']]],
   ['srcalpha_27',['SrcAlpha',['../structsf_1_1BlendMode.html#afb9852caf356b53bb0de460c58a9ebbbaac0ae68df2930b4d616c3e7abeec7d41',1,'sf::BlendMode']]],
   ['srccolor_28',['SrcColor',['../structsf_1_1BlendMode.html#afb9852caf356b53bb0de460c58a9ebbbad679bb0ecaf15c188d7f2e1fab572188',1,'sf::BlendMode']]],
   ['static_29',['Static',['../classsf_1_1VertexBuffer.html#a3a531528684e63ecb45edd51282f5cb7a041ab564f6cd1b6775bd0ebff06b6d7e',1,'sf::VertexBuffer']]],
@@ -34,7 +34,7 @@ var searchData=
   ['stopped_31',['Stopped',['../classsf_1_1SoundSource.html#ac43af72c98c077500b239bc75b812f03adabb01e8aa85b2f54b344890addf764a',1,'sf::SoundSource']]],
   ['stream_32',['Stream',['../classsf_1_1VertexBuffer.html#a3a531528684e63ecb45edd51282f5cb7aeed06a391698772af58a9cfdff77deaf',1,'sf::VertexBuffer']]],
   ['strikethrough_33',['StrikeThrough',['../classsf_1_1Text.html#aa8add4aef484c6e6b20faff07452bd82a9ed1f5bb154c21269e1190c5aa97d479',1,'sf::Text']]],
-  ['subtract_34',['Subtract',['../structsf_1_1BlendMode.html#a7bce470e2e384c4f9c8d9595faef7c32a14c825be24f8412fc5ed5b49f19bc0d0',1,'sf::BlendMode::Subtract'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a68983f67bd30d27b27c90d6794c78aa2',1,'sf::Keyboard::Subtract']]],
+  ['subtract_34',['Subtract',['../structsf_1_1BlendMode.html#a7bce470e2e384c4f9c8d9595faef7c32a14c825be24f8412fc5ed5b49f19bc0d0',1,'sf::BlendMode::Subtract()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a68983f67bd30d27b27c90d6794c78aa2',1,'sf::Keyboard::Subtract()']]],
   ['systemstatus_35',['SystemStatus',['../classsf_1_1Ftp_1_1Response.html#af81738f06b6f571761696291276acb3ba9bdd02ae119b8be639e778859ee74060',1,'sf::Ftp::Response']]],
   ['systemtype_36',['SystemType',['../classsf_1_1Ftp_1_1Response.html#af81738f06b6f571761696291276acb3ba78391f73aa11f07f1514c7d070b93c08',1,'sf::Ftp::Response']]]
 ];
