@@ -1,4 +1,5 @@
 #include "memTracker.h"
+#include <string>
 
 #ifdef MEMTRACKER
 
