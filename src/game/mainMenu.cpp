@@ -61,12 +61,6 @@ void MainMenu::handleEvents(sf::Event& _event)
 
 void MainMenu::update()
 {
-    float mainVol = settings->getData()->mainVolume;
-    float musicVol = settings->getData()->musicVolume;
-    float volume = (mainVol / 100.f) * (musicVol / 100.f) * 100.f;  //przejscie do zakresu 0-100
-    //music->setVolume(volume);
-    //playMenuMusic();
-
     for (int i = 0; i < buttonAmount; i++) 
         buttons[i].manageHover(mouse->getPosition(*window));
 
